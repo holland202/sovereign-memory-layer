@@ -1,0 +1,5 @@
+E1: defect_contradiction_hidden {"keys_differ_bytewise": true, "recall_nfc": "KNOWN:open"}
+E2: accepts_invisible_or_control {"results": {"key:nul": "accepted", "source:nul": "accepted", "locator:nul": "accepted", "key:bidi_override": "accepted", "source:bidi_override": "accepted", "locator:bidi_override": "accepted", "key:zero_width": "accepted", "source:zero_width": "accepted", "locator:zero_width": "accepted", "key:newline": "accepted", "source:newline": "accepted", "locator:newline": "accepted"}}
+E3: clean {"stages": {"partial_write": {"raised": "OSError", "file_changed": false, "instance_poisoned": false, "reopened_keys": ["old"]}, "after_file_fsync": {"raised": "OSError", "file_changed": false, "instance_poisoned": false, "reopened_keys": ["old"]}, "after_replace": {"raised": "CommitUncertain", "file_changed": true, "instance_poisoned": true, "reopened_keys": ["old", "new"]}, "after_dir_fsync": {"raised": "CommitUncertain", "file_changed": true, "instance_poisoned": true, "reopened_keys": ["old", "new"]}}}
+E4: clean {"records": 320, "unique": 320, "errors": []}
+E5: observed {"records_at_default_caps": 128, "bytes": 274717, "bytes_per_record": 2146}
