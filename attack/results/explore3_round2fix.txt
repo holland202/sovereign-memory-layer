@@ -1,0 +1,5 @@
+E1: clean {"keys_differ_bytewise": true, "recall_nfc": "UNKNOWN:contradictory_current_evidence"}
+E2: clean {"results": {"key:nul": "rejected", "source:nul": "rejected", "locator:nul": "rejected", "key:bidi_override": "rejected", "source:bidi_override": "rejected", "locator:bidi_override": "rejected", "key:zero_width": "rejected", "source:zero_width": "rejected", "locator:zero_width": "rejected", "key:newline": "rejected", "source:newline": "rejected", "locator:newline": "rejected"}}
+E3: clean {"stages": {"partial_write": {"raised": "OSError", "file_changed": false, "instance_poisoned": false, "reopened_keys": ["old"]}, "after_file_fsync": {"raised": "OSError", "file_changed": false, "instance_poisoned": false, "reopened_keys": ["old"]}, "after_replace": {"raised": "CommitUncertain", "file_changed": true, "instance_poisoned": true, "reopened_keys": ["old", "new"]}, "after_dir_fsync": {"raised": "CommitUncertain", "file_changed": true, "instance_poisoned": true, "reopened_keys": ["old", "new"]}}}
+E4: clean {"records": 320, "unique": 320, "errors": []}
+E5: observed {"records_at_default_caps": 128, "bytes": 274717, "bytes_per_record": 2146}

@@ -11,6 +11,7 @@ import hashlib
 import json
 import math
 import os
+import threading
 import time
 import unicodedata
 from contextlib import contextmanager
@@ -29,6 +30,14 @@ class CapacityError(RuntimeError):
 
 class IntegrityError(RuntimeError):
     """Unreadable or invalid state; no empty-store fallback."""
+
+
+READ_LIMIT = 16_000_000  # bytes; the reader refuses larger files, so no writer may produce one (R2-05)
+_HELD = threading.local()  # directories whose lock this thread already holds (R2-02)
+
+
+class ReentrancyError(RuntimeError):
+    """A store call made from inside another call on the same store (e.g. from clock() or fault())."""
 
 
 class CommitUncertain(RuntimeError):
@@ -67,6 +76,14 @@ def identifier(x, name):
 def same_key(a, b):
     return isinstance(a, str) and isinstance(b, str) and \
         unicodedata.normalize("NFC", a) == unicodedata.normalize("NFC", b)
+
+
+def new_provenance(p):
+    """Provenance supplied by a caller now (put and revoke). Stored history is not rewritten (R2-03)."""
+    p = validate_provenance(p)
+    identifier(p["source"], "source")
+    identifier(p["locator"], "locator")
+    return p
 
 
 def validate_provenance(p):
@@ -166,15 +183,23 @@ class MemoryStore:
     def _lock(self):
         if self._poisoned:
             raise CommitUncertain("reopen store before further use")
+        held = getattr(_HELD, "dirs", None)
+        if held is None:
+            held = _HELD.dirs = set()
+        me = os.path.realpath(self.directory)
+        if me in held:  # R2-02: a nested call would wait forever on its own flock
+            raise ReentrancyError("store called re-entrantly (e.g. from clock() or fault()); refused")
         try:
             handle = (self.directory / "memory.lock").open("a+b")
         except OSError as e:  # ATK A10: e.g. the lock path is a directory
             raise IntegrityError(f"cannot open lock file: {e}") from e
         with handle:
             fcntl.flock(handle, fcntl.LOCK_EX)
+            held.add(me)
             try:
                 yield
             finally:
+                held.discard(me)
                 fcntl.flock(handle, fcntl.LOCK_UN)
 
     def _encode(self, state):
@@ -182,11 +207,13 @@ class MemoryStore:
 
     def _validate(self, s):
         if not isinstance(s, dict) or set(s) != {"schema", "generation", "next_id",
-                "max_records", "max_bytes", "records"} or s["schema"] != 1:
+                "max_records", "max_bytes", "records"} or type(s["schema"]) is not int or s["schema"] != 1:  # M1
             raise ValueError("invalid snapshot schema")
         for k in ("generation", "next_id", "max_records", "max_bytes"):
             if type(s[k]) is not int or s[k] < (0 if k == "generation" else 1):
                 raise ValueError("invalid snapshot counters")
+        if not 1024 <= s["max_bytes"] <= READ_LIMIT:  # R2-05: same bounds as the constructor
+            raise ValueError("stored max_bytes outside supported range")
         if not isinstance(s["records"], list) or len(s["records"]) > s["max_records"]:
             raise ValueError("record bound violated")
         ids = set()
@@ -227,7 +254,7 @@ class MemoryStore:
         for r in s["records"]:
             target = r["supersedes"]
             if target is not None:
-                if target not in by_id or by_id[target]["key"] != r["key"] or target in referenced:
+                if target not in by_id or not same_key(by_id[target]["key"], r["key"]) or target in referenced:
                     raise ValueError("missing, cross-key, or forked correction")
                 if by_id[target]["status"] != "superseded" or by_id[target]["timestamp"] > r["timestamp"]:
                     raise ValueError("invalid supersession")
@@ -240,7 +267,7 @@ class MemoryStore:
     def _load(self):
         try:
             # Hard defensive input cap; configured envelope bound checked below.
-            if self.path.stat().st_size > 16_000_000:
+            if self.path.stat().st_size > READ_LIMIT:
                 raise ValueError("snapshot exceeds reader hard limit")
             def pairs(items):
                 out = {}
@@ -263,6 +290,8 @@ class MemoryStore:
     def _commit(self, state):
         self._validate(state)
         data = self._encode(state)
+        if len(data) > READ_LIMIT:  # R2-05: never write what the reader would refuse
+            raise CapacityError("snapshot would exceed the reader limit; no write committed")
         replaced = False
         try:
             with self.pending.open("wb") as handle:
@@ -316,9 +345,7 @@ class MemoryStore:
             raise RuntimeError("resource gate closed, including protected writes")
         key = identifier(key, "key")
         nonempty(value, "value")
-        p = validate_provenance(provenance)
-        identifier(p["source"], "source")
-        identifier(p["locator"], "locator")
+        p = new_provenance(provenance)
         w = number(weight, "weight", 0, 1)
         if type(protected) is not bool:
             raise ValueError("protected must be boolean")
@@ -365,7 +392,7 @@ class MemoryStore:
         if type(record_id) is not int or record_id < 1:
             raise ValueError("positive integer record ID required")
         nonempty(reason, "reason")
-        p = validate_provenance(provenance)
+        p = new_provenance(provenance)  # R2-03
         with self._lock():
             s = self._load()
             r = next((r for r in s["records"] if r["id"] == record_id), None)
@@ -464,6 +491,8 @@ class MemoryStore:
         Any unresolved current contradiction for this key causes UNKNOWN even when
         its low-scoring member would not appear in top-k.
         """
+        if not isinstance(key, str) or not key.strip():  # R2-01: None would disable the key filter
+            raise ValueError("recall requires a non-empty string key")
         s = self.snapshot()
         # ATK A8/E1: every current record of the key counts, even one the clock calls "future",
         # and keys compare after NFC normalization, so neither can hide a contradiction.

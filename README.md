@@ -1,4 +1,4 @@
-# SML: Sovereign memory layer (hardening round 1)
+# SML: Sovereign memory layer (hardening rounds 1 and 2)
 
 A small offline memory store for AI agents. Python standard library only.
 
@@ -13,7 +13,7 @@ A small offline memory store for AI agents. Python standard library only.
 ## Run it
 
 ```bash
-python3 verify_hardened.py      # 60 tests + 6 fix-removal mutants; exit 0 = pass
+python3 verify_hardened.py      # 69 tests + 12 fix-removal mutants; exit 0 = pass
 python3 -m unittest discover -s tests -v
 python3 attack/attack.py --target .     # Claude's attack suite (A1-A15)
 python3 attack/explore.py --target .    # exploratory attacks (E1-E5)
@@ -25,7 +25,7 @@ python3 attack/explore.py --target .    # exploratory attacks (E1-E5)
 - **Not tested** on real power loss, a phone's filesystem, or hostile users.
 - **Not shown** to retrieve better than "most recent first".
 
-The record of what broke and what was fixed is in [`attack/RESULTS.md`](attack/RESULTS.md). Known limits are at the end of that file.
+What broke and what was fixed: round 1 (Claude) in [`attack/RESULTS.md`](attack/RESULTS.md); round 2 (ChatGPT found, Claude fixed) in [`review/round2_chatgpt/RESULTS_ROUND2.md`](review/round2_chatgpt/RESULTS_ROUND2.md). Known limits are at the end of `attack/RESULTS.md`.
 
 ## History
 

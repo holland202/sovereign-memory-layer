@@ -1,0 +1,14 @@
+test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) ... {"codepoint": "U+000A", "field": "source", "rejected": true}
+{"codepoint": "U+0000", "field": "source", "rejected": true}
+{"codepoint": "U+202E", "field": "source", "rejected": true}
+{"codepoint": "U+200B", "field": "source", "rejected": true}
+{"codepoint": "U+000A", "field": "locator", "rejected": true}
+{"codepoint": "U+0000", "field": "locator", "rejected": true}
+{"codepoint": "U+202E", "field": "locator", "rejected": true}
+{"codepoint": "U+200B", "field": "locator", "rejected": true}
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.016s
+
+OK

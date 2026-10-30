@@ -1,0 +1,7 @@
+test_reentrant_clock_completes_or_rejects_explicitly (__main__.ClockReentry.test_reentrant_clock_completes_or_rejects_explicitly) ... {"child_command": ["/usr/local/bin/python3", "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_clock_reentry.py", "--target", "/home/claude/sml-hardening", "--child", "/tmp/tmppt7ik74r/store"], "returncode": 0, "stderr": "", "stdout": "{\"event\": \"clock callback entered; requesting snapshot\"}\n{\"event\": \"reentry explicitly rejected\", \"exception\": \"ReentrancyError\", \"message\": \"store called re-entrantly (e.g. from clock() or fault()); refused\"}\n"}
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.064s
+
+OK

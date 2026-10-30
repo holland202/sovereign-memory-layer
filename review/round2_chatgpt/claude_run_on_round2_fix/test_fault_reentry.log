@@ -1,0 +1,8 @@
+test_reentrant_fault_completes_or_rejects_explicitly (__main__.FaultReentry.test_reentrant_fault_completes_or_rejects_explicitly) ... {"child_command": ["/usr/local/bin/python3", "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_fault_reentry.py", "--target", "/home/claude/sml-hardening", "--child", "/tmp/tmpcdwrzzup/store", "partial_write"], "returncode": 0, "stage": "partial_write", "stderr": "", "stdout": "{\"event\": \"fault callback entered; requesting snapshot\", \"stage\": \"partial_write\"}\n{\"event\": \"reentry explicitly rejected\", \"exception\": \"ReentrancyError\", \"message\": \"store called re-entrantly (e.g. from clock() or fault()); refused\"}\n"}
+{"child_command": ["/usr/local/bin/python3", "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_fault_reentry.py", "--target", "/home/claude/sml-hardening", "--child", "/tmp/tmpq5vm0r1l/store", "after_replace"], "returncode": 0, "stage": "after_replace", "stderr": "", "stdout": "{\"event\": \"fault callback entered; requesting snapshot\", \"stage\": \"after_replace\"}\n{\"event\": \"reentry explicitly rejected\", \"exception\": \"CommitUncertain\", \"message\": \"replaced but acknowledgement failed\"}\n"}
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.122s
+
+OK

@@ -1,0 +1,8 @@
+test_noninteger_schema_is_refused (__main__.SchemaType.test_noninteger_schema_is_refused) ... {"input_schema": true, "rejected": true}
+{"input_schema": 1.0, "rejected": true}
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+OK

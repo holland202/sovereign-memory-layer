@@ -1,0 +1,11 @@
+test_clock_skew_revoke_and_contradiction (__main__.ExistingFixes.test_clock_skew_revoke_and_contradiction) ... {"behind_clock_revoke": true, "future_contradiction_abstains": true}
+ok
+test_deep_file_lock_directory_and_ids (__main__.ExistingFixes.test_deep_file_lock_directory_and_ids) ... {"deep_nesting_integrity_error": true, "exact_id_rejections": 12, "lock_directory_integrity_error": true}
+ok
+test_unicode_and_put_controls (__main__.ExistingFixes.test_unicode_and_put_controls) ... {"nfc_nfd_contradiction_abstains": true, "put_provenance_rejections": 10}
+ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.020s
+
+OK
