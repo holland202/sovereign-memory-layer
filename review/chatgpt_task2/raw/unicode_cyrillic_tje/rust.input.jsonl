@@ -1,0 +1,5 @@
+{"op": "create", "max_records": 20, "max_bytes": 200000, "dir": "/tmp/sml-probe-sbz1npo0/rust"}
+{"op": "put", "key": "k", "value": "v", "provenance": {"source": "synthetic-chatgpt-review", "locator": "case-1", "sha256": "67a249ba833acf69cff16d4f11009d130fdf672bb07c93f9a0398409f054ae49"}, "text": "\u1c89", "dir": "/tmp/sml-probe-sbz1npo0/rust"}
+{"op": "file", "dir": "/tmp/sml-probe-sbz1npo0/rust"}
+{"op": "recall", "key": "k", "query": "\u1c8a", "dir": "/tmp/sml-probe-sbz1npo0/rust"}
+{"op": "recall", "key": "k", "query": "\u1c89", "dir": "/tmp/sml-probe-sbz1npo0/rust"}

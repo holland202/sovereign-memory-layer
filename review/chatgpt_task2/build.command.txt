@@ -1,0 +1,1 @@
+CARGO_HOME=/workspace/scratch/023a3d579cb0/rust-tools/cargo RUSTUP_HOME=/workspace/scratch/023a3d579cb0/rust-tools/rustup PATH=/workspace/scratch/023a3d579cb0/rust-tools/cargo/bin:$PATH cargo build --release --locked --manifest-path rust/Cargo.toml

@@ -1,0 +1,4 @@
+{"ok":true,"result":null}
+{"error":"CapacityError","ok":false}
+{"ok":true,"result":"7b827f7010ba23a8605da815ea8ed4c1c095f94eb579dd2859e45ffcf577d82e"}
+{"ok":true,"result":{"bytes":175,"generation":0,"incomplete_storage_detected":false,"max_bytes":4096,"max_records":20,"records":0}}

@@ -1,0 +1,297 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "python_unicode": "15.0.0",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+  "source_sha256": {
+    "sml/memory.py": "1a1d7372e061fda9dc6349a37de5b4ac12296372768301c02e4afbde27d33020",
+    "rust/src/store.rs": "8a3d24ebb05af7f230b19a59b20b2ee3535f082bb37acbcb6c056ecd5bcbc5ef",
+    "rust/src/text.rs": "35d50b4ae981e3773fa8960adddceb49f20a206f40357d1b9b4ad814d84c3ba6",
+    "rust/src/json.rs": "4bc64b8057184ad77f9722372e02071e34cc6121f75c72746f75fba93b5bb2f6",
+    "rust/src/bin/sml-cli.rs": "d3b699f666a1e6fa4d745566895e4741a3a4c982af831efe7751dea1d46ef063",
+    "tools/py_cli.py": "f429db3f2482b0035962ed8788b6c91f298f91552c25a53ffb4afeec108d9612",
+    "tools/differential.py": "70683b21bd056837ec9aa099b0057dab42eac06fc98027f6cc9680376057111a",
+    "rust/Cargo.lock": "565b17b4c6c2dbe1bcb93a0b7cb0ae353002fd45bd61eb61f16398e80dcacf07"
+  },
+  "binary_sha256": "9bb5d7485ecb9ea233c685727b3d090db2ff7fe75f6e3a36cbc719bc96a408a8",
+  "results": [
+    {
+      "case": "unicode_cyrillic_tje",
+      "equal": false,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 5
+    },
+    {
+      "case": "unicode_garay",
+      "equal": false,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 5
+    },
+    {
+      "case": "unicode_ascii_control",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 5
+    },
+    {
+      "case": "unicode_greek_control",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 5
+    },
+    {
+      "case": "whitespace_all_python",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "nfc_control",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "option_weight",
+      "equal": false,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "option_timestamp",
+      "equal": false,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "option_embedding",
+      "equal": false,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "option_thermal_state",
+      "equal": false,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "option_supersedes",
+      "equal": false,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "retrieve_top_k",
+      "equal": false,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "retrieve_threshold",
+      "equal": false,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "retrieve_qembedding",
+      "equal": false,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "timestamp_integer_rounding",
+      "equal": false,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "timestamp_zero",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "timestamp_negative_zero",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "timestamp_subnormal",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "timestamp_future_float",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "timestamp_maximum",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "snapshot_future_integer",
+      "equal": false,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 3
+    },
+    {
+      "case": "snapshot_duplicate_key",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 2
+    },
+    {
+      "case": "snapshot_utf8_bom",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 2
+    },
+    {
+      "case": "snapshot_lone_surrogate",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 2
+    },
+    {
+      "case": "json_duplicate_command",
+      "equal": false,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "json_bom_command",
+      "equal": false,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 2
+    },
+    {
+      "case": "large_value_accepted",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "large_value_refused",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 4
+    },
+    {
+      "case": "compact_chain_ties",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 8
+    },
+    {
+      "case": "compact_protected_ties",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 7
+    },
+    {
+      "case": "float_decimal_neighborhoods",
+      "equal": true,
+      "exits": {
+        "python": 0,
+        "rust": 0
+      },
+      "operations": 1
+    }
+  ]
+}

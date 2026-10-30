@@ -1,0 +1,10 @@
+--- python
++++ rust
+@@ -1,4 +1,4 @@
+ {"ok":true,"result":null}
+-{"error":"ValueError","ok":false}
+-{"ok":true,"result":"d6bb700d655736884e80de99b369868715c45281aecd6396bb11203e76562298"}
+-{"ok":true,"result":{"bytes":177,"generation":0,"incomplete_storage_detected":false,"max_bytes":200000,"max_records":20,"records":0}}
++{"ok":true,"result":1}
++{"ok":true,"result":"fdd9e09ef8973e42721b797dd67903a02e6d4a7c35de2041e08b808d01f1e9ad"}
++{"ok":true,"result":{"bytes":2042,"generation":1,"incomplete_storage_detected":false,"max_bytes":200000,"max_records":20,"records":1}}

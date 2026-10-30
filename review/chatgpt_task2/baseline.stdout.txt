@@ -1,0 +1,5 @@
+D1: {"sequences": 40, "ops": 1640, "mismatches": 0, "first": []} (5s)
+D2: {"values": 20000, "mismatches": 0, "first": []} (0s)
+D3: {"cases": 3402, "outcomes_py": {"IntegrityError": 3392, "ok": 10}, "mismatches": 0, "first": []} (2s)
+python 3.12.14 | rust bin rust/target/release/sml-cli
+VERDICT IDENTICAL

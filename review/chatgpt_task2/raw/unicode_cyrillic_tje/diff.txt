@@ -1,0 +1,10 @@
+--- python
++++ rust
+@@ -1,5 +1,5 @@
+ {"ok":true,"result":null}
+ {"ok":true,"result":1}
+-{"ok":true,"result":"0b98b2b50e8ab3f6867948d7eb8041681bd3ced35d5778e8f02ec1a1c72b5b98"}
+-{"ok":true,"result":{"evidence_ids":[],"reason":"insufficient_evidence","status":"UNKNOWN"}}
++{"ok":true,"result":"f41455cee970a783d767bbcf382725f2e65683a7f67ffdcc6155557dd11c1164"}
+ {"ok":true,"result":{"evidence_ids":[1],"hits":[[1,"0.9999999999999999"]],"status":"KNOWN","value":"v"}}
++{"ok":true,"result":{"evidence_ids":[1],"hits":[[1,"0.9999999999999999"]],"status":"KNOWN","value":"v"}}

@@ -1,0 +1,7 @@
+{"ok":true,"result":null}
+{"ok":true,"result":1}
+{"ok":true,"result":2}
+{"ok":true,"result":[2]}
+{"ok":true,"result":"f0c98d28493143bd42111f429b41345525a41f83cbf7a89f87e4a415086f1f90"}
+{"error":"CapacityError","ok":false}
+{"ok":true,"result":"f0c98d28493143bd42111f429b41345525a41f83cbf7a89f87e4a415086f1f90"}

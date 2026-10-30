@@ -1,0 +1,1 @@
+python3 tools/differential.py --quick --only D1,D2,D3 --rust-bin rust/target/release/sml-cli

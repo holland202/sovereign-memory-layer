@@ -1,0 +1,4 @@
+{"ok":true,"result":null}
+{"ok":true,"result":1}
+{"ok":true,"result":"3236130d128c7e1e207fde17327430b5440b176a6e1edac32341f27c87674b8b"}
+{"ok":true,"result":[[1,"1.0"]]}
