@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "project": "SML",
+  "status": "DRAFT",
+  "scientific_execution_authorized": false,
+  "arms": [
+    "similarity",
+    "recency",
+    "importance",
+    "protected"
+  ],
+  "budgets": {
+    "max_records": 128,
+    "max_bytes": 2000000,
+    "top_k": 5,
+    "half_life_seconds": 2592000,
+    "threshold": 0.15,
+    "cpu_threads": 1
+  },
+  "task_families": [
+    "updates",
+    "earlier_failures",
+    "multisession_exact",
+    "absent_evidence",
+    "contradictions",
+    "provenance",
+    "corrupt_storage",
+    "capacity_pressure"
+  ],
+  "metrics": [
+    "retrieval_accuracy",
+    "incorrect_recall",
+    "correct_abstention",
+    "peak_rss_bytes",
+    "snapshot_bytes",
+    "query_latency_ns",
+    "write_latency_ns",
+    "acknowledged_write_survival",
+    "corruption_detection",
+    "formation_refusal",
+    "capacity_refusal"
+  ],
+  "splits": {
+    "development": {
+      "ids": [
+        "EXPOSED-updates",
+        "EXPOSED-earlier_failures",
+        "EXPOSED-multisession_exact",
+        "EXPOSED-absent_evidence",
+        "EXPOSED-contradictions",
+        "EXPOSED-provenance",
+        "EXPOSED-corrupt_storage",
+        "EXPOSED-capacity_pressure"
+      ],
+      "custodian": "Authoring assistant; not independent",
+      "commitment": null,
+      "exposed": true
+    },
+    "heldout": {
+      "ids": [],
+      "custodian": null,
+      "commitment": null,
+      "exposed": false
+    },
+    "replication": {
+      "ids": [],
+      "custodian": null,
+      "commitment": null,
+      "exposed": false
+    }
+  },
+  "projection": {
+    "enabled": false,
+    "fit_split": "development",
+    "basis_sha256": null
+  },
+  "negative_controls": [
+    "constant importance",
+    "permuted importance",
+    "equal timestamp and weight",
+    "irrelevant protected flooding",
+    "projection loses discriminating direction",
+    "unknown-only query set",
+    "clean storage",
+    "one-byte corruption",
+    "stale value with higher similarity"
+  ],
+  "freeze": {
+    "frozen_at": null,
+    "artifact_sha256": null,
+    "independent_key_audit": null
+  },
+  "analysis": "Paired per-scenario differences on fresh matched stores; actor-free exact oracle, all metrics separate. Full design and estimands in docs/DRAFT_EVALUATION.md. No comparative results executed."
+}

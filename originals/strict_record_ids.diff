@@ -1,0 +1,20 @@
+--- a/sml/memory.py
++++ b/sml/memory.py
+@@ -331,6 +331,8 @@
+             return i
+ 
+     def correct(self, record_id, value, *, provenance, **kwargs):
++        if type(record_id) is not int or record_id < 1:
++            raise ValueError("positive integer record ID required")
+         s = self.snapshot()
+         target = next((r for r in s["records"] if r["id"] == record_id), None)
+         if target is None:
+@@ -340,6 +342,8 @@
+                         supersedes=record_id, **kwargs)
+ 
+     def revoke(self, record_id, *, reason, provenance):
++        if type(record_id) is not int or record_id < 1:
++            raise ValueError("positive integer record ID required")
+         nonempty(reason, "reason")
+         p = validate_provenance(provenance)
+         with self._lock():

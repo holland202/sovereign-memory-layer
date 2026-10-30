@@ -1,0 +1,50 @@
+{
+  "original_archive_sha256": "a735dd755537019b76e0a8afb70b89ab5beef33b241023af95ad305a8f8bfefa",
+  "original_memory_source_sha256": "61790ed1e544fd32b2ca1c6b96fcf17c64918f09bcf527614909b9f5f2eda976",
+  "expected_candidate_memory_sha256": "f0f8fb55c8b925d132520cee9b2e93375ad548c3041d54629c9dc7b0695bae82",
+  "patch_sha256": "9314ce48bc3b1ab8c2d5d552d3cb2ede3d47380fb393dd019b131e64ddbac8e6",
+  "copied_files": [
+    {
+      "path": "evaluation.py",
+      "original_sha256": "061cc90e19598c3abdce5a31a5327deafeee44c893158dbe337912215d62c783"
+    },
+    {
+      "path": "protocol.draft.json",
+      "original_sha256": "2beed136a0ee60a5d2e1c9a11e866ee02bb8418c9693b42d244cbae03db887e7"
+    },
+    {
+      "path": "sml/__init__.py",
+      "original_sha256": "0bd6728845fe7ee57a7b8e178ef0769aefad8895f03659e4d1cd838e01bb4e00"
+    },
+    {
+      "path": "sml/memory.py",
+      "original_sha256": "61790ed1e544fd32b2ca1c6b96fcf17c64918f09bcf527614909b9f5f2eda976"
+    },
+    {
+      "path": "sml/policies.py",
+      "original_sha256": "77380998fbd6ece6b2bce48b0e2fa16ffe4acb2357f72044260a6d3063d7fdd8"
+    },
+    {
+      "path": "tests/test_crash.py",
+      "original_sha256": "af06b9e11446d247d2d76c91ae386e4abb1b29618390466b5e19bed4cb446744"
+    },
+    {
+      "path": "tests/test_evaluation.py",
+      "original_sha256": "f75fde2e72f41017ec27b36579684be8c4019405f62384473d757c1aaa367b90"
+    },
+    {
+      "path": "tests/test_memory.py",
+      "original_sha256": "b9252d8c6d929677eade2074668a9b2f689675f81cb6224ffc3b907acc0d0b47"
+    },
+    {
+      "path": "tests/test_workloads.py",
+      "original_sha256": "16c13c84a854dd33a7f8835b4ec8eacca1cbba5fc79565d5a556eed4a70b157e"
+    },
+    {
+      "path": "workloads.py",
+      "original_sha256": "16e5cfd79850c61553c2334c21f1412bcd98037676fe63b5e666f95f97fd906e"
+    }
+  ],
+  "scientific_comparison_run": false,
+  "external_independent_review_completed": false
+}
