@@ -1,0 +1,17 @@
+[package]
+name = "sml"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+description = "Sovereign Memory Layer: Rust port of the Python reference store (same file format)"
+publish = false
+
+[dependencies]
+sha2 = "0.10"
+md-5 = "0.10"
+libc = "0.2"
+unicode-normalization = "0.1"
+unicode-general-category = "1"
+
+[profile.release]
+opt-level = 3
