@@ -1,0 +1,4 @@
+cd /workspace/scratch/023a3d579cb0/sml-review
+python3 tools/py_cli.py . < /workspace/scratch/023a3d579cb0/sml-review/review/chatgpt_task2/raw/snapshot_utf8_bom/python.input.jsonl
+cd /workspace/scratch/023a3d579cb0/sml-review
+rust/target/release/sml-cli < /workspace/scratch/023a3d579cb0/sml-review/review/chatgpt_task2/raw/snapshot_utf8_bom/rust.input.jsonl

@@ -1,0 +1,5 @@
+{"ok":true,"result":null}
+{"ok":true,"result":1}
+{"ok":true,"result":"0b98b2b50e8ab3f6867948d7eb8041681bd3ced35d5778e8f02ec1a1c72b5b98"}
+{"ok":true,"result":{"evidence_ids":[],"reason":"insufficient_evidence","status":"UNKNOWN"}}
+{"ok":true,"result":{"evidence_ids":[1],"hits":[[1,"0.9999999999999999"]],"status":"KNOWN","value":"v"}}

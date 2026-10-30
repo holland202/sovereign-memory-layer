@@ -1,0 +1,4 @@
+{"ok":true,"result":null}
+{"error":"BadOp: duplicate JSON key at byte 91","ok":false}
+{"ok":true,"result":{"bytes":177,"generation":0,"incomplete_storage_detected":false,"max_bytes":200000,"max_records":20,"records":0}}
+{"ok":true,"result":"d6bb700d655736884e80de99b369868715c45281aecd6396bb11203e76562298"}

@@ -1,0 +1,8 @@
+--- python
++++ rust
+@@ -1,4 +1,4 @@
+ {"ok":true,"result":null}
+ {"ok":true,"result":1}
+-{"error":"ValueError","ok":false}
++{"ok":true,"result":[[1,"0.9999999999999999"]]}
+ {"ok":true,"result":"7d802208622b79baadd3b88bb72f77f3df3c39d1247efe0ed1f76e2d35acd5fa"}

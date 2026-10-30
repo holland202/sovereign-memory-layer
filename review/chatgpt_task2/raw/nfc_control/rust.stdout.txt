@@ -1,0 +1,4 @@
+{"ok":true,"result":null}
+{"ok":true,"result":1}
+{"ok":true,"result":"e2a1a859276a2d94d1389cf4734d3a9eccc8fb6590e9564f9e1dea698bac80d8"}
+{"ok":true,"result":{"evidence_ids":[1],"hits":[[1,"0.4472135954999579"]],"status":"KNOWN","value":"v"}}

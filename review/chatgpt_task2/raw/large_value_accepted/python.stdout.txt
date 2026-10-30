@@ -1,0 +1,4 @@
+{"ok":true,"result":null}
+{"ok":true,"result":1}
+{"ok":true,"result":"5b08af3938767a16c460ed2273898f24161d93d72734a02ce1517545f2020db7"}
+{"ok":true,"result":{"bytes":133112,"generation":1,"incomplete_storage_detected":false,"max_bytes":200000,"max_records":20,"records":1}}

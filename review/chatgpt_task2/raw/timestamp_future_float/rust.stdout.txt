@@ -1,0 +1,4 @@
+{"ok":true,"result":null}
+{"error":"ValueError","ok":false}
+{"ok":true,"result":"d6bb700d655736884e80de99b369868715c45281aecd6396bb11203e76562298"}
+{"ok":true,"result":[]}

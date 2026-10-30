@@ -1,0 +1,4 @@
+{"op": "create", "max_records": 20, "max_bytes": 200000, "dir": "/tmp/sml-probe-d3xeu94f/python"}
+{"op": "put", "key": "k", "value": "v", "provenance": {"source": "synthetic-chatgpt-review", "locator": "case-1", "sha256": "67a249ba833acf69cff16d4f11009d130fdf672bb07c93f9a0398409f054ae49"}, "thermal_state": 3, "dir": "/tmp/sml-probe-d3xeu94f/python"}
+{"op": "file", "dir": "/tmp/sml-probe-d3xeu94f/python"}
+{"op": "status", "dir": "/tmp/sml-probe-d3xeu94f/python"}

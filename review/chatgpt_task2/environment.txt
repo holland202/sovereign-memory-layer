@@ -1,0 +1,25 @@
+$ rustc -Vv
+rustc 1.99.1 (58cf8f9c3 2026-10-13)
+binary: rustc
+commit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67
+commit-date: 2026-10-13
+host: x86_64-unknown-linux-gnu
+release: 1.99.1
+LLVM version: 23.1.1
+exit=0
+
+$ cargo -V
+cargo 1.99.1 (5f94df478 2026-08-27)
+exit=0
+
+$ python3 --version
+Python 3.12.14
+exit=0
+
+$ git rev-parse HEAD
+7d5f4169ab768ba2b165a2fbf394b3d17c284fdf
+exit=0
+
+$ git status --short
+?? review/chatgpt_task2/
+exit=0

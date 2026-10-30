@@ -1,0 +1,10 @@
+--- python
++++ rust
+@@ -1,4 +1,4 @@
+ {"ok":true,"result":null}
+-{"ok":true,"result":1}
+-{"ok":true,"result":{"bytes":2052,"generation":1,"incomplete_storage_detected":false,"max_bytes":200000,"max_records":20,"records":1}}
+-{"ok":true,"result":"f54351e41fe5a28ab84b42387eaa62a10665c6202aef94c5fc0b20461d7af70c"}
++{"error":"BadOp: duplicate JSON key at byte 91","ok":false}
++{"ok":true,"result":{"bytes":177,"generation":0,"incomplete_storage_detected":false,"max_bytes":200000,"max_records":20,"records":0}}
++{"ok":true,"result":"d6bb700d655736884e80de99b369868715c45281aecd6396bb11203e76562298"}
