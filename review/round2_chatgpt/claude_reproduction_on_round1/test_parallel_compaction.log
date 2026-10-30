@@ -1,0 +1,11 @@
+test_processes_keep_protected_chain_and_all_acknowledged_corrections (__main__.ParallelCompaction.test_processes_keep_protected_chain_and_all_acknowledged_corrections) ... {"acknowledged_corrections": 48, "records": 52, "reports": [{"acknowledged": [26, 31, 35, 39, 43, 45, 49, 53, 57, 61, 65, 69], "final": 69, "worker": 1}, {"acknowledged": [27, 29, 33, 37, 41, 46, 50, 54, 58, 62, 66, 70], "final": 70, "worker": 2}, {"acknowledged": [25, 30, 34, 38, 42, 47, 51, 55, 59, 63, 67, 71], "final": 71, "worker": 3}, {"acknowledged": [28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72], "final": 72, "worker": 4}, {"compactor": true, "refusals": 40, "removed": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]}], "retained_protected_roots": 4, "trial": 0}
+{"acknowledged_corrections": 48, "records": 52, "reports": [{"acknowledged": [28, 29, 33, 37, 41, 45, 49, 53, 57, 61, 65, 69], "final": 69, "worker": 3}, {"acknowledged": [25, 30, 34, 38, 42, 46, 50, 54, 58, 62, 66, 70], "final": 70, "worker": 4}, {"acknowledged": [26, 31, 35, 39, 43, 47, 51, 55, 59, 63, 67, 71], "final": 71, "worker": 1}, {"acknowledged": [27, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72], "final": 72, "worker": 2}, {"compactor": true, "refusals": 40, "removed": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]}], "retained_protected_roots": 4, "trial": 1}
+{"acknowledged_corrections": 48, "records": 52, "reports": [{"acknowledged": [26, 29, 33, 37, 41, 45, 49, 53, 57, 61, 65, 69], "final": 69, "worker": 1}, {"acknowledged": [27, 31, 34, 38, 42, 46, 50, 54, 58, 62, 66, 70], "final": 70, "worker": 3}, {"acknowledged": [25, 30, 35, 39, 43, 47, 51, 55, 59, 63, 67, 71], "final": 71, "worker": 4}, {"acknowledged": [28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68, 72], "final": 72, "worker": 2}, {"compactor": true, "refusals": 40, "removed": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]}], "retained_protected_roots": 4, "trial": 2}
+ok
+test_threads_separate_handles_keep_all_ids (__main__.ParallelCompaction.test_threads_separate_handles_keep_all_ids) ... {"acknowledged": 90, "records": 90, "thread_handles": 6}
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 8.862s
+
+OK

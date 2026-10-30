@@ -1,0 +1,36 @@
+test_correct_accepted_nfd_predecessor (__main__.LegacyCorrection.test_correct_accepted_nfd_predecessor) ... {"accepted_legacy_snapshot": true, "correction_exception": "ValueError", "message": "missing, cross-key, or forked correction", "nfc_lookup_before": "KNOWN old", "snapshot_unchanged": true}
+FAIL
+
+======================================================================
+FAIL: test_correct_accepted_nfd_predecessor (__main__.LegacyCorrection.test_correct_accepted_nfd_predecessor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_legacy_nfd_correction.py", line 29, in test_correct_accepted_nfd_predecessor
+    new_id = m.correct(rid, 'new', provenance=P, embedding=E)
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/pinned/sml-hardening/sml/memory.py", line 361, in correct
+    return self.put(target["key"], value, provenance=provenance,
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    supersedes=record_id, **kwargs)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/pinned/sml-hardening/sml/memory.py", line 350, in put
+    self._commit(s)
+    ~~~~~~~~~~~~^^^
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/pinned/sml-hardening/sml/memory.py", line 264, in _commit
+    self._validate(state)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/pinned/sml-hardening/sml/memory.py", line 231, in _validate
+    raise ValueError("missing, cross-key, or forked correction")
+ValueError: missing, cross-key, or forked correction
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_legacy_nfd_correction.py", line 34, in test_correct_accepted_nfd_predecessor
+    self.fail('correction of a loaded, matching legacy key failed: '+repr(exc))
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: correction of a loaded, matching legacy key failed: ValueError('missing, cross-key, or forked correction')
+
+----------------------------------------------------------------------
+Ran 1 test in 0.007s
+
+FAILED (failures=1)

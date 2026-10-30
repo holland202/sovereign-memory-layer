@@ -1,0 +1,7 @@
+test_malformed_files_and_harmless_serialization_variants (__main__.FileFormat.test_malformed_files_and_harmless_serialization_variants) ... {"identical_payload_variants_accepted": ["no_final_newline", "pretty_json"], "rejected": ["invalid_utf8", "null_envelope", "array_envelope", "trailing_garbage", "above_reader_cap", "duplicate_payload", "truncate_0", "truncate_1", "truncate_516", "truncate_1033", "truncate_2065", "checksum_mismatch", "id_boolean", "id_float", "id_zero", "dangling_predecessor", "orphan_superseded", "revoked_without_reason", "wrong_embedding_dimension", "nonunit_embedding", "boolean_generation", "zero_next_id", "count_cap_exceeded"]}
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.031s
+
+OK

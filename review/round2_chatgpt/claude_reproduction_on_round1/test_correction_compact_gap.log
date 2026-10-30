@@ -1,0 +1,8 @@
+test_compaction_at_forced_correction_gap (__main__.Gap.test_compaction_at_forced_correction_gap) ... {"forced_window": "correct reached put clock after predecessor snapshot", "protected": false, "remaining_ids": [], "removed": [1], "result": {"exception": "unknown correction target", "result": "refused"}}
+{"forced_window": "correct reached put clock after predecessor snapshot", "protected": true, "remaining_ids": [1, 2], "removed": [], "result": {"id": 2, "result": "acknowledged"}}
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.027s
+
+OK

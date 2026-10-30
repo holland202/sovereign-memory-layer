@@ -1,0 +1,9 @@
+test_large_valid_value_reopens_and_overflow_changes_nothing (__main__.LargeValues.test_large_valid_value_reopens_and_overflow_changes_nothing) ... {"overflow_lengths_tested": [10000000, 16000000], "protected_snapshot_unchanged": true, "record_id": 1, "ru_maxrss_kib": 117788, "save_seconds": 0.1614569929999945, "store_bytes": 10002069, "value_bytes": 10000000}
+ok
+test_many_records_at_count_cap (__main__.LargeValues.test_many_records_at_count_cap) ... {"overflow_refused_unchanged": true, "records": 256, "serialized_bytes": 486254, "total_save_seconds": 12.547310007000007}
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 13.441s
+
+OK

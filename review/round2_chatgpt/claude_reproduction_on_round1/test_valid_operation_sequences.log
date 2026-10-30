@@ -1,0 +1,19 @@
+test_valid_key_sequences_against_fact_state (__main__.Sequences.test_valid_key_sequences_against_fact_state) ... {"counts": {"compact": 3, "correct": 11, "put": 30, "recall": 7, "revoke": 9}, "operations": 60, "retained_records": 41, "seed": 71000}
+{"counts": {"compact": 6, "correct": 9, "put": 25, "recall": 9, "revoke": 11}, "operations": 60, "retained_records": 15, "seed": 71001}
+{"counts": {"compact": 15, "correct": 8, "put": 21, "recall": 8, "revoke": 8}, "operations": 60, "retained_records": 16, "seed": 71002}
+{"counts": {"compact": 9, "correct": 11, "put": 21, "recall": 7, "revoke": 12}, "operations": 60, "retained_records": 22, "seed": 71003}
+{"counts": {"compact": 9, "correct": 9, "put": 27, "recall": 7, "revoke": 8}, "operations": 60, "retained_records": 9, "seed": 71004}
+{"counts": {"compact": 12, "correct": 7, "put": 22, "recall": 10, "revoke": 9}, "operations": 60, "retained_records": 12, "seed": 71005}
+{"counts": {"compact": 9, "correct": 7, "put": 19, "recall": 12, "revoke": 13}, "operations": 60, "retained_records": 26, "seed": 71006}
+{"counts": {"compact": 12, "correct": 13, "put": 16, "recall": 11, "revoke": 8}, "operations": 60, "retained_records": 26, "seed": 71007}
+{"counts": {"compact": 11, "correct": 9, "put": 17, "recall": 15, "revoke": 8}, "operations": 60, "retained_records": 14, "seed": 71008}
+{"counts": {"compact": 9, "correct": 10, "put": 22, "recall": 15, "revoke": 4}, "operations": 60, "retained_records": 30, "seed": 71009}
+{"counts": {"compact": 7, "correct": 15, "put": 26, "recall": 8, "revoke": 4}, "operations": 60, "retained_records": 27, "seed": 71010}
+{"counts": {"compact": 9, "correct": 5, "put": 26, "recall": 11, "revoke": 9}, "operations": 60, "retained_records": 5, "seed": 71011}
+{"queries_checked": 2880, "records_explicitly_compacted": 143, "total_operations": 720}
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 12.568s
+
+OK

@@ -1,0 +1,17 @@
+test_reader_rejects_limit_above_its_own_hard_cap (__main__.InvalidCapacity.test_reader_rejects_limit_above_its_own_hard_cap) ... {"configured_max_bytes": 20000000, "invalid_capacity_refused": false}
+{"acknowledged_record_id": 2, "committed_file_bytes": 16003958, "reader_hard_limit": 16000000, "reopening": "IntegrityError: ValueError: snapshot exceeds reader hard limit"}
+FAIL
+
+======================================================================
+FAIL: test_reader_rejects_limit_above_its_own_hard_cap (__main__.InvalidCapacity.test_reader_rejects_limit_above_its_own_hard_cap)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_invalid_capacity_snapshot.py", line 44, in test_reader_rejects_limit_above_its_own_hard_cap
+    self.fail('malformed limit was accepted and an acknowledged write made the store unreadable')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: malformed limit was accepted and an acknowledged write made the store unreadable
+
+----------------------------------------------------------------------
+Ran 1 test in 0.235s
+
+FAILED (failures=1)

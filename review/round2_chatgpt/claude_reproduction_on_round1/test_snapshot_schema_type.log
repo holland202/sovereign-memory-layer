@@ -1,0 +1,28 @@
+test_noninteger_schema_is_refused (__main__.SchemaType.test_noninteger_schema_is_refused) ... {"input_schema": true, "loaded_schema": true, "loaded_type": "bool", "rejected": false}
+
+  test_noninteger_schema_is_refused (__main__.SchemaType.test_noninteger_schema_is_refused) (schema='True') ... FAIL
+{"input_schema": 1.0, "loaded_schema": 1.0, "loaded_type": "float", "rejected": false}
+  test_noninteger_schema_is_refused (__main__.SchemaType.test_noninteger_schema_is_refused) (schema='1.0') ... FAIL
+
+======================================================================
+FAIL: test_noninteger_schema_is_refused (__main__.SchemaType.test_noninteger_schema_is_refused) (schema='True')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_snapshot_schema_type.py", line 22, in test_noninteger_schema_is_refused
+    self.fail('noninteger schema identifier was accepted as schema 1')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: noninteger schema identifier was accepted as schema 1
+
+======================================================================
+FAIL: test_noninteger_schema_is_refused (__main__.SchemaType.test_noninteger_schema_is_refused) (schema='1.0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_snapshot_schema_type.py", line 22, in test_noninteger_schema_is_refused
+    self.fail('noninteger schema identifier was accepted as schema 1')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: noninteger schema identifier was accepted as schema 1
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (failures=2)

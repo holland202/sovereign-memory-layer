@@ -1,0 +1,94 @@
+test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) ... {"codepoint": "U+000A", "field": "source", "rejected": false, "snapshot_changed": true, "status": "revoked", "stored_provenance": {"locator": "fixture:1", "sha256": "3ab3933d6c00eaa18ebc64abe7117574a112832424acfb95ffa4d9963f221a74", "source": "label\nforged"}}
+
+  test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='source', codepoint='U+000A') ... FAIL
+{"codepoint": "U+0000", "field": "source", "rejected": false, "snapshot_changed": true, "status": "revoked", "stored_provenance": {"locator": "fixture:1", "sha256": "3ab3933d6c00eaa18ebc64abe7117574a112832424acfb95ffa4d9963f221a74", "source": "label\u0000forged"}}
+  test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='source', codepoint='U+0000') ... FAIL
+{"codepoint": "U+202E", "field": "source", "rejected": false, "snapshot_changed": true, "status": "revoked", "stored_provenance": {"locator": "fixture:1", "sha256": "3ab3933d6c00eaa18ebc64abe7117574a112832424acfb95ffa4d9963f221a74", "source": "label\u202eforged"}}
+  test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='source', codepoint='U+202E') ... FAIL
+{"codepoint": "U+200B", "field": "source", "rejected": false, "snapshot_changed": true, "status": "revoked", "stored_provenance": {"locator": "fixture:1", "sha256": "3ab3933d6c00eaa18ebc64abe7117574a112832424acfb95ffa4d9963f221a74", "source": "label\u200bforged"}}
+  test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='source', codepoint='U+200B') ... FAIL
+{"codepoint": "U+000A", "field": "locator", "rejected": false, "snapshot_changed": true, "status": "revoked", "stored_provenance": {"locator": "label\nforged", "sha256": "3ab3933d6c00eaa18ebc64abe7117574a112832424acfb95ffa4d9963f221a74", "source": "round2-synthetic"}}
+  test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='locator', codepoint='U+000A') ... FAIL
+{"codepoint": "U+0000", "field": "locator", "rejected": false, "snapshot_changed": true, "status": "revoked", "stored_provenance": {"locator": "label\u0000forged", "sha256": "3ab3933d6c00eaa18ebc64abe7117574a112832424acfb95ffa4d9963f221a74", "source": "round2-synthetic"}}
+  test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='locator', codepoint='U+0000') ... FAIL
+{"codepoint": "U+202E", "field": "locator", "rejected": false, "snapshot_changed": true, "status": "revoked", "stored_provenance": {"locator": "label\u202eforged", "sha256": "3ab3933d6c00eaa18ebc64abe7117574a112832424acfb95ffa4d9963f221a74", "source": "round2-synthetic"}}
+  test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='locator', codepoint='U+202E') ... FAIL
+{"codepoint": "U+200B", "field": "locator", "rejected": false, "snapshot_changed": true, "status": "revoked", "stored_provenance": {"locator": "label\u200bforged", "sha256": "3ab3933d6c00eaa18ebc64abe7117574a112832424acfb95ffa4d9963f221a74", "source": "round2-synthetic"}}
+  test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='locator', codepoint='U+200B') ... FAIL
+
+======================================================================
+FAIL: test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='source', codepoint='U+000A')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_revocation_source_labels.py", line 35, in test_controls_rejected_without_revocation
+    self.fail('new revocation source label accepted a forbidden character')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: new revocation source label accepted a forbidden character
+
+======================================================================
+FAIL: test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='source', codepoint='U+0000')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_revocation_source_labels.py", line 35, in test_controls_rejected_without_revocation
+    self.fail('new revocation source label accepted a forbidden character')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: new revocation source label accepted a forbidden character
+
+======================================================================
+FAIL: test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='source', codepoint='U+202E')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_revocation_source_labels.py", line 35, in test_controls_rejected_without_revocation
+    self.fail('new revocation source label accepted a forbidden character')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: new revocation source label accepted a forbidden character
+
+======================================================================
+FAIL: test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='source', codepoint='U+200B')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_revocation_source_labels.py", line 35, in test_controls_rejected_without_revocation
+    self.fail('new revocation source label accepted a forbidden character')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: new revocation source label accepted a forbidden character
+
+======================================================================
+FAIL: test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='locator', codepoint='U+000A')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_revocation_source_labels.py", line 35, in test_controls_rejected_without_revocation
+    self.fail('new revocation source label accepted a forbidden character')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: new revocation source label accepted a forbidden character
+
+======================================================================
+FAIL: test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='locator', codepoint='U+0000')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_revocation_source_labels.py", line 35, in test_controls_rejected_without_revocation
+    self.fail('new revocation source label accepted a forbidden character')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: new revocation source label accepted a forbidden character
+
+======================================================================
+FAIL: test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='locator', codepoint='U+202E')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_revocation_source_labels.py", line 35, in test_controls_rejected_without_revocation
+    self.fail('new revocation source label accepted a forbidden character')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: new revocation source label accepted a forbidden character
+
+======================================================================
+FAIL: test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) (field='locator', codepoint='U+200B')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-claude/20deaf03-7883-5e1f-bdbb-23fc34858bca/scratchpad/round2/x/sml_round2_review/scripts/test_revocation_source_labels.py", line 35, in test_controls_rejected_without_revocation
+    self.fail('new revocation source label accepted a forbidden character')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: new revocation source label accepted a forbidden character
+
+----------------------------------------------------------------------
+Ran 1 test in 0.036s
+
+FAILED (failures=8)
