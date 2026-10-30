@@ -77,6 +77,12 @@ fn os(e: std::io::Error) -> SmlError {
 
 /// Python `number(x, name, low, high)`; returns float(x).
 pub fn number(x: &Value, name: &str, low: f64, high: f64) -> Result<f64> {
+    if let Value::Int(i) = x {
+        // R3-02: refuse an integer f64 cannot hold exactly, as the Python reference does.
+        if ((*i as f64) as i128) != (*i as i128) {
+            return verr(&format!("invalid {}", name));
+        }
+    }
     match x.as_number() {
         Some(f) if f.is_finite() && low <= f && f <= high => Ok(f),
         _ => verr(&format!("invalid {}", name)),

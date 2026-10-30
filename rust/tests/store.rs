@@ -128,3 +128,27 @@ fn capacity_refusals_leave_bytes_unchanged() {
     assert!(matches!(m.compact(0), Err(SmlError::Capacity(_))));
     assert_eq!(fs::read(d.join("memory.json")).unwrap(), before);
 }
+
+#[test]
+fn inexact_integer_timestamp_in_file_is_integrity_error() {
+    let d = tmp();
+    MemoryStore::create(&d, 10, 200_000, fixed(1000.0), None).unwrap()
+        .put("k", "v", &prov(), &PutOptions::default()).unwrap();
+    let mut s = sml::json::parse(&fs::read(d.join("memory.json")).unwrap()).unwrap().get("payload").unwrap().clone();
+    if let Value::Obj(m) = &mut s {
+        if let Some(Value::Arr(a)) = m.get_mut("records") {
+            if let Value::Obj(r) = &mut a[0] {
+                r.insert("timestamp".into(), Value::Int((1i64 << 53) + 1));
+                r.insert("recorded_at".into(), Value::Int((1i64 << 53) + 1));
+            }
+        }
+    }
+    let digest = sml::text::sha256_hex(&sml::json::canonical(&s).unwrap());
+    let mut env = BTreeMap::new();
+    env.insert("payload".to_string(), s);
+    env.insert("sha256".to_string(), Value::Str(digest));
+    let mut b = sml::json::canonical(&Value::Obj(env)).unwrap();
+    b.push(b'\n');
+    fs::write(d.join("memory.json"), b).unwrap();
+    assert!(matches!(MemoryStore::open(&d, fixed(1000.0), None), Err(SmlError::Integrity(_))));
+}

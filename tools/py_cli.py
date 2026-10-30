@@ -87,12 +87,26 @@ def run(op):
     raise ValueError("unknown op")
 
 
+def _no_duplicates(pairs):
+    out = {}
+    for k, v in pairs:
+        if k in out:
+            raise ValueError("duplicate field")
+        out[k] = v
+    return out
+
+
 def main():
     for line in sys.stdin:
         if not line.strip():
             continue
         try:
-            res = {"ok": True, "result": run(json.loads(line))}
+            try:
+                op = json.loads(line, object_pairs_hook=_no_duplicates)
+            except ValueError:  # bad JSON, duplicate fields or a BOM (R3-04): same as the Rust side
+                res = {"ok": False, "error": "BadOp"}
+            else:
+                res = {"ok": True, "result": run(op)}
         except Exception as e:  # noqa: BLE001
             cls = next((n for n, c in CLASSES if isinstance(e, c)), type(e).__name__)
             res = {"ok": False, "error": cls}

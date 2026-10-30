@@ -60,9 +60,17 @@ def digest(obj):
 
 
 def number(x, name, low=0, high=float("inf")):
-    if type(x) not in (int, float) or not math.isfinite(x) or not low <= x <= high:
+    if type(x) not in (int, float):
         raise ValueError(f"invalid {name}")
-    return float(x)
+    try:
+        f = float(x)
+    except OverflowError:
+        raise ValueError(f"invalid {name}") from None
+    # R3-02 (ChatGPT): an integer the float cannot hold exactly (beyond 2**53) is refused, so bounds are
+    # never checked on one value and stored as another.
+    if not math.isfinite(f) or (type(x) is int and f != x) or not low <= x <= high:
+        raise ValueError(f"invalid {name}")
+    return f
 
 
 def nonempty(x, name):

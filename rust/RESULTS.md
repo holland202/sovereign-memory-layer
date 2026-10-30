@@ -36,3 +36,4 @@
 
 - Integers outside ±2^63 in a store file, and UTF-16/32 encoded store files: refused by Rust, accepted by Python. Neither occurs in files either implementation writes.
 - Unicode tables come from crates, and may differ from Python's `unicodedata` version on characters assigned in the newest Unicode releases.
+- **Round 3 (ChatGPT, 2026-10-30):** found 14 targeted mismatches that the random generator missed. 12 are fixed: Rust CLI option typing, protocol-line handling, and integers above 2^53. The other 2 are the Unicode-version limit above. See `review/round3_chatgpt/RESULTS_ROUND3.md`.
