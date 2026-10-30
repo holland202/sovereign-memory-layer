@@ -12,6 +12,7 @@ import json
 import math
 import os
 import time
+import unicodedata
 from contextlib import contextmanager
 from pathlib import Path
 
@@ -53,6 +54,19 @@ def nonempty(x, name):
     if not isinstance(x, str) or not x.strip():
         raise ValueError(f"empty {name}")
     return x
+
+
+def identifier(x, name):
+    """ATK E1/E2: a key or provenance identifier is NFC-normalized and has no control/format characters."""
+    nonempty(x, name)
+    if any(unicodedata.category(ch) in ("Cc", "Cf", "Cs") for ch in x):
+        raise ValueError(f"{name} contains control, format or surrogate characters")
+    return unicodedata.normalize("NFC", x)
+
+
+def same_key(a, b):
+    return isinstance(a, str) and isinstance(b, str) and \
+        unicodedata.normalize("NFC", a) == unicodedata.normalize("NFC", b)
 
 
 def validate_provenance(p):
@@ -152,7 +166,11 @@ class MemoryStore:
     def _lock(self):
         if self._poisoned:
             raise CommitUncertain("reopen store before further use")
-        with (self.directory / "memory.lock").open("a+b") as handle:
+        try:
+            handle = (self.directory / "memory.lock").open("a+b")
+        except OSError as e:  # ATK A10: e.g. the lock path is a directory
+            raise IntegrityError(f"cannot open lock file: {e}") from e
+        with handle:
             fcntl.flock(handle, fcntl.LOCK_EX)
             try:
                 yield
@@ -239,8 +257,8 @@ class MemoryStore:
                 raise ValueError("checksum mismatch")
             self._validate(s)
             return s
-        except (OSError, ValueError, TypeError, KeyError, OverflowError) as e:
-            raise IntegrityError(str(e)) from e
+        except (OSError, ValueError, TypeError, KeyError, OverflowError, RecursionError) as e:  # ATK A1
+            raise IntegrityError(f"{type(e).__name__}: {e}") from e
 
     def _commit(self, state):
         self._validate(state)
@@ -296,9 +314,11 @@ class MemoryStore:
             raise ValueError("unknown resource state")
         if thermal_state == "SCAR_LOCK":
             raise RuntimeError("resource gate closed, including protected writes")
-        nonempty(key, "key")
+        key = identifier(key, "key")
         nonempty(value, "value")
         p = validate_provenance(provenance)
+        identifier(p["source"], "source")
+        identifier(p["locator"], "locator")
         w = number(weight, "weight", 0, 1)
         if type(protected) is not bool:
             raise ValueError("protected must be boolean")
@@ -315,7 +335,7 @@ class MemoryStore:
                 if not targets or type(supersedes) is not int:
                     raise ValueError("unknown correction target")
                 old = targets[0]
-                if old["status"] != "current" or old["key"] != key or old["timestamp"] > ts:
+                if old["status"] != "current" or not same_key(old["key"], key) or old["timestamp"] > ts:
                     raise ValueError("correction requires current same-key predecessor")
                 old["status"] = "superseded"
             i = s["next_id"]
@@ -352,8 +372,10 @@ class MemoryStore:
             if r is None or r["status"] != "current":
                 raise ValueError("revocation requires a current record")
             r["status"] = "revoked"
+            # ATK A7: a clock behind the record's timestamp must not block withdrawal; the
+            # revocation time is clamped to the record's timestamp (never earlier).
             r["revocation"] = {"reason": reason, "provenance": p,
-                               "at": number(self.clock(), "clock", r["timestamp"])}
+                               "at": max(number(self.clock(), "clock"), r["timestamp"])}
             s["generation"] += 1
             if len(self._encode(s)) > s["max_bytes"]:
                 raise CapacityError("revocation does not fit; original unchanged")
@@ -413,7 +435,7 @@ class MemoryStore:
         for r in snapshot["records"]:
             if r["status"] != "current":  # MUTATION: supersession
                 continue
-            if (key is not None and r["key"] != key) or r["timestamp"] > now:
+            if (key is not None and not same_key(r["key"], key)) or r["timestamp"] > now:
                 continue
             e = projection.apply(r["embedding"]) if projection else r["embedding"]
             if e is None:
@@ -443,8 +465,9 @@ class MemoryStore:
         its low-scoring member would not appear in top-k.
         """
         s = self.snapshot()
-        current = [r for r in s["records"] if r["key"] == key and r["status"] == "current"
-                   and r["timestamp"] <= self.clock()]
+        # ATK A8/E1: every current record of the key counts, even one the clock calls "future",
+        # and keys compare after NFC normalization, so neither can hide a contradiction.
+        current = [r for r in s["records"] if same_key(r["key"], key) and r["status"] == "current"]
         if len({r["value"] for r in current}) > 1:  # MUTATION: contradiction
             return {"status": "UNKNOWN", "reason": "contradictory_current_evidence",
                     "evidence_ids": [r["id"] for r in current]}

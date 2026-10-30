@@ -1,18 +1,34 @@
-# SML identifier fix — isolated candidate
+# SML: Sovereign memory layer (hardening round 1)
 
-October 29, 2026. This candidate applies only the previously proposed four-line identifier-validation patch to a copy of the pinned SML implementation. The original source, historical specification, original/review reports and their failure evidence remain unchanged. Nothing is merged, published or scientifically executed.
+A small offline memory store for AI agents. Python standard library only.
 
-Correction and revocation now require an exact built-in positive integer record ID. Booleans, floating-point aliases, integer subclasses, strings, missing values and nonpositive integers are rejected. Rejection preserves the exact snapshot bytes. Valid corrections/revocations retain protected historical content and provenance. Weighting formulas, retrieval scoring, capacity policy and geometry are unchanged.
+## What it does
 
-Run from this folder:
+- It keeps facts with a timestamp and a source.
+- You can correct or withdraw a fact without erasing what was there before.
+- It has hard limits on record count and file size. A write that would break a limit is refused; protected records are never silently dropped.
+- It survives being killed mid-write, and it refuses to open a damaged file.
+- It answers **UNKNOWN** when its evidence is missing or contradicts itself.
+
+## Run it
 
 ```bash
-sha256sum -c MANIFEST.sha256
-python3 verify_candidate.py
+python3 verify_hardened.py      # 60 tests + 6 fix-removal mutants; exit 0 = pass
+python3 -m unittest discover -s tests -v
+python3 attack/attack.py --target .     # Claude's attack suite (A1-A15)
+python3 attack/explore.py --target .    # exploratory attacks (E1-E5)
 ```
 
-Python standard library only. The complete candidate suite contains the 42 unchanged original tests plus nine new regression tests. Two additional deliberate revocation-guard defects must be detected with nonzero test exits. Exact command output, environment and source hashes are in evidence/candidate_validation.json. This is local engineering validation, not external independent review or scientific improvement.
+## Status (honest)
 
-ORIGIN.json maps copied files to their original hashes and pins the proposed source hash from the preceding review. originals/ contains the byte-identical original archive and patch. The original's reports and logs inside that ZIP remain the authoritative record of the earlier unpatched version.
+- **Self-tested only.** Claude (Anthropic) and ChatGPT (OpenAI) built and attacked it at Chad Holland's direction. No person has independently tested it yet.
+- **Not tested** on real power loss, a phone's filesystem, or hostile users.
+- **Not shown** to retrieve better than "most recent first".
 
-Recommendation: include this candidate in the independent SML review. Do not silently replace the previously delivered version or frozen registrations. Scientific comparisons still need genuine external task/key custody, accepted review, a completed freeze and separate owner authorization. GROWTH's real baseline and human-review prerequisites remain unfilled; no person or role has been simulated.
+The record of what broke and what was fixed is in [`attack/RESULTS.md`](attack/RESULTS.md). Known limits are at the end of that file.
+
+## History
+
+This tree started as the October 29 identifier-fix candidate. Its README is kept as `README_CANDIDATE.md`, its `MANIFEST.sha256` and `verify_candidate.py` are unchanged, and the originals are under `originals/`. `MANIFEST_HARDENED.sha256` covers this version.
+
+Provenance: Claude (Anthropic, Opus 5.5) attacked, fixed and tested this on 2026-10-30 → human validation: not performed → human editing/curation: none → responsibility: Chad Holland. Review level: direction only.

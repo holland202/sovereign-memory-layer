@@ -1,0 +1,122 @@
+{
+ "A1": {
+  "outcome": "integrity_error",
+  "depth": 100000,
+  "bytes": 200000
+ },
+ "A2": {
+  "outcome": "clean",
+  "flips": 3000,
+  "integrity": 2996,
+  "identical": 4,
+  "accepted_different": 0,
+  "other_exceptions": {}
+ },
+ "A3": {
+  "outcome": "defect",
+  "cuts": 399,
+  "outcomes": {
+   "integrity": 398,
+   "ok": 1
+  }
+ },
+ "A4": {
+  "outcome": "clean",
+  "cases": {
+   "empty_file": "integrity",
+   "invalid_utf8": "integrity",
+   "duplicate_key": "integrity",
+   "nan_literal": "integrity",
+   "huge_int": "integrity",
+   "missing_envelope": "integrity",
+   "extra_envelope_field": "integrity",
+   "wrong_type_with_valid_checksum": "integrity",
+   "extra_record_field_valid_checksum": "integrity",
+   "bool_id_valid_checksum": "integrity"
+  }
+ },
+ "A5": {
+  "outcome": "clean",
+  "trials": 150,
+  "reopened_ok": 150,
+  "acked_total": 5629,
+  "unacked_extra_total": 5,
+  "pending_left": 7,
+  "problems": []
+ },
+ "A6": {
+  "outcome": "clean",
+  "procs": 8,
+  "each": 40,
+  "rounds": 3,
+  "problems": []
+ },
+ "A7": {
+  "outcome": "defect_withdrawal_blocked",
+  "revoke": "allowed",
+  "revoke_unchanged": false,
+  "correct": "refused:ValueError:correction requires current same-key predecessor",
+  "correct_unchanged": true
+ },
+ "A8": {
+  "outcome": "clean",
+  "before": "UNKNOWN:contradictory_current_evidence",
+  "after": "UNKNOWN:contradictory_current_evidence"
+ },
+ "A9": {
+  "outcome": "clean",
+  "other_exceptions": {},
+  "accepted": {
+   "value:'x\\x00y'": "accepted:changed",
+   "text:'x\\x00y'": "accepted:changed",
+   "reason:'x\\x00y'": "accepted:changed",
+   "value:'\\u202eevil'": "accepted:changed",
+   "text:'\\u202eevil'": "accepted:changed"
+  }
+ },
+ "A10": {
+  "outcome": "clean",
+  "lock_is_directory": "integrity",
+  "data_missing": "integrity",
+  "data_is_directory": "integrity",
+  "restored": "ok"
+ },
+ "A11": {
+  "outcome": "defect",
+  "put": "CapacityError",
+  "correct": "CapacityError",
+  "compact": "CapacityError",
+  "unchanged": true,
+  "revoke_at_record_cap": "allowed (no new record needed)",
+  "byte_cap_records": 1,
+  "byte_cap_file_le_limit": true,
+  "revoke_at_byte_cap": "allowed",
+  "revoke_at_byte_cap_unchanged_if_refused": true
+ },
+ "A12": {
+  "outcome": "clean",
+  "sequences": 300,
+  "ops": 12000,
+  "mismatches": 0,
+  "first": []
+ },
+ "A13": {
+  "outcome": "clean",
+  "all_1e-200": "ValueError",
+  "all_1e-160": "ValueError",
+  "mixed_1e100_1e-100": "stored",
+  "signed_zeros_plus_one": "stored",
+  "single_tiny": "ValueError",
+  "reopen": "ok"
+ },
+ "A14": {
+  "outcome": "rollback_accepted"
+ },
+ "A15": {
+  "outcome": "observed",
+  "force_scar_under_scar_lock": {
+   "stored": false,
+   "reason": "resource_gate"
+  }
+ }
+}
