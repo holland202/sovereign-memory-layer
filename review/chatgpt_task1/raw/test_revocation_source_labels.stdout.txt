@@ -1,0 +1,8 @@
+{"codepoint": "U+000A", "field": "source", "rejected": true}
+{"codepoint": "U+0000", "field": "source", "rejected": true}
+{"codepoint": "U+202E", "field": "source", "rejected": true}
+{"codepoint": "U+200B", "field": "source", "rejected": true}
+{"codepoint": "U+000A", "field": "locator", "rejected": true}
+{"codepoint": "U+0000", "field": "locator", "rejected": true}
+{"codepoint": "U+202E", "field": "locator", "rejected": true}
+{"codepoint": "U+200B", "field": "locator", "rejected": true}

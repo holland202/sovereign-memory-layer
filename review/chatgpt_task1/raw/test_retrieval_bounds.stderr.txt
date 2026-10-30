@@ -1,0 +1,7 @@
+test_near_orthonormal_projection_within_declared_tolerance (__main__.RetrievalBounds.test_near_orthonormal_projection_within_declared_tolerance) ... ok
+test_numeric_and_type_boundaries (__main__.RetrievalBounds.test_numeric_and_type_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.020s
+
+OK

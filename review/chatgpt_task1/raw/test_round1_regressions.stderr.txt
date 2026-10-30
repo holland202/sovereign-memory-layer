@@ -1,0 +1,8 @@
+test_clock_skew_revoke_and_contradiction (__main__.ExistingFixes.test_clock_skew_revoke_and_contradiction) ... ok
+test_deep_file_lock_directory_and_ids (__main__.ExistingFixes.test_deep_file_lock_directory_and_ids) ... ok
+test_unicode_and_put_controls (__main__.ExistingFixes.test_unicode_and_put_controls) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.024s
+
+OK

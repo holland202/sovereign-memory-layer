@@ -1,0 +1,3 @@
+{"behind_clock_revoke": true, "future_contradiction_abstains": true}
+{"deep_nesting_integrity_error": true, "exact_id_rejections": 12, "lock_directory_integrity_error": true}
+{"nfc_nfd_contradiction_abstains": true, "put_provenance_rejections": 10}

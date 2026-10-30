@@ -1,0 +1,6 @@
+test_malformed_files_and_harmless_serialization_variants (__main__.FileFormat.test_malformed_files_and_harmless_serialization_variants) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.036s
+
+OK

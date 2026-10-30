@@ -1,0 +1,6 @@
+test_valid_key_sequences_against_fact_state (__main__.Sequences.test_valid_key_sequences_against_fact_state) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 19.234s
+
+OK

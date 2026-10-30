@@ -1,0 +1,6 @@
+test_reader_rejects_limit_above_its_own_hard_cap (__main__.InvalidCapacity.test_reader_rejects_limit_above_its_own_hard_cap) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+OK
