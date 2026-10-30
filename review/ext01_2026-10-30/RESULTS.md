@@ -34,3 +34,7 @@ Also:
 - `verify_hardened.py`: 73 tests pass, and 15 of 15 fix-removal mutants are killed (three new ones for N1, N3 and N4).
 - Claude's A1–A15 attacks: unchanged.
 - The Rust port got the same early check and lock-error mapping, plus streaming words. Full differential (400 sequences, 200k floats, 3,402 corrupt files, mixed writers, 100 kills): **IDENTICAL**. The Rust unlock path already ignored errors.
+
+## Credit (appended 2026-10-30)
+
+The external reviewer is **Nathan Freestone (The Elora Taurus Project)**, [github.com/EloraTaurus](https://github.com/EloraTaurus). He agreed to be credited by name, with that wording, on 2026-10-30. His contribution was the two code-reading observations in `PREREG.md`, made with AI-assisted code reading and not run by him. The measurements, fixes and tests are Claude's and are self-tested. Crediting him does not mean he reviewed or endorses the fixes. `PREREG.md` is a registration and is left unchanged; it still calls him an unnamed reviewer.
