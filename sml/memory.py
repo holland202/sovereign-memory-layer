@@ -11,6 +11,7 @@ import hashlib
 import json
 import math
 import os
+import re
 import threading
 import time
 import unicodedata
@@ -38,6 +39,11 @@ _HELD = threading.local()  # directories whose lock this thread already holds (R
 
 class ReentrancyError(RuntimeError):
     """A store call made from inside another call on the same store (e.g. from clock() or fault())."""
+
+
+class LockError(IntegrityError):
+    """The store's lock could not be opened or taken (EXT-01). A subclass of IntegrityError, so callers
+    that already handle IntegrityError keep working; the file on disk was not changed."""
 
 
 class CommitUncertain(RuntimeError):
@@ -107,11 +113,17 @@ def vector(xs, dim=DIM):
     return [x/norm for x in v]
 
 
+_WORDS = re.compile(r"\S+")
+
+
 def hash_embedding(text, dim=DIM):
     """Historical position-weighted lexical hash fallback, NOT neural semantics."""
     nonempty(text, "text")
     out = [0.0] * dim
-    for i, word in enumerate(text.lower().split()):
+    # EXT-01: stream the words (re's \s is exactly str.isspace(), so the words and the embedding are
+    # identical to text.lower().split()) instead of building one Python object per word up front.
+    for i, m in enumerate(_WORDS.finditer(text.lower())):
+        word = m.group()
         raw = word.encode("utf-8")
         out[int(hashlib.md5(raw, usedforsecurity=False).hexdigest(), 16) % dim] += 1/(i+1)
         out[int(hashlib.sha256(raw).hexdigest(), 16) % dim] += 0.5/(i+1)
@@ -192,15 +204,21 @@ class MemoryStore:
         try:
             handle = (self.directory / "memory.lock").open("a+b")
         except OSError as e:  # ATK A10: e.g. the lock path is a directory
-            raise IntegrityError(f"cannot open lock file: {e}") from e
+            raise LockError(f"cannot open lock file: {e}") from e
         with handle:
-            fcntl.flock(handle, fcntl.LOCK_EX)
+            try:
+                fcntl.flock(handle, fcntl.LOCK_EX)
+            except OSError as e:  # EXT-01 N3: same class as an unopenable lock file
+                raise LockError(f"cannot lock store: {e}") from e
             held.add(me)
             try:
                 yield
             finally:
                 held.discard(me)
-                fcntl.flock(handle, fcntl.LOCK_UN)
+                try:
+                    fcntl.flock(handle, fcntl.LOCK_UN)
+                except OSError:  # EXT-01 N4: closing the file releases the lock; never mask a commit
+                    pass
 
     def _encode(self, state):
         return canonical({"payload": state, "sha256": digest(state)}) + b"\n"
@@ -352,7 +370,30 @@ class MemoryStore:
         now = number(self.clock(), "clock")
         ts = now if timestamp is None else number(timestamp, "timestamp", 0, now)
         txt = nonempty(text if text is not None else f"{key} {value}", "text")
-        emb = hash_embedding(txt) if embedding is None else vector(embedding)
+        # EXT-01 N1: refuse a write that cannot fit BEFORE the expensive embedding. A JSON string takes at
+        # least one byte per code point, so key + value + text characters is a lower bound on what the
+        # new record adds; the exact check under the lock below still decides.
+        # The pre-check repeats the cheap checks in the same order as the locked section below, so a
+        # write that is wrong in several ways is refused for the same reason as before EXT-01.
+        emb = None if embedding is None else vector(embedding)
+        floor = len(key) + len(value) + len(txt)
+        if floor > READ_LIMIT:
+            raise CapacityError("record cannot fit in any store; no write committed")
+        with self._lock():
+            s = self._load()
+            if len(s["records"]) >= s["max_records"]:
+                raise CapacityError("record capacity exhausted; no write committed")
+            if supersedes is not None:
+                targets = [r for r in s["records"] if r["id"] == supersedes]
+                if not targets or type(supersedes) is not int:
+                    raise ValueError("unknown correction target")
+                old = targets[0]
+                if old["status"] != "current" or not same_key(old["key"], key) or old["timestamp"] > ts:
+                    raise ValueError("correction requires current same-key predecessor")
+            if len(self._encode(s)) + floor > s["max_bytes"]:  # EXT-01: early byte refusal
+                raise CapacityError("byte capacity exhausted; no write committed")
+        if emb is None:
+            emb = hash_embedding(txt)
         with self._lock():
             s = self._load()
             if len(s["records"]) >= s["max_records"]:  # MUTATION: capacity

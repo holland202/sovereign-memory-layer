@@ -478,7 +478,8 @@ impl MemoryStore {
         let file = OpenOptions::new().read(true).append(true).create(true).open(self.directory.join("memory.lock"))
             .map_err(|e| SmlError::Integrity(format!("cannot open lock file: {}", e)))?;
         if unsafe { libc::flock(file.as_raw_fd(), libc::LOCK_EX) } != 0 {
-            return Err(os(std::io::Error::last_os_error()));
+            // EXT-01 N3: same class as an unopenable lock file (Python LockError, an IntegrityError).
+            return Err(SmlError::Integrity(format!("cannot lock store: {}", std::io::Error::last_os_error())));
         }
         HELD.with(|h| h.borrow_mut().insert(me.clone()));
         Ok(LockGuard { file, me })
@@ -585,9 +586,39 @@ impl MemoryStore {
         };
         let txt = o.text.clone().unwrap_or_else(|| format!("{} {}", key, value));
         nonempty_s(&txt, "text")?;
-        let emb = match &o.embedding {
+        // EXT-01 N1: refuse a write that cannot fit before the embedding work, with the cheap checks in
+        // the same order as the locked section below (same refusal reasons as the Python reference).
+        let supplied = match &o.embedding {
+            None => None,
+            Some(e) => Some(vector(e)?),
+        };
+        let floor = (key.chars().count() + value.chars().count() + txt.chars().count()) as i64;
+        if floor > READ_LIMIT as i64 {
+            return Err(SmlError::Capacity("record cannot fit in any store; no write committed".into()));
+        }
+        {
+            let _g = self.lock()?;
+            let mut s = self.load()?;
+            if rec(&mut s).len() as i64 >= field(&s, "max_records") {
+                return Err(SmlError::Capacity("record capacity exhausted; no write committed".into()));
+            }
+            if let Some(sup) = o.supersedes {
+                let old = match rec(&mut s).iter().find(|r| int_of(r.get("id").unwrap()) == Some(sup)) {
+                    Some(r) => r.clone(),
+                    None => return verr("unknown correction target"),
+                };
+                if old.get("status").and_then(Value::as_str) != Some("current") || !same_key(old.get("key").unwrap(), &key)
+                    || old.get("timestamp").unwrap().as_number().unwrap() > ts {
+                    return verr("correction requires current same-key predecessor");
+                }
+            }
+            if encode(&s)?.len() as i64 + floor > field(&s, "max_bytes") {
+                return Err(SmlError::Capacity("byte capacity exhausted; no write committed".into()));
+            }
+        }
+        let emb = match supplied {
+            Some(e) => e,
             None => hash_embedding(&txt)?,
-            Some(e) => vector(e)?,
         };
         let _g = self.lock()?;
         let mut s = self.load()?;

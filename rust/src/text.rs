@@ -63,7 +63,8 @@ fn mod_big_endian(bytes: &[u8], m: u32) -> usize {
 pub fn hash_embedding_raw(text: &str) -> Vec<f64> {
     let mut out = vec![0.0f64; DIM];
     let lower = text.to_lowercase();
-    for (i, word) in py_split(&lower).iter().enumerate() {
+    // Streams the words (EXT-01): no vector of words is built.
+    for (i, word) in lower.split(py_isspace).filter(|w| !w.is_empty()).enumerate() {
         let raw = word.as_bytes();
         let m = Md5::digest(raw);
         let s = Sha256::digest(raw);
