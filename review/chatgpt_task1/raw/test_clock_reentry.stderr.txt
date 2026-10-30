@@ -1,0 +1,6 @@
+test_reentrant_clock_completes_or_rejects_explicitly (__main__.ClockReentry.test_reentrant_clock_completes_or_rejects_explicitly) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.072s
+
+OK

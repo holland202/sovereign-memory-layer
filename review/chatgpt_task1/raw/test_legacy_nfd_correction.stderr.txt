@@ -1,0 +1,6 @@
+test_correct_accepted_nfd_predecessor (__main__.LegacyCorrection.test_correct_accepted_nfd_predecessor) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.013s
+
+OK

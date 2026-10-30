@@ -1,0 +1,2 @@
+{"input_schema": true, "rejected": true}
+{"input_schema": 1.0, "rejected": true}

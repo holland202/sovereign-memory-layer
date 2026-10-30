@@ -1,0 +1,6 @@
+test_controls_rejected_without_revocation (__main__.RevocationLabels.test_controls_rejected_without_revocation) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.028s
+
+OK

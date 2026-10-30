@@ -1,0 +1,2 @@
+cd /tmp/sml-replay-44s_494b/sml_round2_review
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /tmp/sml-replay-44s_494b/sml_round2_review/scripts/test_round1_regressions.py --target /workspace/scratch/023a3d579cb0/sml-review

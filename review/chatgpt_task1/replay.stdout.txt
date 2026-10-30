@@ -1,0 +1,16 @@
+ARCHIVE_MANIFEST exit=0
+test_clock_reentry.py: PASS exit=0
+test_correction_compact_gap.py: PASS exit=0
+test_fault_reentry.py: PASS exit=0
+test_file_format_robustness.py: PASS exit=0
+test_invalid_capacity_snapshot.py: PASS exit=0
+test_large_values.py: PASS exit=0
+test_legacy_nfd_correction.py: PASS exit=0
+test_missing_key_known.py: PASS exit=0
+test_parallel_compaction.py: PASS exit=0
+test_retrieval_bounds.py: PASS exit=0
+test_revocation_source_labels.py: PASS exit=0
+test_round1_regressions.py: PASS exit=0
+test_snapshot_schema_type.py: PASS exit=0
+test_valid_operation_sequences.py: PASS exit=0
+TOTAL 14/14 scripts exit 0

@@ -1,0 +1,6 @@
+test_noninteger_schema_is_refused (__main__.SchemaType.test_noninteger_schema_is_refused) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+OK

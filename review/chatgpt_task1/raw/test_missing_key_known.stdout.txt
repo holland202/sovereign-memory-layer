@@ -1,0 +1,1 @@
+{"case": "None key", "result": "explicitly rejected"}

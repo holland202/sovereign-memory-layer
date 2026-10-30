@@ -1,0 +1,2 @@
+{"overflow_lengths_tested": [10000000, 16000000], "protected_snapshot_unchanged": true, "record_id": 1, "ru_maxrss_kib": 121564, "save_seconds": 0.17433781500000123, "store_bytes": 10002069, "value_bytes": 10000000}
+{"overflow_refused_unchanged": true, "records": 256, "serialized_bytes": 486254, "total_save_seconds": 17.313527916999988}

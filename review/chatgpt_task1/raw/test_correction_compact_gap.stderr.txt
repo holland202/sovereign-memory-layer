@@ -1,0 +1,6 @@
+test_compaction_at_forced_correction_gap (__main__.Gap.test_compaction_at_forced_correction_gap) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.041s
+
+OK
