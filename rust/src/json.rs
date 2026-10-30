@@ -43,11 +43,46 @@ pub fn py_float_repr(x: f64) -> String {
     if x == 0.0 {
         return if x.is_sign_negative() { "-0.0".into() } else { "0.0".into() };
     }
-    let s = format!("{:e}", x); // shortest round-trip digits, e.g. "-1.2345e-7"
-    let (mant, exp) = s.split_once('e').expect("exponent");
-    let exp: i32 = exp.parse().expect("exponent value");
+    // Rust's `{:e}` gives the shortest round-trip digit COUNT, but on an exact tie it rounds half
+    // up, while CPython (David Gay's dtoa) rounds half to even: 1059438285926254.25 is "...254.2"
+    // in Python and "...254.3" in Rust (found by differential test D2). So take only the length
+    // n from Rust, and round the exact decimal expansion to n digits, half to even.
+    let short = format!("{:e}", x);
+    let n = short.split_once('e').unwrap().0.trim_start_matches('-').chars().filter(|c| *c != '.').count();
+    let exact = format!("{:.800e}", x); // every finite f64 has at most 767 significant digits: exact
+    let (mant, exp) = exact.split_once('e').expect("exponent");
+    let mut exp: i32 = exp.parse().expect("exponent value");
     let neg = mant.starts_with('-');
-    let digits: String = mant.trim_start_matches('-').chars().filter(|c| *c != '.').collect();
+    let all: Vec<u8> = mant.trim_start_matches('-').bytes().filter(|c| *c != b'.').map(|c| c - b'0').collect();
+    let mut d: Vec<u8> = all[..n].to_vec();
+    let rest = &all[n..];
+    let round_up = match rest.first() {
+        Some(&r) if r > 5 => true,
+        Some(&5) => rest[1..].iter().any(|&c| c != 0) || d[n - 1] % 2 == 1,
+        _ => false,
+    };
+    if round_up {
+        let mut k = n;
+        loop {
+            if k == 0 {
+                d.insert(0, 1);
+                d.pop();
+                exp += 1;
+                break;
+            }
+            k -= 1;
+            if d[k] == 9 {
+                d[k] = 0;
+            } else {
+                d[k] += 1;
+                break;
+            }
+        }
+    }
+    while d.len() > 1 && *d.last().unwrap() == 0 {
+        d.pop();
+    }
+    let digits: String = d.iter().map(|c| (c + b'0') as char).collect();
     let decpt = exp + 1;
     let mut out = String::new();
     if neg {
@@ -383,7 +418,8 @@ mod tests {
     fn float_repr_matches_python_examples() {
         for (x, s) in [(1e-5, "1e-05"), (1e16, "1e+16"), (1e15, "1000000000000000.0"), (0.0001, "0.0001"),
                        (1000.0, "1000.0"), (0.1, "0.1"), (-2.5, "-2.5"), (1.5e16, "1.5e+16"), (123.456, "123.456"),
-                       (5e-324, "5e-324"), (1.7976931348623157e308, "1.7976931348623157e+308"), (-0.0, "-0.0")] {
+                       (5e-324, "5e-324"), (1.7976931348623157e308, "1.7976931348623157e+308"), (-0.0, "-0.0"),
+                       (f64::from_bits(0x430e1c6d958d7b72), "1059438285926254.2")] {
             assert_eq!(py_float_repr(x), s, "{}", x);
         }
     }

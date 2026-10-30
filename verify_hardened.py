@@ -46,6 +46,19 @@ def run(args, cwd):
     return p.returncode, p.stdout + p.stderr
 
 
+def deep_nesting_raises_recursion():
+    """A1's defect needs json to raise RecursionError on deep nesting. Python 3.14 does not
+    (found by CI, 2026-10-30), so on such interpreters the A1 mutant cannot be killed: n/a."""
+    import json as _json
+    try:
+        _json.loads("[" * 100_000 + "]" * 100_000)
+    except RecursionError:
+        return True
+    except Exception:  # noqa: BLE001
+        return False
+    return False
+
+
 def main():
     code, out = run([sys.executable, "-m", "unittest", "discover", "-s", "tests"], ROOT)
     count = int(re.search(r"Ran (\d+) tests?", out).group(1))
@@ -62,7 +75,9 @@ def main():
             (copy / "sml" / "memory.py").write_text(src.replace(old, new, 1))
             c, o = run([sys.executable, "-m", "unittest", "tests.test_hardening", "tests.test_hardening_round2"], copy)
             mutants[name] = "killed" if c != 0 and ("FAIL:" in o or "ERROR:" in o) else "SURVIVED"
-    ok_mut = all(v == "killed" for v in mutants.values())
+    if not deep_nesting_raises_recursion() and mutants.get("A1-recursion-not-caught") == "SURVIVED":
+        mutants["A1-recursion-not-caught"] = f"n/a on Python {sys.version.split()[0]} (json does not raise RecursionError)"
+    ok_mut = all(v == "killed" or v.startswith("n/a") for v in mutants.values())
     print(json.dumps({"suite_tests": count, "suite_ok": ok_suite, "mutants": mutants,
                       "verdict": "PASS" if ok_suite and ok_mut else "FAIL"}, indent=1))
     sys.exit(0 if ok_suite and ok_mut else 1)

@@ -29,3 +29,21 @@ jobs:
           sed -i.bak 's/if me in held:  # R2-02/if False:  # R2-02/' sml/memory.py
           if python3 verify_hardened.py >/dev/null 2>&1; then echo "VERIFIER IS INERT"; exit 1; fi
           mv sml/memory.py.bak sml/memory.py
+  rust-port:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-14]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.13"   # bit-identical embeddings need CPython >= 3.12 sum()
+      - name: Rust unit and integration tests
+        run: cargo test --release --manifest-path rust/Cargo.toml
+      - name: Differential test, Python reference vs Rust port (quick)
+        run: python3 tools/differential.py --quick
+      - name: The differential test can fail (a sabotaged port must be caught)
+        run: python3 tools/differential.py --sabotage

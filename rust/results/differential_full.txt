@@ -1,0 +1,7 @@
+D1: {"sequences": 400, "ops": 24400, "mismatches": 0, "first": []} (64s)
+D2: {"values": 200000, "mismatches": 0, "first": []} (4s)
+D3: {"cases": 3402, "outcomes_py": {"IntegrityError": 3392, "ok": 10}, "mismatches": 0, "first": []} (2s)
+D5: {"records": 240, "expected": 240, "exit_codes": [0, 0, 0, 0, 0, 0, 0, 0], "rust_reopen_ok": true, "mismatches": 0} (11s)
+D6: {"trials": 100, "acked_total": 3498, "unacked_extra_total": 0, "mismatches": 0, "first": []} (25s)
+python 3.13.18 | rust bin /home/claude/sovereign-memory-layer/rust/target/release/sml-cli
+VERDICT IDENTICAL
