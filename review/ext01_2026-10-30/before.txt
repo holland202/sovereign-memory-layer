@@ -1,0 +1,7 @@
+target /home/claude/sovereign-memory-layer | python 3.13.18
+N1 {"input_mb": 1.0, "outcome": "CapacityError", "snapshot_unchanged": true, "peak_rss_growth_mb": 5.8, "cpu_s": 0.868, "wall_s": 0.879}
+N1 {"input_mb": 4.0, "outcome": "CapacityError", "snapshot_unchanged": true, "peak_rss_growth_mb": 23.0, "cpu_s": 3.432, "wall_s": 3.441}
+N1 {"input_mb": 16.0, "outcome": "CapacityError", "snapshot_unchanged": true, "peak_rss_growth_mb": 151.5, "cpu_s": 14.037, "wall_s": 14.147}
+N2 {"input_mb": 4.0, "outcome": "stored", "snapshot_unchanged": false, "peak_rss_growth_mb": 23.0, "cpu_s": 3.574, "wall_s": 3.604}
+N3 {"inject": "lock_ex", "outcome": "raised OSError", "records_on_disk": 0, "snapshot_unchanged": true}
+N4 {"inject": "unlock", "outcome": "raised OSError", "records_on_disk": 1, "snapshot_unchanged": false}
