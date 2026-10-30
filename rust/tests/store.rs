@@ -152,3 +152,24 @@ fn inexact_integer_timestamp_in_file_is_integrity_error() {
     fs::write(d.join("memory.json"), b).unwrap();
     assert!(matches!(MemoryStore::open(&d, fixed(1000.0), None), Err(SmlError::Integrity(_))));
 }
+
+#[test]
+fn counter_at_i64_max_refuses_write_unchanged() {
+    // P3-01: a counter at i64::MAX refuses the write with CapacityError instead of overflowing.
+    let d = tmp();
+    MemoryStore::create(&d, 10, 200_000, fixed(1000.0), None).unwrap();
+    let mut s = sml::json::parse(&fs::read(d.join("memory.json")).unwrap()).unwrap().get("payload").unwrap().clone();
+    if let Value::Obj(m) = &mut s {
+        m.insert("next_id".into(), Value::Int(i64::MAX));
+    }
+    let digest = sml::text::sha256_hex(&sml::json::canonical(&s).unwrap());
+    let mut env = BTreeMap::new();
+    env.insert("payload".to_string(), s);
+    env.insert("sha256".to_string(), Value::Str(digest));
+    let mut b = sml::json::canonical(&Value::Obj(env)).unwrap();
+    b.push(b'\n');
+    fs::write(d.join("memory.json"), &b).unwrap();
+    let m = MemoryStore::open(&d, fixed(1000.0), None).unwrap();
+    assert!(matches!(m.put("k", "v", &prov(), &PutOptions::default()), Err(SmlError::Capacity(_))));
+    assert_eq!(fs::read(d.join("memory.json")).unwrap(), b);
+}

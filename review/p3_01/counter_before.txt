@@ -1,0 +1,34 @@
+
+CASE next_id=2^63-1, put via python
+  create: {"ok":true,"result":null}
+  put: {"ok":true,"result":9223372036854775807}
+  file unchanged: False
+  status python: {"ok":true,"result":{"bytes":2064,"generation":1,"incomplete_storage_detected":false,"max_bytes":200000,"max_records":10,"records":1}}
+  status rust:   {"error":"IntegrityError","ok":false}
+  FAIL
+
+CASE next_id=2^63-1, put via rust
+  create: {"ok":true,"result":null}
+  put: {"error":"ValueError","ok":false}
+  file unchanged: True
+  status python: {"ok":true,"result":{"bytes":195,"generation":0,"incomplete_storage_detected":false,"max_bytes":200000,"max_records":10,"records":0}}
+  status rust:   {"ok":true,"result":{"bytes":195,"generation":0,"incomplete_storage_detected":false,"max_bytes":200000,"max_records":10,"records":0}}
+  FAIL
+
+CASE generation=2^63-1, put via python
+  create: {"ok":true,"result":null}
+  put: {"ok":true,"result":1}
+  file unchanged: False
+  status python: {"ok":true,"result":{"bytes":2046,"generation":9223372036854775808,"incomplete_storage_detected":false,"max_bytes":200000,"max_records":10,"records":1}}
+  status rust:   {"error":"IntegrityError","ok":false}
+  FAIL
+
+CASE generation=2^63-1, put via rust
+  create: {"ok":true,"result":null}
+  put: {"error":"ValueError","ok":false}
+  file unchanged: True
+  status python: {"ok":true,"result":{"bytes":195,"generation":9223372036854775807,"incomplete_storage_detected":false,"max_bytes":200000,"max_records":10,"records":0}}
+  status rust:   {"ok":true,"result":{"bytes":195,"generation":9223372036854775807,"incomplete_storage_detected":false,"max_bytes":200000,"max_records":10,"records":0}}
+  FAIL
+
+VERDICT: FAIL

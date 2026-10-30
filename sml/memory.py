@@ -34,6 +34,7 @@ class IntegrityError(RuntimeError):
 
 
 READ_LIMIT = 16_000_000  # bytes; the reader refuses larger files, so no writer may produce one (R2-05)
+MAX_COUNTER = 2**63 - 1  # P3-01: counters stay in a signed 64-bit range, so every store file is readable by the Rust port
 _HELD = threading.local()  # directories whose lock this thread already holds (R2-02)
 
 
@@ -48,6 +49,13 @@ class LockError(IntegrityError):
 
 class CommitUncertain(RuntimeError):
     """Replace occurred but durability confirmation failed; reopen before retry."""
+
+
+def _bump(s, k):
+    """P3-01: a counter at MAX_COUNTER refuses the write instead of leaving the signed 64-bit range."""
+    if s[k] >= MAX_COUNTER:
+        raise CapacityError(f"{k} exhausted; no write committed")
+    s[k] += 1
 
 
 def canonical(obj):
@@ -184,7 +192,7 @@ class MemoryStore:
         self.fault = fault or (lambda stage: None)
         self._poisoned = False
         if create:
-            if type(max_records) is not int or max_records < 1:
+            if type(max_records) is not int or not 1 <= max_records <= MAX_COUNTER:  # P3-01
                 raise ValueError("invalid max_records")
             if type(max_bytes) is not int or not 1024 <= max_bytes <= 16_000_000:
                 raise ValueError("invalid max_bytes")
@@ -236,7 +244,7 @@ class MemoryStore:
                 "max_records", "max_bytes", "records"} or type(s["schema"]) is not int or s["schema"] != 1:  # M1
             raise ValueError("invalid snapshot schema")
         for k in ("generation", "next_id", "max_records", "max_bytes"):
-            if type(s[k]) is not int or s[k] < (0 if k == "generation" else 1):
+            if type(s[k]) is not int or not (0 if k == "generation" else 1) <= s[k] <= MAX_COUNTER:  # P3-01
                 raise ValueError("invalid snapshot counters")
         if not 1024 <= s["max_bytes"] <= READ_LIMIT:  # R2-05: same bounds as the constructor
             raise ValueError("stored max_bytes outside supported range")
@@ -419,8 +427,8 @@ class MemoryStore:
                 "provenance": p, "timestamp": ts, "recorded_at": now, "weight": w,
                 "protected": protected, "status": "current", "supersedes": supersedes,
                 "revocation": None, "embedding": emb})
-            s["next_id"] += 1
-            s["generation"] += 1
+            _bump(s, "next_id")
+            _bump(s, "generation")
             if len(self._encode(s)) > s["max_bytes"]:
                 raise CapacityError("byte capacity exhausted; no write committed")
             self._commit(s)
@@ -452,7 +460,7 @@ class MemoryStore:
             # revocation time is clamped to the record's timestamp (never earlier).
             r["revocation"] = {"reason": reason, "provenance": p,
                                "at": max(number(self.clock(), "clock"), r["timestamp"])}
-            s["generation"] += 1
+            _bump(s, "generation")
             if len(self._encode(s)) > s["max_bytes"]:
                 raise CapacityError("revocation does not fit; original unchanged")
             self._commit(s)
@@ -486,7 +494,7 @@ class MemoryStore:
                 raise CapacityError("protected chains prevent compaction; unchanged")
             if removed:
                 s["records"] = [r for r in s["records"] if r["id"] not in removed]
-                s["generation"] += 1
+                _bump(s, "generation")
                 self._commit(s)
             return removed
 

@@ -29,7 +29,7 @@ python3 attack/explore.py --target .    # exploratory attacks (E1-E5)
 - **Not tested** on real power loss or hostile users.
 - **Not shown** to retrieve better than "most recent first".
 
-What broke and what was fixed: round 1 (Claude) in [`attack/RESULTS.md`](attack/RESULTS.md); round 2 (ChatGPT found, Claude fixed) in [`review/round2_chatgpt/RESULTS_ROUND2.md`](review/round2_chatgpt/RESULTS_ROUND2.md); EXT-01 (outside review, above) in [`review/ext01_2026-10-30/RESULTS.md`](review/ext01_2026-10-30/RESULTS.md); round 3 (ChatGPT found 14, Claude fixed 12 and declared 2 as limits) in [`review/round3_chatgpt/RESULTS_ROUND3.md`](review/round3_chatgpt/RESULTS_ROUND3.md). Known limits are at the end of `attack/RESULTS.md`.
+What broke and what was fixed: round 1 (Claude) in [`attack/RESULTS.md`](attack/RESULTS.md); round 2 (ChatGPT found, Claude fixed) in [`review/round2_chatgpt/RESULTS_ROUND2.md`](review/round2_chatgpt/RESULTS_ROUND2.md); EXT-01 (outside review, above) in [`review/ext01_2026-10-30/RESULTS.md`](review/ext01_2026-10-30/RESULTS.md); round 3 (ChatGPT found 14, Claude fixed 12 and declared 2 as limits) in [`review/round3_chatgpt/RESULTS_ROUND3.md`](review/round3_chatgpt/RESULTS_ROUND3.md); P3-01 (ChatGPT found: Python could write stores the Rust port could not open; Claude fixed) in [`review/p3_01/RESULTS.md`](review/p3_01/RESULTS.md). Known limits are at the end of `attack/RESULTS.md`.
 
 ## History
 

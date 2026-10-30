@@ -402,12 +402,14 @@ fn rec(s: &mut Value) -> &mut Vec<Value> {
     unreachable!("validated snapshot")
 }
 
-fn bump(s: &mut Value, k: &str) {
+/// P3-01: a counter at i64::MAX refuses the write (CapacityError), as Python's `_bump` does.
+fn bump(s: &mut Value, k: &str) -> Result<()> {
     if let Value::Obj(m) = s {
         if let Some(Value::Int(i)) = m.get_mut(k) {
-            *i += 1;
+            *i = i.checked_add(1).ok_or_else(|| SmlError::Capacity(format!("{} exhausted; no write committed", k)))?;
         }
     }
+    Ok(())
 }
 
 fn field(s: &Value, k: &str) -> i64 {
@@ -659,8 +661,8 @@ impl MemoryStore {
         r.insert("revocation".into(), Value::Null);
         r.insert("embedding".into(), Value::Arr(emb.into_iter().map(Value::Float).collect()));
         rec(&mut s).push(Value::Obj(r));
-        bump(&mut s, "next_id");
-        bump(&mut s, "generation");
+        bump(&mut s, "next_id")?;
+        bump(&mut s, "generation")?;
         if encode(&s)?.len() as i64 > field(&s, "max_bytes") {
             return Err(SmlError::Capacity("byte capacity exhausted; no write committed".into()));
         }
@@ -712,7 +714,7 @@ impl MemoryStore {
             rv.insert("at".into(), at);
             set(r, "revocation", Value::Obj(rv));
         }
-        bump(&mut s, "generation");
+        bump(&mut s, "generation")?;
         if encode(&s)?.len() as i64 > field(&s, "max_bytes") {
             return Err(SmlError::Capacity("revocation does not fit; original unchanged".into()));
         }
@@ -764,7 +766,7 @@ impl MemoryStore {
             let keep: Vec<Value> = records.into_iter()
                 .filter(|r| !removed.contains(&int_of(r.get("id").unwrap()).unwrap())).collect();
             *rec(&mut s) = keep;
-            bump(&mut s, "generation");
+            bump(&mut s, "generation")?;
             self.commit(&s)?;
         }
         Ok(removed)
