@@ -1,6 +1,6 @@
 # How to test SML (and how to report)
 
-Thanks for looking. The most useful thing you can do is **try to make it do something its documentation says it won't**, then tell me exactly how.
+Thanks for looking. Testing and reporting are always free under the license (BSL 1.1; see [COMMERCIAL.md](COMMERCIAL.md)). The most useful thing you can do is **try to make it do something its documentation says it won't**, then tell me exactly how.
 
 ## 5-minute check
 

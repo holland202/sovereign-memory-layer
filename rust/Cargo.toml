@@ -5,6 +5,7 @@ edition = "2021"
 rust-version = "1.75"
 description = "Sovereign Memory Layer: Rust port of the Python reference store (same file format)"
 publish = false
+license-file = "../LICENSE"
 
 [dependencies]
 sha2 = "0.10"

@@ -35,3 +35,7 @@ What broke and what was fixed: round 1 (Claude) in [`attack/RESULTS.md`](attack/
 This tree started as the October 29 identifier-fix candidate. It has had two hardening rounds: Claude found and fixed 6 defects, then ChatGPT found 6 more, which Claude fixed. See [PUBLICATION_NOTE.md](PUBLICATION_NOTE.md) for the one file removed before publishing. Its README is kept as `README_CANDIDATE.md`, its `MANIFEST.sha256` and `verify_candidate.py` are unchanged, and the original patch is under `originals/`. `MANIFEST_HARDENED.sha256` covers this version.
 
 Provenance: Claude (Anthropic, Opus 5.5) attacked, fixed and tested this on 2026-10-30 → human validation: not performed → human editing/curation: none → responsibility: Chad Holland. Review level: direction only.
+
+## License
+
+[Business Source License 1.1](LICENSE). Testing, evaluation, research and independent review are always free. Production use is free for individuals, nonprofits, research institutions and small organizations (under 100 people and US$1M revenue); larger organizations need a commercial license. Each version becomes Apache 2.0 four years after it is published. See [COMMERCIAL.md](COMMERCIAL.md).
