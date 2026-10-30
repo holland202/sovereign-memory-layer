@@ -24,7 +24,7 @@ python3 attack/explore.py --target .    # exploratory attacks (E1-E5)
 ## Status (honest)
 
 - **Self-tested only.** Claude (Anthropic) and ChatGPT (OpenAI) built and attacked it at Chad Holland's direction. No person has independently tested it yet.
-- **On a phone:** the Python suite passed on a Samsung S25 Ultra under Termux, run by the owner ([device_runs/](device_runs/)). The Rust port's 12 tests also passed there (owner-run); the Python-vs-Rust comparison has not been run on the phone yet.
+- **On a phone:** the Python suite passed on a Samsung S25 Ultra under Termux, run by the owner ([device_runs/](device_runs/)). The Rust port's 12 tests also passed there (owner-run); the quick Python-vs-Rust comparison also found 0 differences on the phone (Python 3.14.6).
 - **Not tested** on real power loss or hostile users.
 - **Not shown** to retrieve better than "most recent first".
 

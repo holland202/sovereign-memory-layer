@@ -47,8 +47,9 @@ def run(args, cwd):
 
 
 def deep_nesting_raises_recursion():
-    """A1's defect needs json to raise RecursionError on deep nesting. Python 3.14 does not
-    (found by CI, 2026-10-30), so on such interpreters the A1 mutant cannot be killed: n/a."""
+    """A1's defect needs json to raise RecursionError on deep nesting. Some interpreters do not
+    (CPython 3.14.9 on GitHub's runners, found by CI 2026-10-30; but 3.14.6 on Termux/Android does),
+    so this is probed at run time; where it cannot happen the A1 mutant cannot be killed: n/a."""
     import json as _json
     try:
         _json.loads("[" * 100_000 + "]" * 100_000)
