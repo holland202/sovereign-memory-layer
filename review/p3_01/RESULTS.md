@@ -123,3 +123,7 @@ All have 0 mismatches. The output is in `differential_full.txt`. This closes the
 - If anyone does report such a file, the recovery is to rewrite `max_records` (or the counter) to 2^63−1 and re-sign the file. That would be done as its own change, with tests.
 
 Made by Claude (Anthropic, Opus 5.5) under the repo-work calls Chad Holland delegated on 2026-10-30. Chad can reverse it.
+
+## S25 (appended 2026-10-31)
+
+Chad Holland ran `verify_hardened.py` (PASS) and `cargo test --release` (16 passed, 1 ignored) on the phone at `41a016e`. See `device_runs/2026-10-31_S25_termux.md`. Its results are transcribed, not quoted; it says why. The device differential at this commit has not been run.
