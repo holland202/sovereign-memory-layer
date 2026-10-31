@@ -1,0 +1,6 @@
+   Compiling sml v0.1.0 (/workspace/scratch/023a3d579cb0/sml-review/rust)
+    Finished `release` profile [optimized] target(s) in 1.03s
+     Running unittests src/lib.rs (rust/target/release/deps/sml-e7755d2365fd7a2b)
+     Running unittests src/bin/sml-cli.rs (rust/target/release/deps/sml_cli-4736d6632210f1c3)
+     Running tests/store.rs (rust/target/release/deps/store-e11f356efbe3de86)
+   Doc-tests sml
