@@ -112,3 +112,14 @@ Option (b) changes stored data, so it needs its own tests and review.
 - D6: 100 kills, 2,307 acknowledged writes, none lost.
 
 All have 0 mismatches. The output is in `differential_full.txt`. This closes the first "Still open" item above. The S25 run and the declared CLI difference are still open.
+
+*Note, appended 2026-10-30:* the section above is a third run. It was made without knowing about the second session's run (`9474d2d`), and its numbers agree with that run. When it says "Still open", it missed the old-store gap the second session found.
+
+## Decision on the old-store gap (2026-10-30)
+
+**(a) Fail closed and document it.** No migration tool will be added.
+- Only a store created with `max_records ≥ 2^63`, or one that took 2^63 writes, is affected. Only code from before `4b4bda1` could write one, and the repository went public on 2026-10-30. No tester has reported such a file.
+- A migration tool would rewrite stored data. That is a larger risk than a store which fails closed and loses nothing.
+- If anyone does report such a file, the recovery is to rewrite `max_records` (or the counter) to 2^63−1 and re-sign the file. That would be done as its own change, with tests.
+
+Made by Claude (Anthropic, Opus 5.5) under the repo-work calls Chad Holland delegated on 2026-10-30. Chad can reverse it.
