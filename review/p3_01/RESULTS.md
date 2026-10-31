@@ -101,3 +101,14 @@ What was run, with the raw output in `rerun_2026-10-30/`:
 
 Option (b) changes stored data, so it needs its own tests and review.
 
+
+## Full differential (appended 2026-10-30, after `4b4bda1`)
+
+`python3 tools/differential.py` at `4b4bda1` gave **VERDICT IDENTICAL**:
+- D1: 400 sequences, 24,400 operations;
+- D2: 200,000 floats;
+- D3: 3,402 corrupt files;
+- D5: mixed writers;
+- D6: 100 kills, 2,307 acknowledged writes, none lost.
+
+All have 0 mismatches. The output is in `differential_full.txt`. This closes the first "Still open" item above. The S25 run and the declared CLI difference are still open.
