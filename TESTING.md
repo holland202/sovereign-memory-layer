@@ -11,7 +11,7 @@ sha256sum -c MANIFEST_HARDENED.sha256      # macOS: shasum -a 256 -c MANIFEST_HA
 python3 verify_hardened.py                 # expect "verdict": "PASS", exit 0
 ```
 
-It needs Python 3.10 or newer, standard library only, on Linux or macOS. Windows is not supported, because the store uses POSIX file locking. Running it on Android/Termux would be especially useful; nobody has yet.
+It needs Python 3.10 or newer, standard library only, on Linux or macOS. Windows is not supported, because the store uses POSIX file locking. The owner has run it on Android/Termux (Samsung S25 Ultra; see `device_runs/`). Runs by anyone else on Android would be especially useful. *(Corrected 2026-10-30, found by ChatGPT's Task 3 review: this line used to say nobody had run it on Termux.)*
 
 ## What it promises (try to break these)
 

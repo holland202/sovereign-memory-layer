@@ -22,7 +22,7 @@ jobs:
       - name: File hashes match the manifest
         run: |
           if command -v sha256sum >/dev/null; then sha256sum -c MANIFEST_HARDENED.sha256 --quiet; else shasum -a 256 -c MANIFEST_HARDENED.sha256 --quiet; fi
-      - name: 69 tests pass and every fix-removal mutant is caught
+      - name: 79 tests pass and every fix-removal mutant is caught
         run: python3 verify_hardened.py
       - name: The verifier itself can fail (a fix removed must turn it red)
         run: |
@@ -43,6 +43,10 @@ jobs:
           python-version: "3.13"   # bit-identical embeddings need CPython >= 3.12 sum()
       - name: Rust unit and integration tests
         run: cargo test --release --manifest-path rust/Cargo.toml
+      - name: ChatGPT Task 3 contract tests (both implementations)
+        run: |
+          python3 review/chatgpt_task3/test_contracts.py
+          git checkout -- review/chatgpt_task3/raw/contracts.protocol.jsonl  # the run rewrites its own log; keep the committed evidence
       - name: Differential test, Python reference vs Rust port (quick)
         run: python3 tools/differential.py --quick
       - name: The differential test can fail (a sabotaged port must be caught)

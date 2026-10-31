@@ -13,7 +13,7 @@ A small offline memory store for AI agents. Python standard library only, with a
 ## Run it
 
 ```bash
-python3 verify_hardened.py      # 69 tests + 12 fix-removal mutants; exit 0 = pass
+python3 verify_hardened.py      # 79 tests + 19 fix-removal mutants; exit 0 = pass
 python3 -m unittest discover -s tests -v
 python3 attack/attack.py --target .     # Claude's attack suite (A1-A15)
 python3 attack/explore.py --target .    # exploratory attacks (E1-E5)
@@ -27,6 +27,7 @@ python3 attack/explore.py --target .    # exploratory attacks (E1-E5)
 - **One outside code review:** Nathan Freestone (The Elora Taurus Project, [github.com/EloraTaurus](https://github.com/EloraTaurus)) read the code with AI assistance and reported two issues, on resource use and lock handling. Both were reproduced and fixed, and checking the lock handling turned up a third defect, also fixed (EXT-01). He did not run the code, and his credit is not an endorsement.
 - **On a phone:** the Python suite passed on a Samsung S25 Ultra under Termux, run by the owner ([device_runs/](device_runs/)). The Rust port's 12 tests also passed there (owner-run); the quick Python-vs-Rust comparison also found 0 differences on the phone (Python 3.14.6).
 - **Not tested** on real power loss or hostile users.
+- **Recalled values are untrusted data.** The store returns exactly what was written, together with its source and locator. Text that reads like an instruction is returned as text. A program or AI model that puts recalled values into its own context has to treat them as data, not orders. No test yet shows how a model handles such text.
 - **Not shown** to retrieve better than "most recent first".
 
 What broke and what was fixed: round 1 (Claude) in [`attack/RESULTS.md`](attack/RESULTS.md); round 2 (ChatGPT found, Claude fixed) in [`review/round2_chatgpt/RESULTS_ROUND2.md`](review/round2_chatgpt/RESULTS_ROUND2.md); EXT-01 (outside review, above) in [`review/ext01_2026-10-30/RESULTS.md`](review/ext01_2026-10-30/RESULTS.md); round 3 (ChatGPT found 14, Claude fixed 12 and declared 2 as limits) in [`review/round3_chatgpt/RESULTS_ROUND3.md`](review/round3_chatgpt/RESULTS_ROUND3.md); P3-01 (ChatGPT found: Python could write stores the Rust port could not open; Claude fixed) in [`review/p3_01/RESULTS.md`](review/p3_01/RESULTS.md). Known limits are at the end of `attack/RESULTS.md`.
