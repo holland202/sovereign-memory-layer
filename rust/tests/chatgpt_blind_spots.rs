@@ -12,7 +12,11 @@ use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 struct Temp(PathBuf);
 impl Temp {
     fn new() -> Self {
-        let p=std::env::temp_dir().join(format!("sml-chatgpt-{}-{}",std::process::id(),SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_nanos()));
+        // Fix 2026-10-31 (Claude): the clock alone collided between parallel tests on macOS
+        // (coarse clock, EEXIST); a per-process counter makes each name unique.
+        static N: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
+        let n=N.fetch_add(1,std::sync::atomic::Ordering::Relaxed);
+        let p=std::env::temp_dir().join(format!("sml-chatgpt-{}-{}-{}",std::process::id(),SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_nanos(),n));
         fs::create_dir(&p).unwrap(); Self(p)
     }
 }
@@ -76,7 +80,12 @@ fn task3_kill_worker() {
     let stage=std::env::var("SML_TASK3_STAGE").unwrap();
     let op=std::env::var("SML_TASK3_OP").unwrap();
     let fault=Box::new(move|at:&str| {
-        if at==stage { unsafe { libc::kill(libc::getpid(),libc::SIGKILL); } panic!("SIGKILL returned"); }
+        if at==stage {
+            unsafe { libc::kill(libc::getpid(),libc::SIGKILL); }
+            // Fix 2026-10-31 (Claude): on macOS kill() returns before the signal lands; wait for it
+            // instead of panicking at once (the panic could race the kill and exit 101).
+            std::thread::sleep(Duration::from_secs(10)); panic!("SIGKILL returned");
+        }
         Ok(())
     });
     let m=MemoryStore::open(d,Box::new(||1000.0),Some(fault)).unwrap();
