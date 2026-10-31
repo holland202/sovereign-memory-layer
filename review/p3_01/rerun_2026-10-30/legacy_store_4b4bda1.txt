@@ -1,0 +1,10 @@
+# Old store opened by the fixed code. Run 2026-10-30, Python 3.13.18, rustc 1.97.0, x86_64 container.
+# 1. Create with the pre-fix Python (f86c8e6):
+$ echo '{"op":"create","dir":"<D>","max_records":9223372036854775808,"max_bytes":2000000,"clock":1000.0}' | python3 <f86c8e6>/tools/py_cli.py <f86c8e6>
+{"ok":true,"result":null}
+SHA256_BEFORE 7afb95cc6bb42d18a6b87a8ab0ff0561b42e26afa1ee6073f51d6b6c922c3eea
+FILE {"payload":{"generation":0,"max_bytes":2000000,"max_records":9223372036854775808,"next_id":1,"records":[],"schema":1},"sha256":"a7758eb8fc45505dde0bc538b05cc9f5c441aaeb7c014de0f547f8b329523094"}
+# 2. Open with the fixed code (4b4bda1):
+PYTHON_4b4bda1 {"error":"IntegrityError","ok":false}
+RUST_4b4bda1   {"error":"IntegrityError","ok":false}
+SHA256_AFTER  7afb95cc6bb42d18a6b87a8ab0ff0561b42e26afa1ee6073f51d6b6c922c3eea

@@ -59,6 +59,45 @@ After the fix:
 
 ## Still open
 
-- The full (non-quick) differential was not re-run for this change.
+- The full (non-quick) differential was not re-run for this change. *(Update: run in a second session, below; IDENTICAL.)*
 - Not run on the S25.
 - The Rust CLI's `BadOp` for integers outside `i64` is declared, not removed.
+- **No recovery path for old stores.** A store the pre-fix Python already wrote with a counter above 2^63−1 cannot be opened by either program now. Details below.
+
+## Second session: rerun and one new gap (2026-10-30)
+
+**Who:** Claude (Anthropic, Opus 5.5), in a separate session from the fix. It is the same model that wrote the fix, so this is **SELF-TESTED**, not independent review. Done at Chad Holland's direction. Environment: x86_64 container, Python 3.13.18, rustc 1.97.0. **NOT VALIDATED on the S25.**
+
+**Predictions written before running:**
+1. At `f86c8e6`, the control matches and the `2^63` case mismatches. The probe exits 1.
+2. At `4b4bda1`, Python refuses the create and the probe still exits 1, as described above.
+
+Both held.
+
+What was run, with the raw output in `rerun_2026-10-30/`:
+- **ChatGPT's probe**, checked to be the same file (same sha256 `b17ae480…ec3e`), on fresh release builds of both commits.
+  - `probe_before_f86c8e6.txt`: MISMATCH at `2^63`. Python answers `ok`, Rust answers `IntegrityError`.
+  - `probe_after_4b4bda1.txt`: MATCH at `2^63−1`. At `2^63`, Python refuses with `ValueError`.
+- **Cross-check of ChatGPT's own numbers.** The store the pre-fix Python writes has sha256 `7afb95cc…3eea`. That is byte-for-byte the hash ChatGPT reported from its older archive.
+- **Suites at `4b4bda1`.** `verify_hardened.py` reports 79 tests and 19 of 19 mutants killed. `cargo test` passes 14 tests. Both match the numbers above.
+- **Full differential**, `tools/differential.py` without `--quick`, in `differential_full_4b4bda1.txt`. **VERDICT IDENTICAL**:
+  - D1: 400 sequences, 24,400 ops, 0 mismatches.
+  - D2: 200,000 values, 0 mismatches.
+  - D3: 3,402 cases, 0 mismatches.
+  - D5: 240 of 240 records.
+  - D6: 100 trials, 0 unacked extras.
+  - D4 has no line of its own. It runs inside D1's loop.
+
+**New gap: old stores** (`legacy_store_4b4bda1.txt`). This is the migration question ChatGPT raised. The fix does not answer it, and no document mentioned it.
+- The test created a `max_records = 2^63` store with the pre-fix Python, then opened it with the fixed code.
+- Python and Rust now **both** answer `IntegrityError`, so the two programs agree.
+- The file is unchanged (same sha256 before and after). Nothing is lost, and the store fails closed.
+- But the store's owner cannot open it with either program. No tool or instruction exists to recover it.
+- Reachability is the same as the original finding: only someone who asked for `2^63`, or who made 2^63 writes, can have such a file.
+
+**Owner decision, not made here:**
+- (a) keep it fail-closed and document it; or
+- (b) add a one-off migration tool that lowers an out-of-range counter to 2^63−1 and re-signs the file.
+
+Option (b) changes stored data, so it needs its own tests and review.
+
