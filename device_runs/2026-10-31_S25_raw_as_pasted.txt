@@ -1,0 +1,22 @@
+Python 3.14.6
+{
+ "suite_tests": 79,
+ "suite_ok": true,
+ "mutants": {
+  "A1-recursion-not-caught": "killed",
+  "A10-lock-open-unwrapped": "killed",
+  "A7-revoke-clock-unclamped": "killed",
+  "A8-future-records-ignored": "killed",
+  "E1-no-nfc": "killed",
+  "E2-no-control-check": "killed",
+  "R2-01-recall-key-unchecked": "killed",
+  "R2-02-no-reentrancy-guard": "killed",
+  "R2-03-revoke-old-provenance-check": "killed",
+  "R2-04-exact-key-link-check": "killed",
+  "R2-05-no-stored-max-bytes-range": "killed",
+  "M1-schema-type-unchecked": "killed",
+  "EXT01-N1-no-early-byte-refusal": "killed",
+  "EXT01-N3-flock-error-unwrapped": "killed",                               "R3-02-inexact-integers-accepted": "killed",
+  "EXT01-N4-unlock-error-escapes": "killed",                                "P3-01-create-unbounded": "killed",
+  "P3-01-read-unbounded": "killed",                                         "P3-01-bump-unchecked": "killed"                                         },
+ "verdict": "PASS"                                                        }
