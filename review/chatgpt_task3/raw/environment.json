@@ -1,0 +1,24 @@
+{
+  "base": "4b4bda1064c85500e898505032327b0364f43a29",
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+  "unicode": "15.0.0",
+  "tool_env": {
+    "CARGO_HOME": "/workspace/scratch/023a3d579cb0/rust-tools/cargo",
+    "RUSTUP_HOME": "/workspace/scratch/023a3d579cb0/rust-tools/rustup"
+  },
+  "path_prefix": "/workspace/scratch/023a3d579cb0/rust-tools/cargo/bin",
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1\n",
+  "source_sha256": {
+    "README.md": "5a09fd43ba239318f680c2e0126ffeec299919dd9b8d81076158ba358d62fc30",
+    "TESTING.md": "6636d0bc7d850b5b1007aa45b8b0aa897cc17aabc1e3d2226093d4858c39c4d4",
+    "sml/memory.py": "9d4553bd666e73361576a5dec23613e0d4c7bfe779ee6d1e82af7042e0eb5185",
+    "rust/src/store.rs": "5924b8114faa2a6d11f98cafc0c78d5879568bbd8809ab80a97c2255b1510cea",
+    "rust/src/json.rs": "4bc64b8057184ad77f9722372e02071e34cc6121f75c72746f75fba93b5bb2f6",
+    "rust/src/text.rs": "ee42c4ddd8b486a4fa9f3de0a8c4bfd8ba0e31865591484d70fe7aae83d3c970",
+    "tools/differential.py": "70683b21bd056837ec9aa099b0057dab42eac06fc98027f6cc9680376057111a",
+    "rust/tests/store.rs": "e6c4256bb51b58448614a0563a3600e7a61f52491b224a21d1f979f564fd0bf5",
+    "review/p3_01/test_large_counter_interop.py": "b17ae480bec54745b61511b58dcb75bbecebae3fbadf62dd4979e4556737ec3e",
+    "review/p3_01/CHATGPT_SML_RUST_REVIEW.md": "c396b4c64dbdf5ae70b6dcba48703f2132e350fac5e4c8734e9cae2c90e0a71e"
+  }
+}

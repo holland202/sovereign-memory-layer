@@ -1,0 +1,3 @@
+   Compiling sml v0.1.0 (/workspace/scratch/023a3d579cb0/sml-review/rust)
+    Finished `release` profile [optimized] target(s) in 0.53s
+     Running tests/chatgpt_blind_spots.rs (rust/target/release/deps/chatgpt_blind_spots-f52ed60da657ad8c)

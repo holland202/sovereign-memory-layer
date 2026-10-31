@@ -1,0 +1,1 @@
+cargo test --release --locked --manifest-path rust/Cargo.toml --test chatgpt_blind_spots -- --nocapture --test-threads=1

@@ -1,0 +1,15 @@
+test_checksummed_semantic_invalidity_is_integrity_error (__main__.Contracts.test_checksummed_semantic_invalidity_is_integrity_error) ... ok
+test_cli_exact_positive_identifiers (__main__.Contracts.test_cli_exact_positive_identifiers) ... ok
+test_contradiction_survives_topk_similarity_and_clock_filtering (__main__.Contracts.test_contradiction_survives_topk_similarity_and_clock_filtering) ... ok
+test_exact_byte_boundary_all_write_paths (__main__.Contracts.test_exact_byte_boundary_all_write_paths) ... ok
+test_history_every_original_field_and_new_provenance (__main__.Contracts.test_history_every_original_field_and_new_provenance) ... ok
+test_p301_all_mutators_at_counter_limit (__main__.Contracts.test_p301_all_mutators_at_counter_limit) ... ok
+test_p301_create_and_persisted_counter_bounds (__main__.Contracts.test_p301_create_and_persisted_counter_bounds) ... ok
+test_p301_last_permitted_increment_then_refusal (__main__.Contracts.test_p301_last_permitted_increment_then_refusal) ... ok
+test_python_sigkill_other_mutators_at_commit_boundaries (__main__.Contracts.test_python_sigkill_other_mutators_at_commit_boundaries) ... ok
+test_revoke_source_and_locator_controls (__main__.Contracts.test_revoke_source_and_locator_controls) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 3.898s
+
+OK

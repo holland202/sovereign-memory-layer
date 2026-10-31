@@ -1,0 +1,64 @@
+$ git diff --check 4b4bda1064c85500e898505032327b0364f43a29 HEAD
+stdout:
+review/chatgpt_task3/raw/baseline_rust.stdout.txt:34: new blank line at EOF.
+review/chatgpt_task3/raw/rust_gaps.stdout.txt:25: new blank line at EOF.
+stderr:
+exit=2
+
+$ git diff --check 4b4bda1064c85500e898505032327b0364f43a29 HEAD -- . :!review/chatgpt_task3/raw
+stdout:
+stderr:
+exit=0
+
+$ git diff --name-status 4b4bda1064c85500e898505032327b0364f43a29 HEAD
+stdout:
+A	review/chatgpt_task3/REPORT.md
+A	review/chatgpt_task3/raw/baseline_python.command.txt
+A	review/chatgpt_task3/raw/baseline_python.exit.txt
+A	review/chatgpt_task3/raw/baseline_python.stderr.txt
+A	review/chatgpt_task3/raw/baseline_python.stdout.txt
+A	review/chatgpt_task3/raw/baseline_rust.command.txt
+A	review/chatgpt_task3/raw/baseline_rust.exit.txt
+A	review/chatgpt_task3/raw/baseline_rust.stderr.txt
+A	review/chatgpt_task3/raw/baseline_rust.stdout.txt
+A	review/chatgpt_task3/raw/build.command.txt
+A	review/chatgpt_task3/raw/build.exit.txt
+A	review/chatgpt_task3/raw/build.stderr.txt
+A	review/chatgpt_task3/raw/build.stdout.txt
+A	review/chatgpt_task3/raw/contracts.command.txt
+A	review/chatgpt_task3/raw/contracts.exit.txt
+A	review/chatgpt_task3/raw/contracts.protocol.jsonl
+A	review/chatgpt_task3/raw/contracts.stderr.txt
+A	review/chatgpt_task3/raw/contracts.stdout.txt
+A	review/chatgpt_task3/raw/counter_exhaustion.command.txt
+A	review/chatgpt_task3/raw/counter_exhaustion.exit.txt
+A	review/chatgpt_task3/raw/counter_exhaustion.stderr.txt
+A	review/chatgpt_task3/raw/counter_exhaustion.stdout.txt
+A	review/chatgpt_task3/raw/differential.command.txt
+A	review/chatgpt_task3/raw/differential.exit.txt
+A	review/chatgpt_task3/raw/differential.stderr.txt
+A	review/chatgpt_task3/raw/differential.stdout.txt
+A	review/chatgpt_task3/raw/environment.json
+A	review/chatgpt_task3/raw/manifest.command.txt
+A	review/chatgpt_task3/raw/manifest.exit.txt
+A	review/chatgpt_task3/raw/manifest.stderr.txt
+A	review/chatgpt_task3/raw/manifest.stdout.txt
+A	review/chatgpt_task3/raw/manifest_after.command.txt
+A	review/chatgpt_task3/raw/manifest_after.exit.txt
+A	review/chatgpt_task3/raw/manifest_after.stderr.txt
+A	review/chatgpt_task3/raw/manifest_after.stdout.txt
+A	review/chatgpt_task3/raw/original_probe.command.txt
+A	review/chatgpt_task3/raw/original_probe.exit.txt
+A	review/chatgpt_task3/raw/original_probe.stderr.txt
+A	review/chatgpt_task3/raw/original_probe.stdout.txt
+A	review/chatgpt_task3/raw/rust_gaps.command.txt
+A	review/chatgpt_task3/raw/rust_gaps.exit.txt
+A	review/chatgpt_task3/raw/rust_gaps.stderr.txt
+A	review/chatgpt_task3/raw/rust_gaps.stdout.txt
+A	review/chatgpt_task3/test_contracts.py
+A	rust/tests/chatgpt_blind_spots.rs
+stderr:
+exit=0
+
+Scope PASS: all 45 entries are additions under review/chatgpt_task3/ or rust/tests/chatgpt_blind_spots.rs. The final_scope.txt log itself is an additional review artifact.
+Raw Cargo stdout includes trailing blank lines; full raw outputs are preserved verbatim. Non-raw additions pass whitespace checks.

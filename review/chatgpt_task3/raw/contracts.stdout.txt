@@ -1,0 +1,24 @@
+{"check": "byte_boundary", "side": "python", "op": "put", "spare": 0, "cap": 3917, "result": {"ok": true, "result": 2}}
+{"check": "byte_boundary", "side": "python", "op": "put", "spare": -1, "cap": 3916, "result": {"error": "CapacityError", "ok": false}}
+{"check": "byte_boundary", "side": "python", "op": "correct", "spare": 0, "cap": 3905, "result": {"ok": true, "result": 2}}
+{"check": "byte_boundary", "side": "python", "op": "correct", "spare": -1, "cap": 3904, "result": {"error": "CapacityError", "ok": false}}
+{"check": "byte_boundary", "side": "python", "op": "revoke", "spare": 0, "cap": 2458, "result": {"ok": true, "result": null}}
+{"check": "byte_boundary", "side": "python", "op": "revoke", "spare": -1, "cap": 2457, "result": {"error": "CapacityError", "ok": false}}
+{"check": "byte_boundary", "side": "rust", "op": "put", "spare": 0, "cap": 3917, "result": {"ok": true, "result": 2}}
+{"check": "byte_boundary", "side": "rust", "op": "put", "spare": -1, "cap": 3916, "result": {"error": "CapacityError", "ok": false}}
+{"check": "byte_boundary", "side": "rust", "op": "correct", "spare": 0, "cap": 3905, "result": {"ok": true, "result": 2}}
+{"check": "byte_boundary", "side": "rust", "op": "correct", "spare": -1, "cap": 3904, "result": {"error": "CapacityError", "ok": false}}
+{"check": "byte_boundary", "side": "rust", "op": "revoke", "spare": 0, "cap": 2458, "result": {"ok": true, "result": null}}
+{"check": "byte_boundary", "side": "rust", "op": "revoke", "spare": -1, "cap": 2457, "result": {"error": "CapacityError", "ok": false}}
+{"check": "python_kill", "op": "correct", "stage": "partial_write", "exit": -9, "new_visible": false, "file_sha256": "3ed3f95d23487eac0f6dd52366b8f29527f40d5c80e6b35739c0c8dd76222c44"}
+{"check": "python_kill", "op": "correct", "stage": "after_file_fsync", "exit": -9, "new_visible": false, "file_sha256": "3ed3f95d23487eac0f6dd52366b8f29527f40d5c80e6b35739c0c8dd76222c44"}
+{"check": "python_kill", "op": "correct", "stage": "after_replace", "exit": -9, "new_visible": true, "file_sha256": "f092e58e01440ee27779ffd078fd89d5e889eadc863c34a010a9fd533785fb8c"}
+{"check": "python_kill", "op": "correct", "stage": "after_dir_fsync", "exit": -9, "new_visible": true, "file_sha256": "f092e58e01440ee27779ffd078fd89d5e889eadc863c34a010a9fd533785fb8c"}
+{"check": "python_kill", "op": "revoke", "stage": "partial_write", "exit": -9, "new_visible": false, "file_sha256": "3ed3f95d23487eac0f6dd52366b8f29527f40d5c80e6b35739c0c8dd76222c44"}
+{"check": "python_kill", "op": "revoke", "stage": "after_file_fsync", "exit": -9, "new_visible": false, "file_sha256": "3ed3f95d23487eac0f6dd52366b8f29527f40d5c80e6b35739c0c8dd76222c44"}
+{"check": "python_kill", "op": "revoke", "stage": "after_replace", "exit": -9, "new_visible": true, "file_sha256": "08cf6db12ae42774d269c0d20a1952708b10b5a17eb03c03d61ba0e806ed215d"}
+{"check": "python_kill", "op": "revoke", "stage": "after_dir_fsync", "exit": -9, "new_visible": true, "file_sha256": "08cf6db12ae42774d269c0d20a1952708b10b5a17eb03c03d61ba0e806ed215d"}
+{"check": "python_kill", "op": "compact", "stage": "partial_write", "exit": -9, "new_visible": false, "file_sha256": "3ed3f95d23487eac0f6dd52366b8f29527f40d5c80e6b35739c0c8dd76222c44"}
+{"check": "python_kill", "op": "compact", "stage": "after_file_fsync", "exit": -9, "new_visible": false, "file_sha256": "3ed3f95d23487eac0f6dd52366b8f29527f40d5c80e6b35739c0c8dd76222c44"}
+{"check": "python_kill", "op": "compact", "stage": "after_replace", "exit": -9, "new_visible": true, "file_sha256": "b8fbb44268fbb059557e551a74fba814d261ab81cdd49abdc27e55ad06fbc0a3"}
+{"check": "python_kill", "op": "compact", "stage": "after_dir_fsync", "exit": -9, "new_visible": true, "file_sha256": "b8fbb44268fbb059557e551a74fba814d261ab81cdd49abdc27e55ad06fbc0a3"}

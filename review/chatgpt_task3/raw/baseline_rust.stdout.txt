@@ -1,0 +1,34 @@
+
+running 5 tests
+test json::tests::duplicate_keys_and_trailing_data_refused ... ok
+test json::tests::roundtrip_int_float_distinction ... ok
+test text::tests::neumaier_beats_naive ... ok
+test json::tests::float_repr_matches_python_examples ... ok
+test text::tests::split_matches_python_whitespace ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 9 tests
+test counter_at_i64_max_refuses_write_unchanged ... ok
+test deep_nesting_is_integrity_error ... ok
+test lock_path_directory_is_integrity_error ... ok
+test inexact_integer_timestamp_in_file_is_integrity_error ... ok
+test clock_behind_record_still_allows_revoke_with_clamped_time ... ok
+test capacity_refusals_leave_bytes_unchanged ... ok
+test reentrant_clock_is_refused_not_deadlocked ... ok
+test nfc_nfd_keys_are_one_key_and_controls_refused ... ok
+test fault_before_replace_leaves_state_after_replace_poisons ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

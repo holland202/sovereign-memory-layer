@@ -1,0 +1,1 @@
+cargo test --release --locked --manifest-path rust/Cargo.toml
