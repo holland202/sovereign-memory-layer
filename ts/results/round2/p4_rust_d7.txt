@@ -1,0 +1,4 @@
+D7: {"snapshots_used": 300, "discarded_invalid": 0, "int_fields_injected": 2154, "nfd_keys": 138, "ops": 4200, "mismatches": 0, "first": []} (30s)
+python 3.13.18 | rust bin /home/claude/sovereign-memory-layer/rust/target/release/sml-cli
+VERDICT IDENTICAL
+exit=0

@@ -66,3 +66,7 @@ exit=0
 - A cross-process lock for Node: a native `flock` addon, or Deno.
 
 Provenance: Claude (Anthropic, Opus 5.5), at Chad Holland's direction (2026-11-02, direction only) → human validation: not performed → human responsibility: Chad Holland. SELF-TESTED.
+
+## Correction (appended 2026-11-02): see ROUND2_RESULTS.md
+
+These tests used only files that an implementation wrote. ChatGPT's independent review reported, and D7 confirmed, that on **valid files holding integers where floats are usual**, the port compacted the wrong records. Fixed in SML-TS-002 ([ROUND2_RESULTS.md](ROUND2_RESULTS.md)). The "6 of 6" above stands for what it tested, and that scope was too narrow.
