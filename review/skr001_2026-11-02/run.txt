@@ -1,0 +1,33 @@
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 99, "contended_lock_waits": 140, "kill_at": 25, "killed": 1, "records": 99, "seed": 0, "stage": "partial_write", "unacked": 0, "victim": 3, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 93, "contended_lock_waits": 144, "kill_at": 19, "killed": 1, "records": 93, "seed": 1, "stage": "partial_write", "unacked": 0, "victim": 1, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 77, "contended_lock_waits": 140, "kill_at": 3, "killed": 1, "records": 77, "seed": 2, "stage": "partial_write", "unacked": 0, "victim": 0, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 93, "contended_lock_waits": 144, "kill_at": 19, "killed": 1, "records": 93, "seed": 3, "stage": "partial_write", "unacked": 0, "victim": 1, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 84, "contended_lock_waits": 145, "kill_at": 10, "killed": 1, "records": 84, "seed": 4, "stage": "partial_write", "unacked": 0, "victim": 1, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 98, "contended_lock_waits": 143, "kill_at": 24, "killed": 1, "records": 98, "seed": 5, "stage": "partial_write", "unacked": 0, "victim": 2, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 90, "contended_lock_waits": 143, "kill_at": 16, "killed": 1, "records": 90, "seed": 6, "stage": "partial_write", "unacked": 0, "victim": 0, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 79, "contended_lock_waits": 144, "kill_at": 5, "killed": 1, "records": 79, "seed": 7, "stage": "partial_write", "unacked": 0, "victim": 2, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 86, "contended_lock_waits": 143, "kill_at": 12, "killed": 1, "records": 86, "seed": 8, "stage": "after_file_fsync", "unacked": 0, "victim": 1, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 94, "contended_lock_waits": 141, "kill_at": 20, "killed": 1, "records": 94, "seed": 9, "stage": "after_file_fsync", "unacked": 0, "victim": 3, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 88, "contended_lock_waits": 149, "kill_at": 14, "killed": 1, "records": 88, "seed": 10, "stage": "after_file_fsync", "unacked": 0, "victim": 0, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 92, "contended_lock_waits": 143, "kill_at": 18, "killed": 1, "records": 92, "seed": 11, "stage": "after_file_fsync", "unacked": 0, "victim": 3, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 83, "contended_lock_waits": 143, "kill_at": 9, "killed": 1, "records": 83, "seed": 12, "stage": "after_file_fsync", "unacked": 0, "victim": 3, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 84, "contended_lock_waits": 144, "kill_at": 10, "killed": 1, "records": 84, "seed": 13, "stage": "after_file_fsync", "unacked": 0, "victim": 2, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 94, "contended_lock_waits": 141, "kill_at": 20, "killed": 1, "records": 94, "seed": 14, "stage": "after_file_fsync", "unacked": 0, "victim": 0, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 75, "contended_lock_waits": 142, "kill_at": 1, "killed": 1, "records": 75, "seed": 15, "stage": "after_file_fsync", "unacked": 0, "victim": 1, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 90, "contended_lock_waits": 145, "kill_at": 16, "killed": 1, "records": 91, "seed": 16, "stage": "after_replace", "unacked": 1, "victim": 2, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 84, "contended_lock_waits": 142, "kill_at": 10, "killed": 1, "records": 85, "seed": 17, "stage": "after_replace", "unacked": 1, "victim": 3, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 78, "contended_lock_waits": 144, "kill_at": 4, "killed": 1, "records": 79, "seed": 18, "stage": "after_replace", "unacked": 1, "victim": 1, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 91, "contended_lock_waits": 145, "kill_at": 17, "killed": 1, "records": 92, "seed": 19, "stage": "after_replace", "unacked": 1, "victim": 0, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 83, "contended_lock_waits": 145, "kill_at": 9, "killed": 1, "records": 84, "seed": 20, "stage": "after_replace", "unacked": 1, "victim": 1, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 88, "contended_lock_waits": 142, "kill_at": 14, "killed": 1, "records": 89, "seed": 21, "stage": "after_replace", "unacked": 1, "victim": 1, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 82, "contended_lock_waits": 149, "kill_at": 8, "killed": 1, "records": 83, "seed": 22, "stage": "after_replace", "unacked": 1, "victim": 1, "writer_errors": []}
+{"P1": true, "P2": true, "P3": true, "P4": true, "P5": true, "P6": true, "acks": 77, "contended_lock_waits": 144, "kill_at": 3, "killed": 1, "records": 78, "seed": 23, "stage": "after_replace", "unacked": 1, "victim": 2, "writer_errors": []}
+P1: HELD  (24/24 trials)
+P2: HELD  (24/24 trials)
+P3: HELD  (24/24 trials)
+P4: HELD  (24/24 trials)
+P5: HELD  (24/24 trials)
+P6: HELD  (24/24 trials)
+trials with a contended lock wait (>1 ms): 24/24
+trials where the victim died by SIGKILL: 24/24
+VERDICT 6 of 6 as registered
