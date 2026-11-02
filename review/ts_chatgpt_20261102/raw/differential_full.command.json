@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python3",
+    "tools/differential.py",
+    "--port",
+    "ts",
+    "--dev-seed",
+    "11022026"
+  ],
+  "cwd": "/workspace/scratch/97ebc2027612/sovereign-memory-layer",
+  "started_unix": 1793619442.6001024,
+  "exit_code": 0,
+  "elapsed_seconds": 315.51050090789795
+}

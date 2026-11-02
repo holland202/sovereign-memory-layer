@@ -1,0 +1,21 @@
+{"action":"canonical","value":{"\ud800\udc00":1,"\ue000":2,"\uffff":3,"a":4,"\ud83d\ude42":5}}
+{"action":"canonical","value":{"z":{"\ud801\udc00":1,"\ue001":2},"a":["\ud83d\ude42","\u0000\n\t",-0.0,100000.0]}}
+{"action":"canonical","value":{"\ud800\udc00a":1,"\ud800\udc00":2,"a\ud800\udc00":3,"a\ue000":4}}
+{"action":"hash","value":"\u039f\u03a3"}
+{"action":"hash","value":"A\u03a3\u0301"}
+{"action":"hash","value":"\u0130 i \u0131 I"}
+{"action":"hash","value":"\ud801\udc00 \ud801\udc27"}
+{"action":"hash","value":"a\u001cb\u0085c\u3000d"}
+{"action":"exp","value":"0000000000000000"}
+{"action":"exp","value":"8000000000000000"}
+{"action":"exp","value":"0000000000000001"}
+{"action":"exp","value":"8000000000000001"}
+{"action":"exp","value":"bfe62e42fefa39ef"}
+{"action":"exp","value":"be112e0be826d695"}
+{"action":"exp","value":"c080000000000000"}
+{"action":"exp","value":"c085e00000000000"}
+{"action":"exp","value":"c087400000000000"}
+{"action":"exp","value":"c087480000000000"}
+{"action":"exp","value":"c087500000000000"}
+{"action":"exp","value":"4086280000000000"}
+{"action":"exp","value":"4086280000000001"}

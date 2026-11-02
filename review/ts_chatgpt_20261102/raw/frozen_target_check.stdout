@@ -1,0 +1,108 @@
+{
+  "frozen": "e1ad1ae03aab8feb924b53365b4e943750026487",
+  "all_equal": true,
+  "files": [
+    {
+      "path": "rust/src/bin/sml-cli.rs",
+      "git_blob": "9f8291f9ae48e3ce2c0ce9ebbbabd0b7aee5555c",
+      "sha256": "80e67e8fabd7de5df13bc7d0cb202fd7f0a68a3447d8dd42b7e2c7e777f3044f",
+      "equals_frozen": true
+    },
+    {
+      "path": "rust/src/json.rs",
+      "git_blob": "276f35cdff723c1a01f2f111e37a66d827f81cd6",
+      "sha256": "4bc64b8057184ad77f9722372e02071e34cc6121f75c72746f75fba93b5bb2f6",
+      "equals_frozen": true
+    },
+    {
+      "path": "rust/src/lib.rs",
+      "git_blob": "4a11da2a1b6f081de265536de7fc8f3efa907819",
+      "sha256": "a30a51aa5634e88b33b42301aa6059e948ff6dec2829076842e39c3c30047311",
+      "equals_frozen": true
+    },
+    {
+      "path": "rust/src/store.rs",
+      "git_blob": "0d88f56d6673e2352eabf80061cef6cd5d598d2f",
+      "sha256": "5924b8114faa2a6d11f98cafc0c78d5879568bbd8809ab80a97c2255b1510cea",
+      "equals_frozen": true
+    },
+    {
+      "path": "rust/src/text.rs",
+      "git_blob": "b5f2052a92fbc058c577ee54324ac6e6107da96b",
+      "sha256": "ee42c4ddd8b486a4fa9f3de0a8c4bfd8ba0e31865591484d70fe7aae83d3c970",
+      "equals_frozen": true
+    },
+    {
+      "path": "sml/__init__.py",
+      "git_blob": "d8da5ab2a4e7cf57483d7755393a121980e820cf",
+      "sha256": "0bd6728845fe7ee57a7b8e178ef0769aefad8895f03659e4d1cd838e01bb4e00",
+      "equals_frozen": true
+    },
+    {
+      "path": "sml/memory.py",
+      "git_blob": "3337022a8e5ed687512ed09bae8da382b4fd6563",
+      "sha256": "9d4553bd666e73361576a5dec23613e0d4c7bfe779ee6d1e82af7042e0eb5185",
+      "equals_frozen": true
+    },
+    {
+      "path": "sml/policies.py",
+      "git_blob": "1258aa920a09a733799055f6e5eb2733aa6ba7b7",
+      "sha256": "77380998fbd6ece6b2bce48b0e2fa16ffe4acb2357f72044260a6d3063d7fdd8",
+      "equals_frozen": true
+    },
+    {
+      "path": "tools/differential.py",
+      "git_blob": "fa87a4602c7be6dba3594c9c0c8e850086c94e98",
+      "sha256": "63ed62b900077ad74df72b3a184ffc70a85c6cb67f5b31aaaecc4c4d23ddb3db",
+      "equals_frozen": true
+    },
+    {
+      "path": "tools/py_cli.py",
+      "git_blob": "3feba72fbd7b641db01618c80de417e20b2889dc",
+      "sha256": "b50ed6c1a6fa318deaa10edda2d605be7b6de32956ca8f793c5972944ac5d550",
+      "equals_frozen": true
+    },
+    {
+      "path": "ts/src/cli.ts",
+      "git_blob": "e7353cb5531fa580490783867797a009cb5a96c6",
+      "sha256": "6024176a2358850cdda5ebaab5f25f81d81e75b998148aa3eec10ba3821d0143",
+      "equals_frozen": true
+    },
+    {
+      "path": "ts/src/errors.ts",
+      "git_blob": "7bade3013ba5009612275e10a34d5295f38058c5",
+      "sha256": "74aa935ab9a1edab789ac3fe32945fca18930b3a8e043936261d7cb8b3c89504",
+      "equals_frozen": true
+    },
+    {
+      "path": "ts/src/exp_table.ts",
+      "git_blob": "e3c86e5cb026377e7f5438b2dbd00ffb79ecc155",
+      "sha256": "25da772ad6524499a02527da93c484deac32c0f356c23a836f11b9c1c5698d2d",
+      "equals_frozen": true
+    },
+    {
+      "path": "ts/src/json.ts",
+      "git_blob": "feb84b51ed993c648b37477bbb120acf7090cc52",
+      "sha256": "fbcd4c8c208e33a8825f89052fb281b69cdeb9dad39f8a005bcf698e2b10c3ba",
+      "equals_frozen": true
+    },
+    {
+      "path": "ts/src/pyfloat.ts",
+      "git_blob": "6f23c70435090eb6570985a7101e5be298be6f4c",
+      "sha256": "f61d6f0b834368232205deeb5fb55a53d541bcb7c7f9b885e20cb340d1b9d286",
+      "equals_frozen": true
+    },
+    {
+      "path": "ts/src/store.ts",
+      "git_blob": "27122fb5784cb891fce29b39249f13b777b33712",
+      "sha256": "020f17265ff1825a3ed2c43598b27b0bce78a39b333130d49238a30e39b44c76",
+      "equals_frozen": true
+    },
+    {
+      "path": "ts/src/text.ts",
+      "git_blob": "67d52c7ae1461a4b9cb91f8dce8212d24fd1459a",
+      "sha256": "18ccdda04d388a781cff1264548cd0c60e8974625226c2c04901f91fd7d7716f",
+      "equals_frozen": true
+    }
+  ]
+}

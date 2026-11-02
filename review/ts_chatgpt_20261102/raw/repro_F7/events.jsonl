@@ -1,0 +1,1 @@
+{"case": "A7_repr_dir_null", "step": 0, "input": "{\"op\":\"repr\",\"dir\":null,\"bits\":[\"3ff0000000000000\"]}", "raw_responses": {"py": "{\"ok\":true,\"result\":[\"1.0\"]}", "ts": "{\"error\":\"TypeError\",\"ok\":false}"}, "snapshot_sha256": {"py": null, "ts": null}, "snapshot_before_sha256": {"py": null, "ts": null}, "declared": null, "mismatches": ["protocol response"]}

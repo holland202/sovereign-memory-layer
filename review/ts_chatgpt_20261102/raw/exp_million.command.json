@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python3",
+    "ts/tests/exp_check.py",
+    "--seed",
+    "1102202601"
+  ],
+  "cwd": "/workspace/scratch/97ebc2027612/sovereign-memory-layer",
+  "started_unix": 1793619393.4088778,
+  "exit_code": 0,
+  "elapsed_seconds": 10.4644136428833
+}

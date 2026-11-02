@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python3",
+    "-c",
+    "import json,os,platform,subprocess,sys,unicodedata; print(json.dumps({\"python\":sys.version,\"machine\":platform.machine(),\"libc\":platform.libc_ver(),\"fma\":\"fma\" in open(\"/proc/cpuinfo\").read().split(),\"unicode_python\":unicodedata.unidata_version,\"node\":subprocess.check_output([\"node\",\"--version\"],text=True).strip(),\"node_versions\":json.loads(subprocess.check_output([\"node\",\"-p\",\"JSON.stringify(process.versions)\"],text=True)),\"registration_commit\":subprocess.check_output([\"git\",\"show\",\"-s\",\"--format=%H %cI\",\"f4d6810\"],text=True).strip()},indent=2))"
+  ],
+  "cwd": "/workspace/scratch/97ebc2027612/sovereign-memory-layer",
+  "started_unix": 1793619697.1359015,
+  "exit_code": 0,
+  "elapsed_seconds": 0.5186347961425781
+}

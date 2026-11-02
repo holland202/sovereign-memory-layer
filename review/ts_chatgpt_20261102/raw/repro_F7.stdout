@@ -1,0 +1,32 @@
+{
+  "target": "e1ad1ae03aab8feb924b53365b4e943750026487",
+  "command": [
+    "review/ts_chatgpt_20261102/review.py",
+    "--case",
+    "A7_repr_dir_null",
+    "--out",
+    "review/ts_chatgpt_20261102/raw/repro_F7"
+  ],
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "node": "v24.22.1",
+  "libc": [
+    "glibc",
+    "2.39"
+  ],
+  "machine": "x86_64",
+  "unicode_python": "15.0.0",
+  "mutant": false,
+  "cases": 1,
+  "steps": 1,
+  "failed_cases": [
+    {
+      "case": "A7_repr_dir_null",
+      "steps": [
+        0
+      ],
+      "declared": null
+    }
+  ],
+  "declared_differences": [],
+  "cross_open_failures": []
+}

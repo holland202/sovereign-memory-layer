@@ -1,0 +1,12 @@
+{"ok":true,"result":null}
+{"ok":true,"result":2}
+{"ok":true,"result":[[1,"1.0"]]}
+{"ok":true,"result":{"evidence_ids":[1],"hits":[[1,"1.0"]],"status":"KNOWN","value":"one"}}
+{"ok":true,"result":2}
+{"ok":true,"result":{"evidence_ids":[2],"hits":[[2,"1.0"]],"status":"KNOWN","value":"two"}}
+{"error":"CapacityError","ok":false}
+{"ok":true,"result":null}
+{"ok":true,"result":{"evidence_ids":[],"reason":"insufficient_evidence","status":"UNKNOWN"}}
+{"ok":true,"result":{"bytes":4119,"generation":3,"incomplete_storage_detected":false,"max_bytes":2000000,"max_records":12,"records":2}}
+{"ok":true,"result":{"bytes":4119,"generation":3,"incomplete_storage_detected":false,"max_bytes":2000000,"max_records":12,"records":2}}
+{"ok":true,"result":{"bytes":4119,"generation":3,"incomplete_storage_detected":false,"max_bytes":2000000,"max_records":12,"records":2}}

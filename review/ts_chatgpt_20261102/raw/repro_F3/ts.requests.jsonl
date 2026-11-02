@@ -1,0 +1,3 @@
+{"clock":1000,"dir":"/tmp/sml-ts-review-h4tc_3_3/case0/ts","op":"status"}
+{"clock":900,"dir":"/tmp/sml-ts-review-h4tc_3_3/case0/ts","op":"revoke","id":1,"reason":"withdraw","provenance":{"source":"synthetic-review","locator":"ts-review-20261102","sha256":"b3cc0475bb78a5026098858e9889acf666d31062d513d303314eca31d36e72f2"}}
+{"clock":1000,"dir":"/tmp/sml-ts-review-h4tc_3_3/case0/ts","op":"status"}
