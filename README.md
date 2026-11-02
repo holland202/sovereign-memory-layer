@@ -1,6 +1,6 @@
 # SML: Sovereign Memory Layer
 
-A small offline memory store for AI agents. Python standard library only, with a **Rust port** in [`rust/`](rust/) that reads and writes the same file format. The port is checked against the Python reference by a differential test; see [`rust/RESULTS.md`](rust/RESULTS.md).
+A small offline memory store for AI agents. Python standard library only, with a **Rust port** in [`rust/`](rust/) and a **TypeScript port** in [`ts/`](ts/) that read and write the same file format. Both ports are checked against the Python reference by a differential test; see [`rust/RESULTS.md`](rust/RESULTS.md) and [`ts/RESULTS.md`](ts/RESULTS.md). The TypeScript port is single-process only (no file lock in Node).
 
 ## What it does
 

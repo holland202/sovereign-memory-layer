@@ -72,7 +72,9 @@ def run(op):
     if name == "retrieve":
         return hits(m.retrieve(op.get("query", ""), **ropts(op)))
     if name == "recall":
-        r = m.recall(op.get("key", ""), op.get("query"), **ropts(op))
+        # SML-TS-003 F6 (found by ChatGPT): rkey is a retrieve option; recall's key is the recall key, as the
+        # Rust and TypeScript CLIs already treat it. Forwarding it raised a duplicate-keyword TypeError.
+        r = m.recall(op.get("key", ""), op.get("query"), **{k: v for k, v in ropts(op).items() if k != "key"})
         out = {"status": r["status"], "evidence_ids": r["evidence_ids"]}
         if r["status"] == "KNOWN":
             out.update(value=r["value"], hits=hits(r["retrieval"]))
@@ -96,6 +98,16 @@ def _no_duplicates(pairs):
     return out
 
 
+def _has_lone_surrogate(x):
+    if isinstance(x, str):
+        return any("\ud800" <= ch <= "\udfff" for ch in x)
+    if isinstance(x, list):
+        return any(_has_lone_surrogate(v) for v in x)
+    if isinstance(x, dict):
+        return any(_has_lone_surrogate(k) or _has_lone_surrogate(v) for k, v in x.items())
+    return False
+
+
 def main():
     for line in sys.stdin:
         if not line.strip():
@@ -103,6 +115,10 @@ def main():
         try:
             try:
                 op = json.loads(line, object_pairs_hook=_no_duplicates)
+                # SML-TS-003 F8 (found by ChatGPT): a lone-surrogate escape is refused at parse time, as the
+                # Rust and TypeScript CLIs do. The store's own ValueError for such strings is unchanged.
+                if _has_lone_surrogate(op):
+                    raise ValueError("lone surrogate in request")
             except ValueError:  # bad JSON, duplicate fields or a BOM (R3-04): same as the Rust side
                 res = {"ok": False, "error": "BadOp"}
             else:

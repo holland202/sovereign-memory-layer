@@ -1,0 +1,7 @@
+D1: {"sequences": 400, "ops": 24400, "mismatches": 0, "first": []} (101s)
+D2: {"values": 200000, "mismatches": 0, "first": []} (2s)
+D3: {"cases": 3402, "outcomes_py": {"IntegrityError": 3392, "ok": 10}, "mismatches": 0, "first": []} (6s)
+D6: {"trials": 100, "acked_total": 755, "unacked_extra_total": 1, "mismatches": 0, "first": []} (43s)
+python 3.13.18 | ts port node /home/claude/sovereign-memory-layer/ts/src/cli.ts
+VERDICT IDENTICAL
+exit=0
