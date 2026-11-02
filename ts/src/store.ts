@@ -385,8 +385,10 @@ export class MemoryStore {
       if (r === undefined || r.get("status") !== "current") throw new ValueError("revocation requires a current record");
       r.set("status", "revoked");
       const now = number(this.clock(), "clock");
-      const ts = r.get("timestamp") as number;
-      r.set("revocation", new Map<string, Value>([["reason", why], ["provenance", p], ["at", ts > now ? ts : now]]));
+      // Python max(now, r["timestamp"]) returns the stored object itself when it is larger, so an int
+      // timestamp stays an int (SML-TS-002; found by D7 after ChatGPT's report).
+      const ts = r.get("timestamp")!;
+      r.set("revocation", new Map<string, Value>([["reason", why], ["provenance", p], ["at", toF(ts as number) > now ? ts : now]]));
       bump(s, "generation");
       if (BigInt(this.encode(s).length) > getI(s, "max_bytes")) throw new CapacityError("revocation does not fit; original unchanged");
       this.commit(s);
@@ -406,7 +408,8 @@ export class MemoryStore {
         if (!groups.has(root)) groups.set(root, []);
         groups.get(root)!.push(r);
       }
-      const maxW = (g: Obj[]) => g.reduce((m, r) => { const w = r.get("weight") as number; return w > m ? w : m; }, -Infinity);
+      // Weights may be ints in a valid file (SML-TS-002): compare numerically, never as objects.
+      const maxW = (g: Obj[]) => g.reduce((m, r) => { const w = toF(r.get("weight") as number); return w > m ? w : m; }, -Infinity);
       const removable = [...groups.values()].filter((g) => !g.some((r) => r.get("protected") === true))
         .sort((a, b) => maxW(a) - maxW(b) || cmpBig(getI(a[0], "id"), getI(b[0], "id")));
       const removed: bigint[] = [];
