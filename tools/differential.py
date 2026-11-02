@@ -2,8 +2,10 @@
 """SML-RS-001 differential tests: Python reference vs Rust port (see rust/PORT_PREREG.md).
 
 Usage:
-  python3 tools/differential.py [--quick] [--only D1,D2] [--sabotage]
-Builds rust/ (cargo build --release) unless --rust-bin is given. Exit 0 only if every check
+  python3 tools/differential.py [--quick] [--only D1,D2] [--sabotage] [--port rust|ts] [--dev-seed N]
+Builds rust/ (cargo build --release) unless --rust-bin is given. --port ts drives the TypeScript port
+(node ts/src/cli.ts; registered in ts/PORT_PREREG.md) instead; D5 is not run for it (no flock in Node).
+--dev-seed replaces the registered seeds, for debugging only; registered results never use it. Exit 0 only if every check
 selected found no mismatch (or, with --sabotage, only if the sabotaged port WAS caught).
 """
 import argparse
@@ -205,7 +207,7 @@ for i in range(int(sys.argv[5])):
 '''
 
 
-def d5(rs_bin, base, procs=4, each=30):
+def d5(port_cmd, base, procs=4, each=30):
     d = base / "conc"
     subprocess.run([sys.executable, str(ROOT / "tools/py_cli.py"), str(ROOT)], input=json.dumps(
         {"op": "create", "dir": str(d), "max_records": 1000, "max_bytes": 16_000_000, "clock": 1000}) + "\n",
@@ -215,7 +217,7 @@ def d5(rs_bin, base, procs=4, each=30):
     for k in range(procs):
         lines = "".join(json.dumps({"op": "put", "dir": str(d), "key": f"rs{k}.{i}", "value": "v", "provenance": PROV,
                                     "clock": 1000 + i}) + "\n" for i in range(each))
-        ps.append(subprocess.Popen([rs_bin], stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, text=True))
+        ps.append(subprocess.Popen(port_cmd, stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, text=True))
         ps[-1].stdin.write(lines)
         ps[-1].stdin.close()
     codes = [p.wait(timeout=600) for p in ps]
@@ -223,7 +225,7 @@ def d5(rs_bin, base, procs=4, each=30):
     from sml.memory import MemoryStore
     recs = MemoryStore(d).snapshot()["records"]
     ids = [r["id"] for r in recs]
-    rs_status = json.loads(subprocess.run([rs_bin], input=json.dumps({"op": "status", "dir": str(d), "clock": 2000}) + "\n",
+    rs_status = json.loads(subprocess.run(port_cmd, input=json.dumps({"op": "status", "dir": str(d), "clock": 2000}) + "\n",
                                           text=True, capture_output=True).stdout)
     ok = (codes == [0] * len(codes) and len(ids) == 2 * procs * each and sorted(ids) == list(range(1, 2 * procs * each + 1))
           and rs_status.get("ok") and rs_status["result"]["records"] == 2 * procs * each)
@@ -231,7 +233,7 @@ def d5(rs_bin, base, procs=4, each=30):
             "mismatches": 0 if ok else 1}
 
 
-def d6(rs_bin, base, trials=100, seed=5):
+def d6(port_cmd, base, trials=100, seed=5):
     rng = random.Random(seed)
     sys.path.insert(0, str(ROOT))
     from sml.memory import MemoryStore
@@ -240,7 +242,7 @@ def d6(rs_bin, base, trials=100, seed=5):
     for t in range(trials):
         d = base / f"kill{t}"
         MemoryStore(d, create=True, max_records=100000, max_bytes=16_000_000)
-        p = subprocess.Popen([rs_bin], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True, bufsize=1)
+        p = subprocess.Popen(port_cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True, bufsize=1)
         acked = []
         deadline = time.time() + rng.uniform(0.05, 0.4)
         i = 0
@@ -263,7 +265,7 @@ def d6(rs_bin, base, trials=100, seed=5):
         except Exception as e:  # noqa: BLE001
             problems.append({"trial": t, "python_reopen": type(e).__name__})
             continue
-        r = json.loads(subprocess.run([rs_bin], input=json.dumps({"op": "status", "dir": str(d), "clock": 2000}) + "\n",
+        r = json.loads(subprocess.run(port_cmd, input=json.dumps({"op": "status", "dir": str(d), "clock": 2000}) + "\n",
                                       text=True, capture_output=True).stdout)
         missing = set(acked) - keys
         extra = keys - set(acked)
@@ -288,11 +290,28 @@ def main():
     ap.add_argument("--only", default="")
     ap.add_argument("--sabotage", action="store_true")
     ap.add_argument("--rust-bin")
+    ap.add_argument("--port", choices=["rust", "ts"], default="rust")
+    ap.add_argument("--dev-seed", type=int)
     a = ap.parse_args()
     only = set(filter(None, a.only.split(",")))
     work = Path(tempfile.mkdtemp(prefix="sml-diff-"))
     try:
-        if a.sabotage:
+        if a.port == "ts":
+            ts_dir = ROOT / "ts"
+            if a.sabotage:
+                copy = work / "ts-sabotaged"
+                shutil.copytree(ROOT / "ts", copy)
+                t = (copy / "src/pyfloat.ts").read_text()
+                old = "  if (c !== 0.0 && Number.isFinite(c)) f += c;"
+                assert t.count(old) == 1
+                (copy / "src/pyfloat.ts").write_text(t.replace(old, "  void c; // SABOTAGE: naive sum"))
+                ts_dir = copy
+                only = {"D1"}
+            rs_bin = "node " + str(ts_dir / "src/cli.ts")
+            port_cmd = ["node", str(ts_dir / "src/cli.ts")]
+            only = only or {"D1", "D2", "D3", "D6"}
+            only.discard("D5")
+        elif a.sabotage:
             copy = work / "rust-sabotaged"
             shutil.copytree(ROOT / "rust", copy, ignore=shutil.ignore_patterns("target"))
             t = (copy / "src/text.rs").read_text()
@@ -300,18 +319,21 @@ def main():
             assert t.count(old) == 1
             (copy / "src/text.rs").write_text(t.replace(old, "    let _ = c; // SABOTAGE: naive sum"))
             rs_bin = build(copy)
+            port_cmd = [rs_bin]
             only = {"D1"}
         else:
             rs_bin = a.rust_bin or build(ROOT / "rust")
+            port_cmd = [rs_bin]
         py = Side([sys.executable, str(ROOT / "tools/py_cli.py"), str(ROOT)])
-        rs = Side([rs_bin])
+        rs = Side(port_cmd)
+        sd = (lambda reg: reg) if a.dev_seed is None else (lambda reg: a.dev_seed * 1000 + reg % 1000)
         n, length = (40, 40) if a.quick else (400, 60)
         results = {}
-        plan = [("D1", lambda: d1_d4(py, rs, n, length, 20261030, work / "d1")),
-                ("D2", lambda: d2(py, rs, 20000 if a.quick else 200000, 7)),
-                ("D3", lambda: d3(py, rs, 11, work / "d3")),
-                ("D5", lambda: d5(rs_bin, work / "d5")),
-                ("D6", lambda: d6(rs_bin, work / "d6", 20 if a.quick else 100))]
+        plan = [("D1", lambda: d1_d4(py, rs, n, length, sd(20261030), work / "d1")),
+                ("D2", lambda: d2(py, rs, 20000 if a.quick else 200000, sd(7))),
+                ("D3", lambda: d3(py, rs, sd(11), work / "d3")),
+                ("D5", lambda: d5(port_cmd, work / "d5")),
+                ("D6", lambda: d6(port_cmd, work / "d6", 20 if a.quick else 100, sd(5)))]
         for name, fn in plan:
             if only and name not in only:
                 continue
@@ -322,7 +344,8 @@ def main():
         py.close()
         rs.close()
         total = sum(r["mismatches"] for r in results.values())
-        print(f"python {sys.version.split()[0]} | rust bin {rs_bin}")
+        print(f"python {sys.version.split()[0]} | {'ts port' if a.port == 'ts' else 'rust bin'} {rs_bin}"
+              + ("" if a.dev_seed is None else f" | DEV SEED {a.dev_seed} (not a registered run)"))
         if a.sabotage:
             print("SABOTAGE CAUGHT" if total else "SABOTAGE NOT CAUGHT: D1 cannot see last-bit float differences")
             sys.exit(0 if total else 1)
