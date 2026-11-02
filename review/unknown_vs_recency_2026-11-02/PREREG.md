@@ -44,3 +44,16 @@ This is arithmetic, not a finding. The experiment below tests only what can actu
 This cannot say whether UNKNOWN is worth it for anyone's actual agent. Only P4, a measured q from real use, could say that. The strongest claim UVR-001 can support: SML never answers wrong on contradictions and is not fooled by forged future timestamps, at a coverage cost equal to the share of contradictions where the newest value is right.
 
 Provenance: Claude (Anthropic, Opus 5.5), at Chad Holland's direction (2026-11-02, direction only) → human validation: not performed → human responsibility: Chad Holland. Self-designed.
+
+## Amendment 1 (2026-11-02, before anything was built or run): the case set and tie-break fixed in advance
+
+Suggested by Shivashish Jaishy (Founder and CEO, Shristyverse), in a public LinkedIn reply on 2026-11-02: fix the contradiction set and the tie-break rule before the first run, so that UNKNOWN and most-recent-first are scored on identical cases. This amendment does that. Nothing has been built or run.
+
+- **One case file, generated and committed before either policy runs.** `cases.jsonl` holds, for each q in {0, 0.25, 0.5, 0.75, 1}, 200 keys (1,000 keys in total). Each key has exactly two current records with different values: one marked true, one marked false. Older timestamp = 1000 + key index; newer = older + 10, so timestamps never tie in P1. Which keys have the *newest* record wrong is decided by `random.Random(20261102)`: shuffle the 200 keys and take the first round(q · 200). The file's sha256 is recorded in the results before any policy output exists.
+- **Both policies read the same file**, in the same order, through the real `MemoryStore` (`put` in file order).
+- **Most-recent-first tie-break, fixed now:** the latest `timestamp` wins. If that ties, the latest `recorded_at`; if that also ties, the highest `id`. P1 has no ties. For P3, the stored `timestamp` is used as written, so a forged future timestamp wins by design.
+- **Scoring per key:** `correct` (the answer equals the true value), `wrong` (an answer that is not the true value), or `abstain` (UNKNOWN). Both policies are scored on every key, and nothing is dropped.
+- **P2's case set** is a separate block of 200 keys, also in `cases.jsonl`: the second value is written with `correct()` (supersedes). Every such key has the true value newest.
+- **P3's case set** is another 200 keys. The false value is `put` with `timestamp` set 1,000,000 seconds ahead of the store clock. The clock is advanced so the record is current and visible.
+
+Credit: Shivashish Jaishy suggested this procedure, and he agreed publicly to be credited by name. Crediting him implies no endorsement or validation of this work by him.
