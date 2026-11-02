@@ -68,3 +68,7 @@ The counts in brackets are trials where the prediction held. Without the lock:
 - Credit the commenter by name once they agree.
 
 Provenance: Claude (Anthropic, Opus 5.5), at Chad Holland's direction (2026-11-02, direction only) → human validation: not performed → human responsibility: Chad Holland. SELF-TESTED.
+
+## S25 run (appended 2026-11-02)
+
+Chad Holland ran the harness on the S25 under Termux at `1f42320`. **VERDICT 6 of 6 as registered**: 24/24 trials for each prediction, with contended lock waits in 24/24. See `device_runs/2026-11-02_S25_skr001.md`. This closes "Run on the S25" for the main run. The sabotage run on the phone is still open.
