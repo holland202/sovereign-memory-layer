@@ -1,0 +1,436 @@
+{
+  "target": "e1ad1ae03aab8feb924b53365b4e943750026487",
+  "command": [
+    "review/ts_chatgpt_20261102/review.py"
+  ],
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "node": "v24.22.1",
+  "libc": [
+    "glibc",
+    "2.39"
+  ],
+  "machine": "x86_64",
+  "unicode_python": "15.0.0",
+  "mutant": false,
+  "cases": 337,
+  "steps": 796,
+  "failed_cases": [
+    {
+      "case": "A1_invalid_3_key",
+      "steps": [
+        1
+      ],
+      "declared": null
+    },
+    {
+      "case": "A1_invalid_3_value",
+      "steps": [
+        1
+      ],
+      "declared": null
+    },
+    {
+      "case": "A1_invalid_3_text",
+      "steps": [
+        1
+      ],
+      "declared": null
+    },
+    {
+      "case": "A1_invalid_4_key",
+      "steps": [
+        1
+      ],
+      "declared": null
+    },
+    {
+      "case": "A1_invalid_4_value",
+      "steps": [
+        1
+      ],
+      "declared": null
+    },
+    {
+      "case": "A1_invalid_4_text",
+      "steps": [
+        1
+      ],
+      "declared": null
+    },
+    {
+      "case": "A4_max_records_null",
+      "steps": [
+        0
+      ],
+      "declared": null
+    },
+    {
+      "case": "A4_max_bytes_null",
+      "steps": [
+        0
+      ],
+      "declared": null
+    },
+    {
+      "case": "A6_recall_query_02",
+      "steps": [
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A6_recall_query_03",
+      "steps": [
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A6_recall_query_04",
+      "steps": [
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A6_recall_query_05",
+      "steps": [
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A6_recall_rkey_null",
+      "steps": [
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A6_recall_rkey_false",
+      "steps": [
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A6_recall_rkey_0",
+      "steps": [
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A6_recall_rkey_[]",
+      "steps": [
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A6_recall_rkey_{}",
+      "steps": [
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A6_recall_rkey_\"\"",
+      "steps": [
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A7_repr_dir_null",
+      "steps": [
+        0
+      ],
+      "declared": null
+    },
+    {
+      "case": "A7_repr_dir_false",
+      "steps": [
+        0
+      ],
+      "declared": null
+    },
+    {
+      "case": "A7_repr_dir_0",
+      "steps": [
+        0
+      ],
+      "declared": null
+    },
+    {
+      "case": "A7_repr_dir_[]",
+      "steps": [
+        0
+      ],
+      "declared": null
+    },
+    {
+      "case": "A7_repr_dir_{}",
+      "steps": [
+        0
+      ],
+      "declared": null
+    },
+    {
+      "case": "A8_highid_9007199254740992_False_correct",
+      "steps": [
+        1,
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A8_highid_9007199254740992_False_put",
+      "steps": [
+        1,
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A8_highid_9007199254740992_True_correct",
+      "steps": [
+        1,
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A8_highid_9007199254740992_True_put",
+      "steps": [
+        1,
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A8_highid_9223372036854775804_False_correct",
+      "steps": [
+        1,
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A8_highid_9223372036854775804_False_put",
+      "steps": [
+        1,
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A8_highid_9223372036854775804_True_correct",
+      "steps": [
+        1,
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A8_highid_9223372036854775804_True_put",
+      "steps": [
+        1,
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A8_weight_types_int_int",
+      "steps": [
+        1,
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A8_weight_types_int_float",
+      "steps": [
+        1,
+        2
+      ],
+      "declared": null
+    },
+    {
+      "case": "A8_revoke_timestamp_int",
+      "steps": [
+        1,
+        2
+      ],
+      "declared": null
+    }
+  ],
+  "declared_differences": [
+    {
+      "case": "A3_number_17_clock",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_17_weight",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_17_timestamp",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_17_id",
+      "steps": [
+        2
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_17_unused",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_17_embedding",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_18_clock",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_18_weight",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_18_timestamp",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_18_id",
+      "steps": [
+        2
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_18_unused",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_18_embedding",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_19_clock",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_19_weight",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_19_timestamp",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_19_id",
+      "steps": [
+        2
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_19_unused",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A3_number_19_embedding",
+      "steps": [
+        1
+      ],
+      "declared": "outside signed i64"
+    },
+    {
+      "case": "A8_file_utf16",
+      "steps": [
+        0
+      ],
+      "declared": "UTF-16/32"
+    },
+    {
+      "case": "A8_file_utf32",
+      "steps": [
+        0
+      ],
+      "declared": "UTF-16/32"
+    }
+  ],
+  "helper_failures": [],
+  "cross_open_failures": [],
+  "processes": {
+    "py": {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/scratch/97ebc2027612/sovereign-memory-layer/tools/py_cli.py",
+        "/workspace/scratch/97ebc2027612/sovereign-memory-layer"
+      ],
+      "exit_code": 0
+    },
+    "ts": {
+      "command": [
+        "node",
+        "/workspace/scratch/97ebc2027612/sovereign-memory-layer/ts/src/cli.ts"
+      ],
+      "exit_code": 0
+    },
+    "adapter": {
+      "command": [
+        "node",
+        "/workspace/scratch/97ebc2027612/sovereign-memory-layer/review/ts_chatgpt_20261102/adapter.ts"
+      ],
+      "exit_code": 0
+    }
+  }
+}

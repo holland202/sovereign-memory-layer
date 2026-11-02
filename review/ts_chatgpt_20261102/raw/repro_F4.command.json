@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "review/ts_chatgpt_20261102/review.py",
+    "--case",
+    "A4_max_records_null",
+    "--out",
+    "review/ts_chatgpt_20261102/raw/repro_F4"
+  ],
+  "cwd": "/workspace/scratch/97ebc2027612/sovereign-memory-layer",
+  "started_unix": 1793619653.6294072,
+  "exit_code": 1,
+  "elapsed_seconds": 0.7286636829376221
+}

@@ -1,0 +1,3 @@
+{"ok":true,"result":{"bytes":2057,"generation":1,"incomplete_storage_detected":false,"max_bytes":2000000,"max_records":12,"records":1}}
+{"ok":true,"result":null}
+{"ok":true,"result":{"bytes":2234,"generation":2,"incomplete_storage_detected":false,"max_bytes":2000000,"max_records":12,"records":1}}

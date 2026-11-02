@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python3",
+    "-c",
+    "import json, shutil; print(json.dumps({\"cargo\": shutil.which(\"cargo\"), \"rustc\": shutil.which(\"rustc\")})); raise SystemExit(0 if shutil.which(\"cargo\") else 127)"
+  ],
+  "cwd": "/workspace/scratch/97ebc2027612/sovereign-memory-layer",
+  "started_unix": 1793619432.345757,
+  "exit_code": 127,
+  "elapsed_seconds": 0.0650784969329834
+}

@@ -1,0 +1,4 @@
+{"ok":true,"result":null}
+{"error":"BadOp","ok":false}
+{"ok":true,"result":{"bytes":178,"generation":0,"incomplete_storage_detected":false,"max_bytes":2000000,"max_records":12,"records":0}}
+{"ok":true,"result":{"bytes":178,"generation":0,"incomplete_storage_detected":false,"max_bytes":2000000,"max_records":12,"records":0}}

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python3",
+    "-c",
+    "import hashlib,json,subprocess; from pathlib import Path; ref=\"e1ad1ae03aab8feb924b53365b4e943750026487\"; paths=subprocess.check_output([\"git\",\"ls-tree\",\"-r\",\"--name-only\",ref,\"ts/src\",\"sml\",\"tools\",\"rust/src\"],text=True).splitlines(); rows=[]; good=True\nfor p in paths:\n b=subprocess.check_output([\"git\",\"show\",ref+\":\"+p]); w=Path(p).read_bytes(); equal=b==w; good=good and equal; rows.append({\"path\":p,\"git_blob\":subprocess.check_output([\"git\",\"rev-parse\",ref+\":\"+p],text=True).strip(),\"sha256\":hashlib.sha256(w).hexdigest(),\"equals_frozen\":equal})\nprint(json.dumps({\"frozen\":ref,\"all_equal\":good,\"files\":rows},indent=2)); raise SystemExit(0 if good else 1)"
+  ],
+  "cwd": "/workspace/scratch/97ebc2027612/sovereign-memory-layer",
+  "started_unix": 1793619696.7026799,
+  "exit_code": 0,
+  "elapsed_seconds": 0.37168264389038086
+}

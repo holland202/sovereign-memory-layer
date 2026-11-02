@@ -1,0 +1,15 @@
+{
+  "command": [
+    "python3",
+    "review/ts_chatgpt_20261102/review.py",
+    "--mutant",
+    "--case",
+    "C0_control",
+    "--out",
+    "review/ts_chatgpt_20261102/raw/independent_sabotage"
+  ],
+  "cwd": "/workspace/scratch/97ebc2027612/sovereign-memory-layer",
+  "started_unix": 1793619442.6000867,
+  "exit_code": 0,
+  "elapsed_seconds": 0.8247618675231934
+}

@@ -1,0 +1,10 @@
+{
+  "command": [
+    "python3",
+    "review/ts_chatgpt_20261102/review.py"
+  ],
+  "cwd": "/workspace/scratch/97ebc2027612/sovereign-memory-layer",
+  "started_unix": 1793619442.5813832,
+  "exit_code": 1,
+  "elapsed_seconds": 21.176522970199585
+}
