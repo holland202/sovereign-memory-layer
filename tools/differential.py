@@ -277,6 +277,111 @@ def d6(port_cmd, base, trials=100, seed=5):
             "mismatches": len(problems), "first": problems[:3]}
 
 
+def _shuffle_json(rng, v):
+    """Same JSON value, different key order (Python's reader must not care)."""
+    if isinstance(v, dict):
+        ks = list(v)
+        rng.shuffle(ks)
+        return {k: _shuffle_json(rng, v[k]) for k in ks}
+    if isinstance(v, list):
+        return [_shuffle_json(rng, x) for x in v]
+    return v
+
+
+def d7(py, rs, n, seed, base):
+    """SML-TS-002 D7: VALID snapshots no implementation writes (ints in float fields, NFD keys, other key
+    order and whitespace), then identical ops on both sides. A variant Python refuses is discarded."""
+    rng = random.Random(seed)
+    sys.path.insert(0, str(ROOT))
+    from sml import memory as M
+    keys = ["alpha", "beta", "café", "ΟΔΟΣ"]
+    discarded, used, ops_total, int_fields, nfd_keys = 0, 0, 0, 0, 0
+    mismatches = []
+    for k in range(n):
+        src = base / f"g{k}"
+        t = [1000.0]
+        m = M.MemoryStore(src, create=True, max_records=rng.choice([8, 12, 20]), max_bytes=400000, clock=lambda: t[0])
+        ids = []
+        for _ in range(rng.randrange(3, 8)):
+            t[0] += rng.choice([1.0, 2.0, 10.0])
+            r = rng.random()
+            try:
+                if r < 0.6 or not ids:
+                    kw = {"weight": rng.choice([0.0, 0.5, 1.0]), "protected": rng.random() < 0.2}
+                    if rng.random() < 0.3:
+                        kw["timestamp"] = t[0] - rng.choice([0.0, 1.0, 5.0])
+                    if rng.random() < 0.2:
+                        e = [0.0] * 384
+                        e[rng.randrange(384)] = 1.0
+                        kw["embedding"] = e
+                    ids.append(m.put(rng.choice(keys), rng.choice(["x", "y", "blue"]), provenance=PROV, **kw))
+                elif r < 0.8:
+                    ids.append(m.correct(rng.choice(ids), rng.choice(["x", "y", "fixed"]), provenance=PROV))
+                else:
+                    m.revoke(rng.choice(ids), reason="withdrawn", provenance=PROV)
+            except (ValueError, M.CapacityError):
+                pass
+        env = json.loads((src / "memory.json").read_bytes())
+        s = env["payload"]
+        p_int = rng.choice([0.0, 0.5, 1.0])
+        for rec in s["records"]:
+            for f in ("timestamp", "recorded_at", "weight"):
+                if float(rec[f]).is_integer() and rng.random() < p_int:
+                    rec[f] = int(rec[f])
+                    int_fields += 1
+            if rng.random() < p_int:
+                rec["embedding"] = [int(x) if float(x).is_integer() else x for x in rec["embedding"]]
+                int_fields += 1
+            if rec["revocation"] is not None and float(rec["revocation"]["at"]).is_integer() and rng.random() < p_int:
+                rec["revocation"]["at"] = int(rec["revocation"]["at"])
+                int_fields += 1
+            if rec["key"] == "café" and rng.random() < 0.5:
+                rec["key"] = unicodedata.normalize("NFD", rec["key"])
+                nfd_keys += 1
+        s = _shuffle_json(rng, s)
+        env2 = _shuffle_json(rng, {"payload": s, "sha256": M.digest(s)})
+        seps = rng.choice([(",", ":"), (", ", ": ")])
+        text = json.dumps(env2, separators=seps, ensure_ascii=rng.random() < 0.5)
+        if rng.random() < 0.3:
+            text = "\n  " + text + "\n"
+        (src / "memory.json").write_bytes(text.encode("utf-8"))
+        try:
+            M.MemoryStore(src).snapshot()
+        except Exception:  # noqa: BLE001
+            discarded += 1
+            continue
+        used += 1
+        dp, dr = base / f"p{k}", base / f"r{k}"
+        shutil.copytree(src, dp)
+        shutil.copytree(src, dr)
+        rec_ids = [r["id"] for r in s["records"]]
+        now = t[0] + rng.choice([0.0, 5.0, 100.0])
+        plan = [{"op": "status"}]
+        for key in keys:
+            plan.append({"op": "recall", "key": key, "method": rng.choice(["similarity", "recency", "importance", "protected"]),
+                         "threshold": 0.0})
+        for meth in ("similarity", "recency", "importance", "protected"):
+            plan.append({"op": "retrieve", "query": rng.choice(keys + ["x blue"]), "method": meth, "threshold": 0.0,
+                         "top_k": 100})
+        plan.append({"op": "compact", "target": rng.randrange(0, len(rec_ids) + 1)})
+        if rec_ids:
+            plan.append({"op": "correct", "id": rng.choice(rec_ids), "value": "corr", "provenance": PROV})
+            plan.append({"op": "revoke", "id": rng.choice(rec_ids), "reason": "r", "provenance": PROV})
+        plan.append({"op": "put", "key": rng.choice(keys), "value": "new", "provenance": PROV})
+        plan.append({"op": "recall", "key": "café", "threshold": 0.0, "method": "recency"})
+        for op in plan:
+            op["clock"] = now
+            a, b = py({**op, "dir": str(dp)}), rs({**op, "dir": str(dr)})
+            ops_total += 1
+            fa, fb = py({"op": "file", "dir": str(dp)}), rs({"op": "file", "dir": str(dr)})
+            if a != b or fa != fb:
+                mismatches.append({"snapshot": k, "op": json.dumps(op, ensure_ascii=False)[:160], "py": a[:160],
+                                   "port": b[:160], "file_equal": fa == fb})
+                break
+    return {"snapshots_used": used, "discarded_invalid": discarded, "int_fields_injected": int_fields,
+            "nfd_keys": nfd_keys, "ops": ops_total, "mismatches": len(mismatches), "first": mismatches[:3]}
+
+
 def build(rust_dir):
     r = subprocess.run(["cargo", "build", "--release", "--quiet"], cwd=rust_dir, capture_output=True, text=True)
     if r.returncode:
@@ -309,7 +414,7 @@ def main():
                 only = {"D1"}
             rs_bin = "node " + str(ts_dir / "src/cli.ts")
             port_cmd = ["node", str(ts_dir / "src/cli.ts")]
-            only = only or {"D1", "D2", "D3", "D6"}
+            only = only or {"D1", "D2", "D3", "D6", "D7"}
             only.discard("D5")
         elif a.sabotage:
             copy = work / "rust-sabotaged"
@@ -333,7 +438,8 @@ def main():
                 ("D2", lambda: d2(py, rs, 20000 if a.quick else 200000, sd(7))),
                 ("D3", lambda: d3(py, rs, sd(11), work / "d3")),
                 ("D5", lambda: d5(port_cmd, work / "d5")),
-                ("D6", lambda: d6(port_cmd, work / "d6", 20 if a.quick else 100, sd(5)))]
+                ("D6", lambda: d6(port_cmd, work / "d6", 20 if a.quick else 100, sd(5))),
+                ("D7", lambda: d7(py, rs, 60 if a.quick else 300, sd(20261102), work / "d7"))]
         for name, fn in plan:
             if only and name not in only:
                 continue
