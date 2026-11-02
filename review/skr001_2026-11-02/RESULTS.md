@@ -72,3 +72,16 @@ Provenance: Claude (Anthropic, Opus 5.5), at Chad Holland's direction (2026-11-0
 ## S25 run (appended 2026-11-02)
 
 Chad Holland ran the harness on the S25 under Termux at `1f42320`. **VERDICT 6 of 6 as registered**: 24/24 trials for each prediction, with contended lock waits in 24/24. See `device_runs/2026-11-02_S25_skr001.md`. This closes "Run on the S25" for the main run. The sabotage run on the phone is still open.
+
+## Credit (appended 2026-11-02)
+
+The test idea (same-key writers racing, with a `kill -9` between write and rename) came from **Shivashish Jaishy** (Founder and CEO, Shristyverse), in a LinkedIn comment on 2026-11-01. He agreed publicly on 2026-11-02 to be credited by name. He has not run this test. Crediting him implies no endorsement or validation by him.
+
+## S25 sabotage run (appended 2026-11-02)
+
+Chad Holland also ran `python3 review/skr001_2026-11-02/skr001.py --sabotage | tail -3` on the S25. The pasted output:
+```
+trials where the victim died by SIGKILL: 4/24                             VERDICT 0 of 6 as registered (SABOTAGE RUN)
+SABOTAGE CAUGHT
+```
+So the harness can fail on Android too: with the lock removed, it detects the damage. The main run and the sabotage run have both now been done on Linux, macOS (CI) and Android.
