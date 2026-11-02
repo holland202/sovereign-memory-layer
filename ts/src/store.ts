@@ -134,8 +134,9 @@ export class MemoryStore {
     this.pending = path.join(directory, "memory.pending");
     this.clock = opts.clock;
     if (opts.create) {
-      const mr = opts.max_records ?? int(128);
-      const mb = opts.max_bytes ?? int(2_000_000);
+      // Only an omitted value takes the default; an explicit null is refused, as in Python (SML-TS-003 F4).
+      const mr = opts.max_records === undefined ? int(128) : opts.max_records;
+      const mb = opts.max_bytes === undefined ? int(2_000_000) : opts.max_bytes;
       if (!isInt(mr) || !(1n <= mr.v && mr.v <= MAX_COUNTER)) throw new ValueError("invalid max_records");
       if (!isInt(mb) || !(1024n <= mb.v && mb.v <= 16_000_000n)) throw new ValueError("invalid max_bytes");
       os(() => fs.mkdirSync(directory === "" ? "." : directory, { mode: 0o700 }));
@@ -472,7 +473,7 @@ export class MemoryStore {
     if (new Set(current.map((r) => r.get("value") as string)).size > 1) {
       return { status: "UNKNOWN", reason: "contradictory_current_evidence", evidence_ids: current.map((r) => getI(r, "id")) };
     }
-    const q = query === undefined || query === null || query === "" ? key : query;
+    const q = pyTruthy(query) ? (query as Value) : key; // Python: query or key (SML-TS-003 F5)
     const hits = this.retrieveFrom(s, q, { ...o, key });
     if (hits.length === 0) return { status: "UNKNOWN", reason: "insufficient_evidence", evidence_ids: [] };
     return { status: "KNOWN", value: hits[0].record.get("value") as string,
@@ -492,10 +493,26 @@ function cmpBig(a: bigint, b: bigint): number {
   return a < b ? -1 : a > b ? 1 : 0;
 }
 
-/** Python ==, for a stored int id against a supplied value (bool counts as int, as in Python). */
+/** Python ==, for a stored int id against a supplied value (bool counts as int, as in Python). Exact:
+ * ints are compared as BigInt, never through a double (SML-TS-003 F2, found by ChatGPT: ids above 2^53
+ * collided with their neighbours). */
 function pyEq(a: Value, b: Value): boolean {
-  const n = (x: Value): number | null => (typeof x === "boolean" ? (x ? 1 : 0) : isNumber(x) ? toF(x) : null);
-  const x = n(a);
-  const y = n(b);
-  return x !== null && y !== null && x === y;
+  const big = (x: Value): bigint | number | null =>
+    typeof x === "boolean" ? (x ? 1n : 0n) : isInt(x) ? x.v : typeof x === "number" ? (Number.isInteger(x) ? BigInt(x) : x) : null;
+  const x = big(a);
+  const y = big(b);
+  if (x === null || y === null) return false;
+  if (typeof x === "bigint" && typeof y === "bigint") return x === y;
+  return Number(x) === Number(y); // a non-integral float equals no int
+}
+
+/** Python truthiness (for `query or key`; SML-TS-003 F5). */
+function pyTruthy(v: Value | undefined): boolean {
+  if (v === undefined || v === null || v === false) return false;
+  if (v === true) return true;
+  if (isInt(v)) return v.v !== 0n;
+  if (typeof v === "number") return v !== 0;
+  if (typeof v === "string" || Array.isArray(v)) return v.length > 0;
+  if (isObj(v)) return v.size > 0;
+  return true;
 }

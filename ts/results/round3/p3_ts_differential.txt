@@ -1,0 +1,8 @@
+D1: {"sequences": 400, "ops": 24400, "mismatches": 0, "first": []} (99s)
+D2: {"values": 200000, "mismatches": 0, "first": []} (3s)
+D3: {"cases": 3402, "outcomes_py": {"IntegrityError": 3392, "ok": 10}, "mismatches": 0, "first": []} (5s)
+D6: {"trials": 100, "acked_total": 800, "unacked_extra_total": 0, "mismatches": 0, "first": []} (42s)
+D7: {"snapshots_used": 300, "discarded_invalid": 0, "int_fields_injected": 2154, "nfd_keys": 138, "ops": 4200, "mismatches": 0, "first": []} (38s)
+python 3.13.18 | ts port node /home/claude/sovereign-memory-layer/ts/src/cli.ts
+VERDICT IDENTICAL
+exit=0

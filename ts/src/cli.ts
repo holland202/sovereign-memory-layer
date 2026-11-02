@@ -46,16 +46,17 @@ const asDir = (d: Value): string => {
 };
 
 function run(op: Obj): Value {
-  const d = asDir(get(op, "dir", ""));
   const t = get(op, "clock", 1000.0);
   const name = op.get("op");
   const clock = () => t;
+  if (name === "repr") {
+    // repr never uses the directory, so it is not validated first (SML-TS-003 F7).
+    return (op.get("bits") as string[]).map((h) => pyFloatRepr(fromBits(BigInt("0x" + h))));
+  }
+  const d = asDir(get(op, "dir", ""));
   if (name === "create") {
     new MemoryStore(d, { create: true, max_records: get(op, "max_records", int(0)), max_bytes: get(op, "max_bytes", int(0)), clock });
     return null;
-  }
-  if (name === "repr") {
-    return (op.get("bits") as string[]).map((h) => pyFloatRepr(fromBits(BigInt("0x" + h))));
   }
   if (name === "file") {
     const p = path.join(d, "memory.json");

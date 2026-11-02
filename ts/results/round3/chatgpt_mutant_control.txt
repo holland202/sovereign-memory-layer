@@ -1,0 +1,2 @@
+mutant_exit=1
+mutant failed_cases 70
