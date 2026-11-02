@@ -47,6 +47,12 @@ jobs:
         run: |
           python3 review/chatgpt_task3/test_contracts.py
           git checkout -- review/chatgpt_task3/raw/contracts.protocol.jsonl  # the run rewrites its own log; keep the committed evidence
+      - name: UVR-001 UNKNOWN vs most-recent-first (3 of 3 as registered)
+        run: python3 review/unknown_vs_recency_2026-11-02/uvr001.py | tail -5
+      - name: UVR-001 can fail (contradiction check removed must be caught)
+        run: |
+          if python3 review/unknown_vs_recency_2026-11-02/uvr001.py --sabotage > uvr_sab.txt; then echo "UVR-001 SABOTAGE NOT CAUGHT"; exit 1; fi
+          tail -2 uvr_sab.txt
       - name: SKR-001 same-key race with kill (6 of 6 as registered)
         run: python3 review/skr001_2026-11-02/skr001.py | tail -9
       - name: SKR-001 can fail (lock removed must be caught)
