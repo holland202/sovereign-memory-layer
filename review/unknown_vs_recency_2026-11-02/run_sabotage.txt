@@ -1,0 +1,22 @@
+cases 1400 sha256 0742d3f8b489e863 SABOTAGE RUN
+group       policy correct wrong abstain
+P1 q=0.0    SML         1   199       0
+P1 q=0.0    MRF       200     0       0
+P1 q=0.25   SML        53   147       0
+P1 q=0.25   MRF       150    50       0
+P1 q=0.5    SML        98   102       0
+P1 q=0.5    MRF       100   100       0
+P1 q=0.75   SML       147    53       0
+P1 q=0.75   MRF        50   150       0
+P1 q=1.0    SML       195     5       0
+P1 q=1.0    MRF         0   200       0
+P2          SML       200     0       0
+P2          MRF       200     0       0
+P3          SML       197     3       0
+P3          MRF         0   200       0
+P1: REFUTED  (SML wrong = 0 on contradictions; MRF wrong = round(q*200) exactly)
+P2: HELD  (legitimate corrections: SML KNOWN with the new value on 200/200, same as MRF)
+P3: REFUTED  (forged future timestamp: MRF fooled 200/200, SML UNKNOWN 200/200)
+P4: OPEN (real-world q not measured; a door, not a claim)
+VERDICT 1 of 3 testable predictions as registered
+exit=1
