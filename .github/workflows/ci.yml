@@ -47,6 +47,14 @@ jobs:
         run: |
           python3 review/chatgpt_task3/test_contracts.py
           git checkout -- review/chatgpt_task3/raw/contracts.protocol.jsonl  # the run rewrites its own log; keep the committed evidence
+      - name: SKR-001 same-key race with kill (6 of 6 as registered)
+        run: python3 review/skr001_2026-11-02/skr001.py | tail -9
+      - name: SKR-001 can fail (lock removed must be caught)
+        run: |
+          set +e
+          python3 review/skr001_2026-11-02/skr001.py --sabotage > skr_sab.txt; rc=$?
+          tail -3 skr_sab.txt
+          [ $rc -eq 1 ] && grep -q "SABOTAGE CAUGHT" skr_sab.txt
       - name: Differential test, Python reference vs Rust port (quick)
         run: python3 tools/differential.py --quick
       - name: The differential test can fail (a sabotaged port must be caught)
