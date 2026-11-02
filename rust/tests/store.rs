@@ -17,8 +17,12 @@ fn prov() -> Value {
 }
 
 fn tmp() -> std::path::PathBuf {
-    let d = std::env::temp_dir().join(format!("sml-rs-{}-{}", std::process::id(),
-        std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_nanos()));
+    // A per-process counter makes each name unique: on macOS the clock alone collided between
+    // parallel tests (EEXIST), first seen in CI on 2026-11-02.
+    static N: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
+    let n = N.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+    let d = std::env::temp_dir().join(format!("sml-rs-{}-{}-{}", std::process::id(),
+        std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_nanos(), n));
     fs::create_dir_all(&d).unwrap();
     d.join("s")
 }
