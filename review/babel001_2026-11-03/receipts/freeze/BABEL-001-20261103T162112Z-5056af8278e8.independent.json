@@ -1,0 +1,11 @@
+{
+  "freeze_identifier": "BABEL-001-20261103T162112Z-5056af8278e8",
+  "utc": "2026-11-03T16:21:12.983472+00:00",
+  "snapshot": "<HOME>/Research/SML-BABEL001/freezes/BABEL-001-20261103T162112Z-5056af8278e8",
+  "candidate_manifest_sha256": "5056af8278e8acc25ee61f01827e412dffe2494f8e67d83a66632aad52e085ac",
+  "review_manifest_sha256": "2d7ab48fe45bfa82d2b1f72f2c25d98d73946945c601716ff34d683882db0f97",
+  "source_commit": "f4fc1de7c9a1d55b800dbfe09388c66b357b1f0b",
+  "receipt": "<HOME>/Research/SML-BABEL001/freeze_receipts/BABEL-001-20261103T162112Z-5056af8278e8.md",
+  "receipt_sha256": "dfbac71f0a5cc2c6f0788bb91972d884df2430bb18368b08dfcf074561fcbc8f",
+  "storage_note": "Separate paths on the same Mac; not an off-device backup."
+}

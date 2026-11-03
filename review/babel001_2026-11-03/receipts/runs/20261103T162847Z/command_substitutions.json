@@ -1,0 +1,15 @@
+{
+  "freeze_identifier": "BABEL-001-20261103T162112Z-5056af8278e8",
+  "source_command_sha256": "d4e85b1623263619c63a983205861ef63b94d7d055679299acae7ed2b9e273c3",
+  "script_sha256": "3c4605c1f3a4a89ead52b2c7f7b0d2227afb8fdd93100de6f951c9e954c697f5",
+  "substitutions": [
+    {
+      "before": "CANDIDATE=\"$ROOT/BABEL_001_CANDIDATE\"",
+      "after": "CANDIDATE=\"$ROOT/freezes/BABEL-001-20261103T162112Z-5056af8278e8\""
+    },
+    {
+      "before": "APPROVED_MANIFEST_SHA256='REPLACE_WITH_APPROVED_FROZEN_MANIFEST_SHA256'",
+      "after": "APPROVED_MANIFEST_SHA256='5056af8278e8acc25ee61f01827e412dffe2494f8e67d83a66632aad52e085ac'"
+    }
+  ]
+}
