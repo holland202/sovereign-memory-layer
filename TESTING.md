@@ -26,6 +26,7 @@ It needs Python 3.10 or newer, standard library only, on Linux or macOS. Windows
 ## Already known (no need to report, unless it's worse than stated)
 
 - A copied-back older data file is accepted (no rollback protection).
+- A source's `sha256` (in `put` and `revoke`) is only checked for format: 64 lowercase hex characters. It is never compared with the document, and SML never checks that the document supports the value. KNOWN means "one uncontradicted current value was retrieved", not "verified". See README, Status.
 - No encryption, and no protection from someone who can write the folder.
 - Not tested on real power loss.
 - Retrieval is word-hashing, not semantic.
