@@ -1,0 +1,1 @@
+Result staged; consult the published JSON and stderr after exit.

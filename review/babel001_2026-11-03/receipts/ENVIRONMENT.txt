@@ -1,0 +1,20 @@
+$ git -C <HOME>/Research/SML-BABEL001/sovereign-memory-layer rev-parse HEAD
+f4fc1de7c9a1d55b800dbfe09388c66b357b1f0b
+[exit 0]
+
+$ git -C <HOME>/Research/SML-BABEL001/sovereign-memory-layer status --porcelain
+[exit 0]
+
+$ python3 --version
+Python 3.13.15
+[exit 0]
+
+$ sw_vers
+ProductName:		macOS
+ProductVersion:		26.6.2
+BuildVersion:		25G83
+[exit 0]
+
+$ date -u
+Tue Nov  3 17:35:41 UTC 2026
+[exit 0]
