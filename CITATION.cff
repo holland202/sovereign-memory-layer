@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "SML: Sovereign Memory Layer, a small offline memory store for AI agents"
+type: software
+authors:
+  - family-names: "Holland"
+    given-names: "Chad"
+    alias: "holland202"
+    orcid: "https://orcid.org/0009-0004-1943-0585"
+repository-code: "https://github.com/holland202/sovereign-memory-layer"
+url: "https://github.com/holland202/sovereign-memory-layer"
+license: BUSL-1.1
