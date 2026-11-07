@@ -1,0 +1,25 @@
+{
+  "title": "SML: Sovereign Memory Layer, a small offline memory store for AI agents",
+  "description": "A small offline memory store for AI agents, in the Python standard library, with Rust and TypeScript ports that read and write the same file format.",
+  "upload_type": "software",
+  "license": "BUSL-1.1",
+  "creators": [
+    {
+      "name": "Holland, Chad",
+      "orcid": "0009-0004-1943-0585"
+    }
+  ],
+  "keywords": [
+    "memory systems",
+    "AI agents",
+    "offline",
+    "evidence"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/holland202/sovereign-memory-layer",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}
