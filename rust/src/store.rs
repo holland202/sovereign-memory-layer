@@ -812,7 +812,9 @@ impl MemoryStore {
                 };
                 let sim = py_sum(q.iter().zip(e.iter()).map(|(x, y)| x * y)).clamp(-1.0, 1.0);
                 let age = now - ts;
-                let decay = (-(2.0f64).ln() * age / half_life).exp();
+                // PDX-001: a protected record is exempt from the decay factor, so age cannot hide it.
+                let decay = if r.get("protected") == Some(&Value::Bool(true)) { 1.0 }
+                            else { (-(2.0f64).ln() * age / half_life).exp() };
                 let w = r.get("weight").unwrap().as_number().unwrap();
                 let mut score = sim;
                 if o.method != "similarity" {
@@ -858,6 +860,11 @@ impl MemoryStore {
         };
         let hits = self.retrieve_from(&s, q, &o)?;
         if hits.is_empty() {
+            if !current.is_empty() {
+                // PDX-001: stored current evidence that retrieval did not return is not "no evidence".
+                return Ok(Recall::Unknown { reason: "current_evidence_not_retrieved",
+                    evidence_ids: current.iter().map(|r| int_of(r.get("id").unwrap()).unwrap()).collect() });
+            }
             return Ok(Recall::Unknown { reason: "insufficient_evidence", evidence_ids: vec![] });
         }
         Ok(Recall::Known {
