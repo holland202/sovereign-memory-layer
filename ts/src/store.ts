@@ -454,7 +454,8 @@ export class MemoryStore {
       const lo = dot < 1.0 ? dot : 1.0; // Python min(1.0, dot)
       const sim = lo > -1.0 ? lo : -1.0; // Python max(-1.0, lo)
       const age = now - toF(r.get("timestamp") as number);
-      const decay = exp((-LN2 * age) / halfLife);
+      // PDX-001: a protected record is exempt from the decay factor, so age cannot hide it.
+      const decay = r.get("protected") === true ? 1.0 : exp((-LN2 * age) / halfLife);
       const w = toF(r.get("weight") as number);
       let score = sim;
       if (method !== "similarity") score *= decay;
@@ -475,7 +476,13 @@ export class MemoryStore {
     }
     const q = pyTruthy(query) ? (query as Value) : key; // Python: query or key (SML-TS-003 F5)
     const hits = this.retrieveFrom(s, q, { ...o, key });
-    if (hits.length === 0) return { status: "UNKNOWN", reason: "insufficient_evidence", evidence_ids: [] };
+    if (hits.length === 0) {
+      // PDX-001: stored current evidence that retrieval did not return is not "no evidence".
+      if (current.length > 0) {
+        return { status: "UNKNOWN", reason: "current_evidence_not_retrieved", evidence_ids: current.map((r) => getI(r, "id")) };
+      }
+      return { status: "UNKNOWN", reason: "insufficient_evidence", evidence_ids: [] };
+    }
     return { status: "KNOWN", value: hits[0].record.get("value") as string,
       evidence_ids: hits.map((h) => getI(h.record, "id")), retrieval: hits };
   }

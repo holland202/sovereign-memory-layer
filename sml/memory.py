@@ -526,7 +526,8 @@ class MemoryStore:
                 continue
             sim = max(-1.0, min(1.0, sum(x*y for x, y in zip(q, e))))
             age = now-r["timestamp"]
-            decay = math.exp(-math.log(2)*age/half_life)
+            # PDX-001: a protected record is exempt from the decay factor, so age cannot hide it.
+            decay = 1.0 if r["protected"] else math.exp(-math.log(2)*age/half_life)
             w = r["weight"]
             score = sim
             if method != "similarity":
@@ -559,6 +560,9 @@ class MemoryStore:
                     "evidence_ids": [r["id"] for r in current]}
         hits = self._retrieve_from(s, query or key, key=key, **kwargs)
         if not hits:
+            if current:  # PDX-001: stored current evidence that retrieval did not return is not "no evidence"
+                return {"status": "UNKNOWN", "reason": "current_evidence_not_retrieved",
+                        "evidence_ids": [r["id"] for r in current]}
             return {"status": "UNKNOWN", "reason": "insufficient_evidence", "evidence_ids": []}
         return {"status": "KNOWN", "value": hits[0]["record"]["value"],
                 "evidence_ids": [h["record"]["id"] for h in hits], "retrieval": hits}

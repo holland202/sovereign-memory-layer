@@ -2,7 +2,7 @@
 """Verify the SML-ATK-001 hardening. Standard library only; never runs a scientific comparison.
 
 1. The full suite passes: 51 earlier tests (42 original + 9 identifier) + 9 round-1 hardening tests
-   + 9 round-2 tests + 4 EXT-01 tests + 3 round-3 tests + 3 P3-01 tests = 79.
+   + 9 round-2 tests + 4 EXT-01 tests + 3 round-3 tests + 3 P3-01 tests + 4 PDX-001 tests = 83.
 2. Each fix is load-bearing: removing it (one mutant per fix) makes the hardening tests fail.
    (The commit-side READ_LIMIT guard is defence in depth: _commit validates first, and validation already
    bounds max_bytes, so no test can reach it and it has no mutant.)
@@ -47,6 +47,10 @@ MUTANTS = {
     "P3-01-read-unbounded": ('not (0 if k == "generation" else 1) <= s[k] <= MAX_COUNTER:  # P3-01',
                              's[k] < (0 if k == "generation" else 1):  # P3-01'),
     "P3-01-bump-unchecked": ("    if s[k] >= MAX_COUNTER:\n", "    if False:\n"),
+    "PDX-1-protected-records-decay": ('decay = 1.0 if r["protected"] else math.exp(-math.log(2)*age/half_life)',
+                                      'decay = math.exp(-math.log(2)*age/half_life)'),
+    "PDX-2-not-retrieved-reported-as-no-evidence": ("            if current:  # PDX-001: stored current",
+                                                    "            if False:  # PDX-001: stored current"),
 }
 
 
@@ -72,7 +76,7 @@ def deep_nesting_raises_recursion():
 def main():
     code, out = run([sys.executable, "-m", "unittest", "discover", "-s", "tests"], ROOT)
     count = int(re.search(r"Ran (\d+) tests?", out).group(1))
-    ok_suite = code == 0 and count == 79
+    ok_suite = code == 0 and count == 83
     src = (ROOT / "sml" / "memory.py").read_text()
     mutants = {}
     for name, (old, new) in MUTANTS.items():
@@ -84,7 +88,8 @@ def main():
             shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns("__pycache__", ".git", "attack", "target"))
             (copy / "sml" / "memory.py").write_text(src.replace(old, new, 1))
             c, o = run([sys.executable, "-m", "unittest", "tests.test_hardening", "tests.test_hardening_round2",
-                         "tests.test_ext01", "tests.test_round3", "tests.test_p3_01"], copy)
+                         "tests.test_ext01", "tests.test_round3", "tests.test_p3_01",
+                         "tests.test_pdx001"], copy)
             mutants[name] = "killed" if c != 0 and ("FAIL:" in o or "ERROR:" in o) else "SURVIVED"
     if not deep_nesting_raises_recursion() and mutants.get("A1-recursion-not-caught") == "SURVIVED":
         mutants["A1-recursion-not-caught"] = f"n/a on Python {sys.version.split()[0]} (json does not raise RecursionError)"

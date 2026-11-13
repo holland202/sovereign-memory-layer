@@ -1,0 +1,14 @@
+PDX-001 | 20 cases | python 3.13.18
+old protected record (220-365 d) among 6 newer competitors; defaults half_life 30 d, threshold 0.15, top_k 5
+  retrieve/similarity      20/20
+  retrieve/recency          0/20
+  retrieve/importance       0/20
+  retrieve/protected        0/20
+  recall_known/similarity  20/20
+  recall_known/recency      0/20
+  recall_known/importance   0/20
+  recall_known/protected    0/20
+  current record decayed below threshold: {'status': 'UNKNOWN', 'reason': 'insufficient_evidence', 'evidence_ids': []}
+    (its id): 1
+  only a revoked record: {'status': 'UNKNOWN', 'reason': 'insufficient_evidence', 'evidence_ids': []}
+UNPROTECTED_SCORES 872 digest cf4b9f1dc8ff9ebe8fbbacad4460268726ac515f4115adfedbfecba37a263f62
